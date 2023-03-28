@@ -6,8 +6,8 @@ public class ProductoMenu
 {
     private String nombre;
     private float precio;
+    private boolean bebida;
     private ArrayList<Integer> disponibilidad;
-    private boolean servicioCuarto;
     
     public ProductoMenu(String nom, float pre, ArrayList<Integer> dispo) {
 	nombre = nom;
@@ -27,11 +27,4 @@ public class ProductoMenu
 	return disponibilidad;
     }
     
-    public void setServicioCuarto(boolean ser) {
-	servicioCuarto = ser;
-    }
-    
-    public boolean hasServicioCuarto() {
-	return servicioCuarto;
-    }
 }

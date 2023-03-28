@@ -9,7 +9,7 @@ public class Autenticador
     private InformacionHotel infoHotel;
     
     public boolean revisarExistencia(Usuario usuario) {
-        ArrayList listaUsuarios = infoHotel.getUsuariosHotel();
+        ArrayList<Usuario> listaUsuarios = infoHotel.getUsuariosHotel();
         
         boolean flag = false;
         if (listaUsuarios.contains(usuario))

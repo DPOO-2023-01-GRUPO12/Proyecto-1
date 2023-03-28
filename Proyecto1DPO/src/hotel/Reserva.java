@@ -17,6 +17,7 @@ public class Reserva
     public Reserva(int cantidad, float tarifa, String fechaIn, String fechaOut) {
 	cantidadHuesped = cantidad;
 	tarifaTotal = tarifa;
+    cancelada = false;
     fechaIngreso = fechaIn;
     fechaSalida = fechaOut;
     reservas.add(this);
@@ -68,7 +69,8 @@ public class Reserva
 
     public String getFechaSalida(){
         return fechaSalida;
-    }  
+    }
+
 
     public static ArrayList<Reserva> getReservas(){
         return reservas;
