@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import hotel.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException; 
+import java.io.IOException;
+import java.util.ArrayList; 
+import java.util.List; 
+import java.util.Arrays
 
 public class CargadorInformacion
 {
@@ -53,6 +56,40 @@ public class CargadorInformacion
     }
     
     public void cargarTarifas(File tarifas) {
+        BufferedReader br = new BufferedReader(new FileReader(tarifas));
+		String linea = br.readLine();
+
+
+	    linea = br.readLine();
+		while (linea != null)
+        {
+            String[] partes = linea.split(";");
+            
+            String tipoCuarto = partes[0];
+            String fechas = partes[1];
+            String dias = partes[2];
+            double valor = Double.parseDouble(partes[3])
+
+            List<String> rangoFechas = new ArrayList<String>(Arrays.asList(fechas.split(",")));
+            List<String> diasSemana = new ArrayList<String>(Arrays.asList(dias.split(",")));
+
+            Tarifa laTarifa = new Tarifa(tipoCuarto, rangoFechas, diasSemana, valor);
+
+
+
+            
+
+
+           
+
+            linea = br.readLine();
+
+            }
+
+		br.close();
+
+        }
+        
 	
     }
     
