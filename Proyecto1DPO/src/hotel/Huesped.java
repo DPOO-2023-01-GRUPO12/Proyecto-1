@@ -10,12 +10,14 @@ public class Huesped
     private String celular;
     private ArrayList<Servicio> serviciosUsados;
     private Registro checkout;
+    private static ArrayList<Huesped> huespedes = new ArrayList<>();
     
     public Huesped(String nom, String doc, String cor, String cel) {
 	nombre = nom;
 	documento = doc;
 	correo = cor;
 	celular = cel;
+    huespedes.add(this);
     }
 
     public String getNombre()
@@ -36,6 +38,10 @@ public class Huesped
     public String getCelular()
     {
 	return celular;
+    }
+
+    public static ArrayList<Huesped> getHuespedes(){
+        return huespedes;
     }
     
     
