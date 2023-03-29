@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Interfaz
 {
-    public static void revisarTipo(Usuario usuario, Scanner scanner){
+    private static void revisarTipo(Usuario usuario, Scanner scanner){
 		Autenticador autenticador = new Autenticador();
 		String tipoUsuario = autenticador.revisarTipo(usuario);
 		if (tipoUsuario.equals("recepcionista")) {
@@ -35,7 +35,7 @@ public class Interfaz
 			}	
 	}
 	
-	public static void signIn(Usuario usuario, Scanner scanner){
+	private static void signIn(Usuario usuario, Scanner scanner){
 		Autenticador autenticador = new Autenticador();
 		if (autenticador.revisarExistencia(usuario)) {
 			revisarTipo(usuario, scanner);
@@ -46,7 +46,7 @@ public class Interfaz
 		}
 	}
 
-	public static String[] ingresarDatos(){
+	private static String[] ingresarDatos(){
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Ingrese su login: ");
 		String login = scanner.nextLine();
@@ -65,13 +65,13 @@ public class Interfaz
 		return datos;
 	}
 	
-	public static void mostrarMenu(){
+	private static void mostrarMenu(){
 		System.out.println("1. Iniciar sesion");
 		System.out.println("2. Registrarse");
 		System.out.println("3. Salir");
 	}
 
-	public static void opcionElegida(int opcion,Scanner scanner){
+	private static void opcionElegida(int opcion,Scanner scanner){
 		if (opcion == 1) {
 			String[] datos = ingresarDatos();
 			signIn(new Usuario(datos[0],datos[1],datos[2]), scanner);
@@ -84,7 +84,8 @@ public class Interfaz
 		}
 		
 	}
-    public static void main(String args[]) {
+    
+	public void main(String args[]) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Bienvenido al sistema de reservas de Hotel");
 

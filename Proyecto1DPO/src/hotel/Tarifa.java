@@ -10,7 +10,7 @@ public class Tarifa
     private ArrayList<String> rangoFechas;
     private ArrayList<String> diasSemana;
     private double valor;
-    private static ArrayList<Tarifa> tarifas = new ArrayList<Tarifa>();
+    private ArrayList<Habitacion> habitaciones;
     
     public Tarifa(String cuarto, ArrayList<String> fechas, ArrayList<String> dias, double valor) {
 	identificador = contadorTarifas;
@@ -18,7 +18,7 @@ public class Tarifa
 	rangoFechas = fechas;
 	diasSemana = dias;
     this.valor = valor;
-    tarifas.add(this);
+    habitaciones = new ArrayList<Habitacion>();
     contadorTarifas++;
     }
 
@@ -58,9 +58,14 @@ public class Tarifa
     public double getValor(){
         return valor;
     }
-    
-    public static ArrayList<Tarifa> getTarifas(){
-        return tarifas;
+
+    public void agregarHabitacion(Habitacion hab){
+        habitaciones.add(hab);
     }
+
+    public ArrayList<Habitacion> getHabitaciones(){
+        return habitaciones;
+    }
+    
 
 }

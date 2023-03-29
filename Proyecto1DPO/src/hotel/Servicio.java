@@ -12,8 +12,6 @@ public class Servicio
     private boolean servicioCuarto;
     private Restaurante restaurante;
     private Map<String,ArrayList<String>> disponibilidad;
-
-    private static ArrayList<Servicio> servicios = new ArrayList<Servicio>();
     
     public Servicio(String ti, String pago, String cobro) {
 	tipo = ti;
@@ -21,7 +19,6 @@ public class Servicio
 	tipoCobro = cobro;
     servicioCuarto=false;
     disponibilidad = new HashMap<String,ArrayList<String>>();
-    servicios.add(this);
     }
 
 
@@ -63,8 +60,4 @@ public class Servicio
         return disponibilidad;
     }
         
-
-    public static ArrayList<Servicio> getServicios(){
-        return servicios;
-    }
 }

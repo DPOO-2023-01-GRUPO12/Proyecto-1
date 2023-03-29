@@ -33,6 +33,11 @@ public class CargadorInformacion
             String ubicacion = partes[1];
             int capacidad = Integer.parseInt(partes[2]);
             String nombreTipo = partes[3];
+            boolean vista = Boolean.parseBoolean(partes[4]);
+            boolean balcon = Boolean.parseBoolean(partes[5]);
+            boolean cocina = Boolean.parseBoolean(partes[6]);
+            boolean disponibilidad = Boolean.parseBoolean(partes[7]);
+            String conjuntoCamas = partes[]
 
 
             TipoHabitacion elTipo = new TipoHabitacion(nombreTipo);

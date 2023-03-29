@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Reserva
 {
+    private static int contadorReservas = 0;
+    private int identificador;
     private int cantidadHuesped;
     private float tarifaTotal;
     private boolean cancelada;
@@ -12,15 +14,19 @@ public class Reserva
     private Habitacion habitacionReserva;
     private String fechaIngreso;
     private String fechaSalida;
-    private static ArrayList<Reserva> reservas = new ArrayList<Reserva>();
     
     public Reserva(int cantidad, float tarifa, String fechaIn, String fechaOut) {
-	cantidadHuesped = cantidad;
+    identificador = contadorReservas;
+    cantidadHuesped = cantidad;
 	tarifaTotal = tarifa;
     cancelada = false;
     fechaIngreso = fechaIn;
     fechaSalida = fechaOut;
-    reservas.add(this);
+    contadorReservas++;
+    }
+
+    public int getIdentificador() {
+        return identificador;
     }
     
     public int getCantidadHuesped() {
@@ -69,11 +75,6 @@ public class Reserva
 
     public String getFechaSalida(){
         return fechaSalida;
-    }
-
-
-    public static ArrayList<Reserva> getReservas(){
-        return reservas;
     }
 
 }

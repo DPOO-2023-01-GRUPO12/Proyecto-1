@@ -17,7 +17,6 @@ public class Habitacion
     private ArrayList<Consumo> cobros;
     private ArrayList<Reserva> reservas;
     private Reserva reservaActual;
-    private static ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
     private static int contadorHabitaciones = 0;
 
     public Habitacion(String iden, String ubic, int capac, TipoHabitacion tipo) {
@@ -25,11 +24,11 @@ public class Habitacion
 	ubicacion = ubic;
 	capacidad = capac;
 	tipoHabitacion = tipo;
+    disponibilidad = true;
     camas = new ArrayList<Cama>();
     tarifas = new ArrayList<Tarifa>();
     cobros = new ArrayList<Consumo>();
     reservas = new ArrayList<Reserva>();
-    habitaciones.add(this);
     contadorHabitaciones++;
     }
     
@@ -114,9 +113,6 @@ public class Habitacion
 	return disponibilidad;
     }
 
-    public static ArrayList<Habitacion> getHabitaciones(){
-        return habitaciones;
-    }
 
     public static int getContadorHabitaciones(){
         return contadorHabitaciones;

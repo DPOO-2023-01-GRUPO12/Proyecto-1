@@ -2,13 +2,25 @@ package hotel;
 
 public class TipoHabitacion
 {
+    private static int contadorTipos;
+    private int identificador;
+    
     private String nombreTipo;
     private boolean vista;
     private boolean balcon;
     private boolean cocina;
     
     public TipoHabitacion(String nombre) {
+    identificador = contadorTipos;
 	nombreTipo = nombre;
+    vista = false;
+    balcon = false;
+    cocina = false;
+    contadorTipos++;
+    }
+
+    public int getIdentificador() {
+        return identificador;
     }
     
     public String getTipo() {

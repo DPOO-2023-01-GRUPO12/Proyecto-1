@@ -4,15 +4,23 @@ import java.util.ArrayList;
 
 public class Registro
 {
+    private static int contadorRegistros = 0;
+    private int identificador;
     private boolean entrada;
     private ArrayList<Consumo> consumos;
     private ArrayList<Consumo> consumosPagados;
     private Huesped checkin;
     
     public void setEntrada() {
+    identificador = contadorRegistros;
 	entrada = false;
     consumos = new ArrayList<Consumo>();
     consumosPagados = new ArrayList<Consumo>();
+    contadorRegistros++;
+    }
+
+    public int getIdentificador() {
+        return identificador;
     }
 
     public void setEntrada(boolean en){

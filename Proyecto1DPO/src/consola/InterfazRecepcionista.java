@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import hotel.Huesped;
 import hotel.Habitacion;
+import hotel.Grupo;
 
 public class InterfazRecepcionista implements InterfazUsuario
 {
@@ -19,7 +20,6 @@ public class InterfazRecepcionista implements InterfazUsuario
 	System.out.println("5. Obtener informacion de habitaciones");
 	System.out.println("6. Obtener informacion de reservas.");
 	System.out.println("7. Asignar habitacion a grupo");
-	//System.out.println("8. Crear habitacion.");//
 	
     }
     
@@ -85,7 +85,7 @@ public class InterfazRecepcionista implements InterfazUsuario
                         System.out.println("No se encontro huesped");
                     }
                 }
-                menuRecep.asignarHabitacionAHuesped();
+                menuRecep.asignarHabitacionAHuesped(Huesped);
 
             case 4:
                 menuRecep.generarFactura();
@@ -127,6 +127,9 @@ public class InterfazRecepcionista implements InterfazUsuario
                     }
                     }
                 }
+                
+                Grupo grupo = new Grupo(huespedesGrupo);
+                menuRecep.asignarHabitacionAGrupo(habitacion,grupo);
         }
 	
     }

@@ -7,11 +7,12 @@ public class ProductoMenu
     private String nombre;
     private float precio;
     private boolean bebida;
-    private ArrayList<Integer> disponibilidad;
+    private ArrayList<String> disponibilidad;
     
-    public ProductoMenu(String nom, float pre, ArrayList<Integer> dispo) {
+    public ProductoMenu(String nom, float pre, ArrayList<String> dispo) {
 	nombre = nom;
 	precio = pre;
+    bebida = false;
 	disponibilidad = dispo;
     }
     
@@ -22,9 +23,17 @@ public class ProductoMenu
     public float getPrecio() {
 	return precio;
     }
+
+    public void setBebida(boolean beb) {
+        bebida = beb;
+    }
+
+    public boolean isBebida() {
+        return bebida;
+    }
     
-    public ArrayList<Integer> setDisponibilidad() {
-	return disponibilidad;
+    public ArrayList<String> getDisponibilidad() {
+	    return disponibilidad;
     }
     
 }

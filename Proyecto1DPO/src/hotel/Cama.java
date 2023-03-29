@@ -7,12 +7,11 @@ public class Cama
     private String tamanio;
     private int cantidadPersonas;
     private boolean ninios;
-    private static ArrayList<Cama> camas = new ArrayList<Cama>();
     
     public Cama(String tam, int cantidad) {
 	tamanio = tam;
 	cantidadPersonas = cantidad;
-    camas.add(this);
+    ninios = false;
     }
     
     public void setNinios(boolean nin) {
@@ -31,8 +30,5 @@ public class Cama
 	return cantidadPersonas;
     }
 
-    public static ArrayList<Cama> getCamas(){
-        return camas;
-    }
 
 }
