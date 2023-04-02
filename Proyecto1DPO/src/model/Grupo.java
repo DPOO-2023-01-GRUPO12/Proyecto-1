@@ -61,7 +61,11 @@ public class Grupo {
     }
 
     public void agregarConsumo(Consumo consumo){
-        this.consumos.add(consumo);
+        if (consumo.getPagado()){
+            this.consumosPagos.add(consumo);
+        } else {
+            this.consumosPagos.add(consumo);
+        }
     }
 
     public void agregarHabitacion(Habitacion habitacion){

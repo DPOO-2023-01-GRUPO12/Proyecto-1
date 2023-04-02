@@ -13,7 +13,7 @@ import model.InformacionHotel;
 public class Cargador { 
 
     private InformacionHotel informacionHotel;
-    public void cargarHabitaciones(File file) throws IOException {
+    public void cargarHabitaciones(File file) throws IOException, FileNotFoundException {
 
         
 
@@ -62,7 +62,7 @@ public class Cargador {
             //Creador de tipo de habitación
             String[] partesTipo = tipoHabitacionS.split(","); //Separa atributos de tipo.
             String nombre = partesTipo[0];
-            String tarifas = partesTipo[1];
+
             
            
             TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
@@ -97,21 +97,54 @@ public class Cargador {
         }
 
 
-    public void cargarTipoHabitaciones(File file) throws IOException {
+    public void cargarTipoHabitaciones(File file) throws IOException, FileNotFoundException {
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         String linea = br.readLine();
+        linea = br.readLine();
+        while (linea != null){
 
+            String[] partes = linea.split(";");
+            String nombre = partes[0];
+
+            TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
+            agregarTipoHabitacion(tipoHabitacion); //Añade el tipo a la lista
+
+            linea = br.readLine(); 
+
+        }
+        br.close();
 
     }
 
     
-
-    public void cargarCamas(File file) {
-    }
-
     public void agregarCama(Cama Cama) {
+
+        informacionHotel.getCamas().add(Cama);
     }
+
+
+    public void cargarCamas(File file) throws IOException, FileNotFoundException {
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String linea = br.readLine();
+        linea = br.readLine();
+        while (linea != null){
+
+            String[] partes = linea.split(";"); //Separa los atributos de una cama.
+            String tamanio = partes[0];
+            int cantidad = Integer.parseInt(partes[1]);
+            boolean ninios = Boolean.parseBoolean(partes[2]);
+                
+            Cama nuevaCama = new Cama(tamanio, cantidad);
+            nuevaCama.setNinios(ninios);
+            agregarCama(nuevaCama);
+        }
+        br.close();
+        
+    }
+
+  
 
 
     public void cargarTarifasCuarto(File file) {
