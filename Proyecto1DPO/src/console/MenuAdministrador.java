@@ -25,21 +25,43 @@ public class MenuAdministrador {
     }
 
     public void cargarHabitaciones(String pathHabitaciones){
-
+        File file = new File(pathHabitaciones);
+        if(file.exists()){
+            cargador.cargarHabitaciones(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
     }
 
 
     public void cargarTipoHabitaciones(String pathTipoHabitaciones){
+        File file = new File(pathTipoHabitaciones);
+        if(file.exists()){
+            cargador.cargarTipoHabitaciones(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
 
     }
 
 
     public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto){
-
+        File file = new File(pathTarifasTipoCuarto);
+        if(file.exists()){
+            cargador.cargarTarifasCuarto(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
     }
     
 
     public void cargarCamas(String pathFile){
+        File file = new File(pathFile);
+        if(file.exists()){
+            cargador.cargarCamas(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
     }
 
 
@@ -230,6 +252,12 @@ public class MenuAdministrador {
 
     
     public void cargarServicios(String pathServicios){
+        File file = new File(pathServicios);
+        if(file.exists()){
+            cargador.cargarServicios(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
 
     }
 
@@ -241,10 +269,22 @@ public class MenuAdministrador {
 
 
     public void cargarMenuPlatos(String pathPlatos){
+        File file = new File(pathPlatos);
+        if(file.exists()){
+            cargador.cargarMenuPlatos(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
     }
 
 
     public void cargarMenuBebidas(String pathBebidas){
+        File file = new File(pathBebidas);
+        if(file.exists()){
+            cargador.cargarMenuBebidas(file);
+        } else{
+            System.out.println("No existe el archivo");
+        }
     }
 
 

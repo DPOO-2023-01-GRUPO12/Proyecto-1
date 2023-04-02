@@ -46,7 +46,7 @@ public class Cargador {
     }
 
 
-    public void cargarMenusBebidas(File file) {
+    public void cargarMenuBebidas(File file) {
     }
 
     private void agregarBebida(Bebida bebida) {   
@@ -56,7 +56,7 @@ public class Cargador {
     }
 
 
-    public void cargarMenusPlatos(File file) {
+    public void cargarMenuPlatos(File file) {
     }
 
     private void agregarPlato(Plato plato) {   
