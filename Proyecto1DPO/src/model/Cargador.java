@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.util.Arrays;
+import model.InformacionHotel;
 
 public class Cargador { 
-    //TODO: configurar la carga de archivos y en los metodos de agregar y actulizar usar la informacion del hotel para actualizar contenido.
+
+    private InformacionHotel informacionHotel;
     public void cargarHabitaciones(File file) throws IOException {
 
         
@@ -21,13 +23,13 @@ public class Cargador {
         linea = br.readLine();
         while (linea != null){
 
-            
-
 
             //Lectura del primer bloque
 
             String[] partes = linea.split(";");
             String identificador = partes[0];
+
+            
             String ubicacion = partes[1];
             boolean balcon = Boolean.parseBoolean(partes[2]);
             boolean vista = Boolean.parseBoolean(partes[3]);
@@ -62,26 +64,7 @@ public class Cargador {
             String nombre = partesTipo[0];
             String tarifas = partesTipo[1];
             
-/*
-            ///Creador Tarifas
-            List<String> listaTarifas = Arrays.asList(tarifas.split("-"));  //Separa las tarifas 
-            for (String elemtarifa :listaTarifas){
-
-                String[] partesTarifa = elemtarifa.split("_"); //separa los elementos de una tarifa
-                String tipoCuarto = partesTarifa[0];
-                String rangoFechas = partesTarifa[1];
-                String diasSemana = partesTarifa[2];
-                double valor = Double.parseDouble(partesTarifa[3]);
-
-
-
-            
-                ArrayList<String> diasSemanaLista = new  ArrayList<String>(Arrays.asList(diasSemana.split("|"))); //Obtiene los días de la semana 
-
-                TarifaCuarto unaTarifa = new TarifaCuarto(tipoCuarto, rangoFechas, diasSemanaLista, valor);
-                tarifasIncluidas.add(unaTarifa);
-            } //For tarifas */
-
+           
             TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
             tipoHabitacion.setTarifaActual();
             
@@ -95,35 +78,34 @@ public class Cargador {
             elemHabitacion.setCocina(cocina);
             elemHabitacion.calcularCapacidad();
 
-        
 
+            linea = br.readLine(); 
 
-            } //While
+            //Actualiza la información (El metodo put actualiza o añade según sea el caso)
 
-             
-
+            informacionHotel.getInventarioHabitaciones().put(elemHabitacion.getIdentificador(), elemHabitacion);
             
-             
-             
-        
+        } //While
+
+        br.close();
 
         }
-    public void cargarHabitacion(Habitacion habitacion) {}
-    
 
-    private void agregarHabitacion(Habitacion habitacion) {
-
-    }
-
-    private void actualizarHabitacion(Habitacion habitacion ) {
-    }
-
-    public void cargarTipoHabitaciones(File file) {
-    }
 
     public void agregarTipoHabitacion(TipoHabitacion tipoHabitacion) {
+        informacionHotel.getTipoHabitaciones().put(tipoHabitacion.getNombreTipo(), tipoHabitacion);
+        }
+
+
+    public void cargarTipoHabitaciones(File file) throws IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String linea = br.readLine();
+
+
     }
 
+    
 
     public void cargarCamas(File file) {
     }
