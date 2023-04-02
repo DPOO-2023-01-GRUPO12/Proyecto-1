@@ -40,21 +40,25 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese el nombre del archivo: ");
                 String nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarHabitaciones(nombreArchivo);
+                scanner.close();
                 break;
             case 2:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarTipoHabitaciones(nombreArchivo);
+                scanner.close();
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
+                scanner.close();
                 break;
             case 4:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarCamas(nombreArchivo);
+                scanner.close();
                 break;
             case 5:
                 System.out.println("Ingrese el identificador para la habitacion: ");
@@ -68,11 +72,13 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese la descripcion de la habitacion: ");
                 String desc = scanner.nextLine();
                 menuAdministrador.crearHabitacion(id,ub,desc);
+                scanner.close();
                 break;
             case 6:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarServicios(nombreArchivo);
+                scanner.close();
                 break;
             case 7:
                 opcionTarifaServicio();
@@ -81,20 +87,25 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarMenuPlatos(nombreArchivo);
+                scanner.close();
                 break;
             case 9:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarMenuBebidas(nombreArchivo);
+                scanner.close();
                 break;
             case 10:
                 opcionConfigurarPlato();
+                scanner.close();
                 break;
             case 11:
                 opcionConfigurarBebida();
+                scanner.close();
                 break;
             default:
                 System.out.println("Opcion invalida.");
+                scanner.close();
                 break;
         }
     }
@@ -127,6 +138,7 @@ public class InterfazAdministrador {
             }
 
         }
+        scanner.close();
         
     }
 
@@ -153,6 +165,7 @@ public class InterfazAdministrador {
                 menuAdministrador.configurarPlato(nombrePlato);
             }
         }
+        scanner.close();
         
     }
 
@@ -179,5 +192,6 @@ public class InterfazAdministrador {
                 menuAdministrador.configurarBebida(nombreBebida);
             }
         }
+        scanner.close();
     }
 }
