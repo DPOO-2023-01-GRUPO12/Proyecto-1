@@ -9,6 +9,7 @@ import model.Reserva;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -63,7 +64,8 @@ public class InterfazRecepcionista {
                 reserva.setTarifaTotal(tarifaTotal);
 
                 if(cantidad > 1){
-                    Grupo grupo = new Grupo();
+                    Grupo grupo = new Grupo(documento);
+                    grupo.setHuespedEncargado(huespedEncargado);
                     for(int i = 0;i<cantidad;i++){
                         System.out.println("Ingrese el nombre del huesped: ");
                         String nombreHuesped = scanner.nextLine();
@@ -76,10 +78,24 @@ public class InterfazRecepcionista {
                         System.out.println("Ingrese la edad del huesped: ");
                         int edadHuesped = scanner.nextInt();
                         Huesped huesped = menuRecepcionista.realizarRegistro(nombreHuesped, documentoHuesped, celularHuesped, correoHuesped, edadHuesped);
-                        cargador.agregarHuesped(huespedEncargado);
+                        cargador.agregarHuesped(huesped);
                         grupo.agregarIntegrante(huesped);
                     }
+                    cargador.agregarGrupo(grupo);
                     reserva.setGrupo(grupo);
+                    ArrayList<Habitacion> habitacionesAsignadas = reserva.getHabitacionesReservadas();
+                    reserva.getGrupo().setHabitaciones(habitacionesAsignadas);
+                    int inicioHuesped = 0;
+                    int diferenciaHabitacion = 0;
+                    for(Habitacion habitacion: habitacionesAsignadas){
+                        int capacidadHabitacion = habitacion.getCapacidad();
+                        List<Huesped> huespedesHabitacion = reserva.getGrupo().getIntegrantes().subList(inicioHuesped, (capacidadHabitacion-1)+diferenciaHabitacion);
+                        for(Huesped huesped: huespedesHabitacion){
+                            huesped.setHabitacion(habitacion);
+                        }
+                        inicioHuesped = capacidadHabitacion-1;
+                        diferenciaHabitacion = capacidadHabitacion-1;
+                    }
                 }
                 cargador.agregarReserva(reserva);
                 break;

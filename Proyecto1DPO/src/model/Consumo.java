@@ -10,6 +10,7 @@ public class Consumo{
     private double iva;
     private String tipoConsumo;
     private String habitacion;
+    private Habitacion habitacionAsignada;
     private boolean pagado;
     private boolean pagoInmediato;
     private boolean esGrupo;
@@ -19,6 +20,21 @@ public class Consumo{
     public Consumo(String tipoConsumo,String habitacion,double valor){
         this.tipoConsumo=tipoConsumo;
         this.habitacion=habitacion;
+        this.valor=valor;
+        this.iva= valor*0.19;
+        this.esGrupo=false;
+        this.pagado=false;
+        this.pagoInmediato=false;
+
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato); 
+    }
+
+    public Consumo(String tipoConsumo,Habitacion habitacion,double valor){
+        this.tipoConsumo=tipoConsumo;
+        this.habitacion=habitacion.getIdentificador();
+        this.habitacionAsignada=habitacion;
         this.valor=valor;
         this.iva= valor*0.19;
         this.esGrupo=false;
@@ -71,7 +87,7 @@ public class Consumo{
     }   
 
     public void setFactura(){
-        this.factura= new Factura(this.habitacion);
+        this.factura= new Factura(this.habitacionAsignada);
     }
 
     public void setDescripcion(String descripcion){

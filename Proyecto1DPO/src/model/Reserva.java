@@ -70,8 +70,13 @@ public class Reserva {
     }
 
 
-    public ArrayList<Consumo> getConsumosGrupo(){
-        return grupo.getConsumos();
+    public ArrayList<Consumo> getConsumosNoPagosGrupo(){
+        return grupo.getConsumosNoPagos();
+       
+    }
+
+    public ArrayList<Consumo> getConsumosPagosGrupo(){
+        return grupo.getConsumosPagos();
        
     }
 
@@ -90,7 +95,7 @@ public class Reserva {
     public String mostrarFacturaCheckout(){
         String res = "";
         for(Factura fac: getFacturasHabitaciones()){
-            res += fac.getInformacionConsumos();
+            res += fac.getTextoFactura();
         }
         return res;
     }

@@ -1,5 +1,7 @@
 package console;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 
@@ -34,7 +36,7 @@ public class InterfazAdministrador {
 
     }
 
-    public void opcionElegida(int opcion){
+    public void opcionElegida(int opcion) throws IOException, ParseException{
         Scanner scanner = new Scanner(System.in);
         switch(opcion){
             case 1:
@@ -43,10 +45,11 @@ public class InterfazAdministrador {
                 menuAdministrador.cargarHabitaciones(nombreArchivo);
                 scanner.close();
                 break;
-            case 2:
+            case 2:          
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarTipoHabitaciones(nombreArchivo);
+                menuAdministrador.informarFechasSinTarifa();
                 scanner.close();
                 break;
             case 3:

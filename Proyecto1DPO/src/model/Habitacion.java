@@ -63,7 +63,7 @@ public class Habitacion {
 
     
 
-    private void calcularCapacidad (){
+    public void calcularCapacidad (){
         int capacidadCamas = 0;
         for (Cama cama: camas ){
             int cantidad = cama.getCantidadPersonas();

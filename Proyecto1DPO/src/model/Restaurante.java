@@ -13,7 +13,7 @@ public class Restaurante{
 
 
     public Restaurante(String ubicacion){
-        this.ubicacion = ubicacion
+        this.ubicacion = ubicacion;
         platos = new ArrayList<Plato>();
         bebidas  = new ArrayList<Bebida>();
     }
@@ -28,6 +28,6 @@ public class Restaurante{
     }
 
     public void agregarBebida (Bebida bebida){
-        bebidas.add(bebida)
+        bebidas.add(bebida);
     }
 }

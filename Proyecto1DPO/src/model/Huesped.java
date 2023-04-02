@@ -69,4 +69,9 @@ public class Huesped {
         return consumosNoPagos;
 
     }
+
+    @Override
+    public String toString(){
+        return "Nombre: " + nombre + " Documento: " + documento + " Celular: " + celular + " Correo: " + correo + " Edad: " + edad;
+    }
 }

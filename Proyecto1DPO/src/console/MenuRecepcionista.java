@@ -64,7 +64,6 @@ public class MenuRecepcionista {
         
         TimeUnit time = TimeUnit.DAYS; 
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         
         double tarifaTotal = 0;
@@ -108,7 +107,7 @@ public class MenuRecepcionista {
 
                 Date inicioTarifa = formato.parse(fechaInTarifa);
                 Date finTarifa = formato.parse(fechaFinTarifa);
-                long difeTarifaTiempo = inicioReserva.getTime()-finReserva.getTime();
+                long difeTarifaTiempo = finTarifa.getTime()-inicioTarifa.getTime();
                 difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
 
                 if(!habitacion.getFechasBloqueadas().contains(rangoString)){
@@ -285,14 +284,17 @@ public class MenuRecepcionista {
                 res.setCheckin(false);
 
                 for(Habitacion hab: res.getHabitacionesReservadas()){
-                    Factura factHab = new Factura(hab.getIdentificador());
-                    factHab.generartextoFactura(hab.getConsumosNoPagos());
+                    Factura factHab = new Factura(hab);
+                    factHab.generarTextoFactura();
                     res.agregarFacturaHabitacion(factHab);
                 }
 
-                res.mostrarFacturaCheckout();
+                String facturacheckOut = res.mostrarFacturaCheckout();
+                System.out.println(facturacheckOut);
 
             
+            } else{
+                System.out.println("No se encontro la reserva");
             }
         }
     }

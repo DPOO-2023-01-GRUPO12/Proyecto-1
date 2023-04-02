@@ -13,13 +13,15 @@ public class Cargador {
     //TODO: configurar la carga de archivos y en los metodos de agregar y actulizar usar la informacion del hotel para actualizar contenido.
     public void cargarHabitaciones(File file) throws IOException {
 
-        List<Cama> camas = new ArrayList<>();
+        
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         String linea = br.readLine(); //Ignora la primera línea, los títulos de las columnas.
 
         linea = br.readLine();
         while (linea != null){
+
+            
 
 
             //Lectura del primer bloque
@@ -30,12 +32,15 @@ public class Cargador {
             boolean balcon = Boolean.parseBoolean(partes[2]);
             boolean vista = Boolean.parseBoolean(partes[3]);
             boolean cocina = Boolean.parseBoolean(partes[4]);
-            String descripción = partes[5];
+            String descripcion = partes[5];
 
             //Lectura del segundo bloque 
 
             String scamas = partes[6];
-            String tipoHabitacion = partes[7];
+            String tipoHabitacionS = partes[7];
+            
+            ArrayList<Cama> camas = new ArrayList<>();
+            List<TarifaCuarto> tarifasIncluidas = new ArrayList<>();
 
             //Creador de camas
 
@@ -53,16 +58,47 @@ public class Cargador {
                 }
 
             //Creador de tipo de habitación
-            String[] partesTipo = tipoHabitacion.split(","); //Separa atributos de tipo.
+            String[] partesTipo = tipoHabitacionS.split(","); //Separa atributos de tipo.
             String nombre = partesTipo[0];
             String tarifas = partesTipo[1];
-            String tarifaActual = partesTipo[2];
+            
+/*
+            ///Creador Tarifas
+            List<String> listaTarifas = Arrays.asList(tarifas.split("-"));  //Separa las tarifas 
+            for (String elemtarifa :listaTarifas){
 
-            //TODO contruir tarifas a partir del tipo.
+                String[] partesTarifa = elemtarifa.split("_"); //separa los elementos de una tarifa
+                String tipoCuarto = partesTarifa[0];
+                String rangoFechas = partesTarifa[1];
+                String diasSemana = partesTarifa[2];
+                double valor = Double.parseDouble(partesTarifa[3]);
 
 
 
-            }
+            
+                ArrayList<String> diasSemanaLista = new  ArrayList<String>(Arrays.asList(diasSemana.split("|"))); //Obtiene los días de la semana 
+
+                TarifaCuarto unaTarifa = new TarifaCuarto(tipoCuarto, rangoFechas, diasSemanaLista, valor);
+                tarifasIncluidas.add(unaTarifa);
+            } //For tarifas */
+
+            TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
+            tipoHabitacion.setTarifaActual();
+            
+            //Creador de la habitación
+
+            Habitacion elemHabitacion = new Habitacion(identificador, ubicacion, descripcion);
+            elemHabitacion.setTipoHabitacion(tipoHabitacion);
+            elemHabitacion.setCamas(camas);
+            elemHabitacion.setBalcon(balcon);
+            elemHabitacion.setVista(vista);
+            elemHabitacion.setCocina(cocina);
+            elemHabitacion.calcularCapacidad();
+
+        
+
+
+            } //While
 
              
 
@@ -148,5 +184,9 @@ public class Cargador {
     }
 
     public void agregarHuesped(Huesped Huesped) {
+    }
+
+    public void agregarGrupo(Grupo grupo){
+        
     }
 }

@@ -15,6 +15,17 @@ import model.TipoHabitacion;
 import model.Bebida;
 import model.Cama;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class MenuAdministrador {
     private Cargador cargador;
     private InformacionHotel informacionHotel;
@@ -34,6 +45,51 @@ public class MenuAdministrador {
     }
 
 
+    public void informarFechasSinTarifa() throws ParseException{
+        TimeUnit time = TimeUnit.DAYS; 
+        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        
+        for(Map.Entry<String,TipoHabitacion> tipo: informacionHotel.getTipoHabitaciones().entrySet()){
+            ArrayList<Date> fechasTomadas = new ArrayList<Date>();
+            for(TarifaCuarto tar: tipo.getValue().getTarifas()){
+                String rangoFechas = tar.getRangoFechas();
+                String[] fechas = rangoFechas.split("-");
+                String fechaInTarifa = fechas[0];
+                fechaInTarifa = fechaInTarifa.trim();
+                fechaInTarifa = fechaInTarifa.replace("de ", "");
+                fechaInTarifa = fechaInTarifa.replace(" ", "/");
+                String fechaFinTarifa = fechas[1];
+                fechaFinTarifa = fechaFinTarifa.trim();
+                fechaFinTarifa = fechaFinTarifa.replace("de ", "");
+                fechaFinTarifa = fechaFinTarifa.replace(" ", "/");
+
+                Date inicioTarifa = formato.parse(fechaInTarifa);
+                Date finTarifa = formato.parse(fechaFinTarifa);
+                long difeTarifaTiempo = finTarifa.getTime()-inicioTarifa.getTime();
+                int difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
+
+                for(int i = 1; i <= difeTarifaDias;i++){
+                    Calendar cal = new GregorianCalendar();
+                    cal.setTime(inicioTarifa);
+                    Date fecha = cal.getTime();
+                    fechasTomadas.add(fecha);
+                    cal.add(Calendar.DATE, i);
+                }  
+            }
+            if(fechasTomadas.size()<365){
+                System.out.println("El tipo de habitacion "+tipo.getValue().getNombreTipo()+" no tiene tarifas para las siguientes fechas:");
+                for(int i = 1; i <= 365;i++){
+                    Calendar cal = new GregorianCalendar();
+                    cal.setTime(new Date());
+                    cal.add(Calendar.DATE, i);
+                    Date fecha = cal.getTime();
+                    if(!fechasTomadas.contains(fecha)){
+                        System.out.println(formato.format(fecha));
+                    }
+                }
+            }
+        }
+    }
     public void cargarTipoHabitaciones(String pathTipoHabitaciones){
         File file = new File(pathTipoHabitaciones);
         if(file.exists()){
