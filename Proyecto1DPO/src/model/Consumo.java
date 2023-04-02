@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Consumo{
 
@@ -12,13 +14,108 @@ public class Consumo{
     private boolean pagoInmediato;
     private boolean esGrupo;
     private String descripcion;
+    private Factura factura;
 
-    public Consumo(String tipoConsumo,String habitacion){
+    public Consumo(String tipoConsumo,String habitacion,double valor){
         this.tipoConsumo=tipoConsumo;
+        this.habitacion=habitacion;
+        this.valor=valor;
+        this.iva= valor*0.19;
+        this.esGrupo=false;
+        this.pagado=false;
+        this.pagoInmediato=false;
+
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato); 
+    }
+
+    public Consumo(String tipoConsumo,double valor){
+        this.tipoConsumo=tipoConsumo;
+        this.valor=valor;
+        this.iva= valor*0.19;
+        this.esGrupo=false;
+        this.pagado=false;
+        this.pagoInmediato=false;
+
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato);
+    }
+
+    public void setHabitacion(String habitacion){
         this.habitacion=habitacion;
     }
 
+    public void setValor(double valor){
+        this.valor=valor;
+    }
 
-    
+    public void setEsGrupo(boolean grupo){
+        this.esGrupo=grupo;
+    }
+
+    public void setPagado(boolean pago){
+        setDescripcion(toString());
+        this.pagado=pago;
+    }
+
+    @Override
+    public String toString(){
+        return "Fecha: "+this.fecha+", Habitacion: "+this.habitacion+", Tipo de consumo: "+this.tipoConsumo+", Valor: "+this.valor+", Iva: "+this.iva + ", Es grupo: " + String.valueOf(this.isGrupo());
+
+    }
+
+    public void setPagoInmediato(boolean pago){
+        this.pagoInmediato=pago;
+    }   
+
+    public void setFactura(){
+        this.factura= new Factura(this.habitacion);
+    }
+
+    public void setDescripcion(String descripcion){
+        this.descripcion=descripcion;
+    }
+
+    public String getFecha(){
+        return this.fecha;
+    }
+
+    public double getValor(){
+        return this.valor;
+    }
+
+    public double getIva(){
+        return this.iva;
+    }
+
+    public String getTipoConsumo(){
+        return this.tipoConsumo;
+    }
+
+    public String getDescripcion(){
+        return this.descripcion;
+    }
+
+    public boolean isGrupo() {
+        return this.esGrupo;
+    }
+
+    public String getHabitacion() {
+        return this.habitacion;
+    }
+
+    public boolean getPagado(){
+        return this.pagado;
+    }
+
+    public boolean getPagoInmediato(){
+        return this.pagoInmediato;
+    }
+
+    public Factura getFactura(){
+        return this.factura;
+    }
 
 }

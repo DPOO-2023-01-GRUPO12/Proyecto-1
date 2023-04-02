@@ -20,6 +20,44 @@ public class Huesped {
         this.celular = celular;
         this.correo = correo;
         this.edad = edad;
+        this.consumosPagos= new ArrayList<Consumo>();
+        this.consumosNoPagos= new ArrayList<Consumo>();
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public String getDocumento(){
+        return documento;
+    }
+
+    public String getCelular(){
+        return celular;
+    }
+
+    public String getCorreo(){
+        return correo;
+    }
+
+    public int getEdad(){
+        return edad;
+    }
+
+    public Habitacion getHabitacion(){
+        return habitacion;
+    }
+
+    public void setHabitacion(Habitacion habitacion){
+        this.habitacion = habitacion;
+    }
+
+    public void agregarConsumo (Consumo consumo){
+        if (consumo.getPagado()){
+            this.consumosPagos.add(consumo);
+        }else{
+            this.consumosNoPagos.add(consumo);
+        }
     }
 
     public ArrayList<Consumo> getConsumosPagos(){

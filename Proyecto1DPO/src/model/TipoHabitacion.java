@@ -69,4 +69,9 @@ public class TipoHabitacion {
     public TarifaCuarto getTarifaActual() {
         return this.tarifaActual;
     }
+
+    @Override
+    public String toString(){
+        return "Nombre del tipo de habitación: " + getNombreTipo() + "Tarifas de la habitación: " + getTarifas() + "Tarifa actual de la habitación" + getTarifaActual();
+    }
 }

@@ -3,18 +3,16 @@ package model;
 import java.util.ArrayList;
 
 public class Grupo {
-    private int contadorGrupo;
+    private static int contadorGrupo = 0 ;
     private int identificador;
     private ArrayList<Huesped> integrantes;
     private ArrayList<Consumo> consumos;
-    static int contador;
 
     public Grupo (){
-        contador++;
-        this.contadorGrupo=0;
-        this.identificador=contador; //REVISAR
+        this.identificador=contadorGrupo;
         this.integrantes=new ArrayList<Huesped>();
         this.consumos =new ArrayList<Consumo>();
+        contadorGrupo++;
     }
 
     public int getIdentificador() {
@@ -27,15 +25,16 @@ public class Grupo {
 
     public ArrayList<Huesped> getIntegrantes() {
         return this.integrantes;
-        this.contadorGrupo++;
     }
 
     public void agregarIntegrante(Huesped huesped){
         this.integrantes.add(huesped);
+        contadorGrupo++;
     }
 
     public void agregarConsumo(Consumo consumo){
         this.consumos.add(consumo);
     }
+
 
 }

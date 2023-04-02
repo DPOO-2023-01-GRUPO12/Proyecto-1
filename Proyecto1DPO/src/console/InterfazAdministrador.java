@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 
 import model.Cargador;
+import model.GuardadorInformacion;
 import model.InformacionHotel;
 import model.Servicio;
 

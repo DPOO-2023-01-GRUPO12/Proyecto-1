@@ -8,7 +8,7 @@ public class TarifaCuarto {
     private String rangoFechas;
     private ArrayList<String> diasSemana;
     private double valor;
-//TODO
+
     public TarifaCuarto(String cuarto,String rango,ArrayList<String> dias,double valor) {
         this.tipoCuarto=cuarto;
         this.rangoFechas= rango;

@@ -1,6 +1,7 @@
 package console;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class MenuAdministrador {
         informacionHotel = info;
     }
 
-    public void cargarHabitaciones(String pathHabitaciones){
+    public void cargarHabitaciones(String pathHabitaciones) throws IOException{
         File file = new File(pathHabitaciones);
         if(file.exists()){
             cargador.cargarHabitaciones(file);
