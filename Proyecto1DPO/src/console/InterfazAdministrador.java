@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.Cargador;
 import model.InformacionHotel;
+import model.Servicio;
 
 public class InterfazAdministrador {
     private Cargador cargador;
@@ -75,24 +76,108 @@ public class InterfazAdministrador {
                 break;
             case 7:
                 opcionTarifaServicio();
-
+                break;
+            case 8:
+                System.out.println("Ingrese el nombre del archivo: ");
+                nombreArchivo = scanner.nextLine();
+                menuAdministrador.cargarMenuPlatos(nombreArchivo);
+                break;
+            case 9:
+                System.out.println("Ingrese el nombre del archivo: ");
+                nombreArchivo = scanner.nextLine();
+                menuAdministrador.cargarMenuBebidas(nombreArchivo);
+                break;
+            case 10:
+                opcionConfigurarPlato();
+                break;
+            case 11:
+                opcionConfigurarBebida();
+                break;
+            default:
+                System.out.println("Opcion invalida.");
+                break;
         }
     }
 
     private void opcionTarifaServicio(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del servicio: ");
-        String nombreServicio = scanner.nextLine();
-        if(!informacionHotel.getServicios().containsKey(nombreServicio)){
-            System.out.println("El servicio no existe.");
+        if(informacionHotel.getServicios().isEmpty()){
+            System.out.println("No hay servicios cargados, ¿desea cargar los servicios?");
+            System.out.println("1. Si.");
+            System.out.println("2. No.");
+            int opcion2 = scanner.nextInt();
+            if(opcion2 == 1){
+                    System.out.println("Ingrese el nombre del archivo: ");
+                    String nombreArchivo = scanner.nextLine();
+                    menuAdministrador.cargarServicios(nombreArchivo);
+            } else{
+                System.out.println("No se puede cambiar la tarifa de servicios que no existen.");
+            }
         } else{
-            System.out.println("La tarifa original es de: "+ servicio);
-            System.out.println("Ingrese la nueva tarifa: ");
-            double tarifa = scanner.nextDouble();
-            menuAdministrador.cambiarTarifaServicio(nombreServicio,tarifa);
+            System.out.println("Ingrese el nombre del servicio: ");
+            String nombreServicio = scanner.nextLine();
+            if(!informacionHotel.getServicios().containsKey(nombreServicio)){
+                System.out.println("El servicio no existe.");
+            }else{
+                Servicio ser = informacionHotel.getServicios().get(nombreServicio);
+                System.out.println("La tarifa original es de: " + ser.getTarifa());
+                System.out.println("Ingrese la nueva tarifa: ");
+                double tarifa = scanner.nextDouble();
+                menuAdministrador.cambiarTarifaServicio(nombreServicio,tarifa);
+            }
+
         }
-        System.out.println("Ingrese la nueva tarifa: ");
-        double tarifa = scanner.nextDouble();
-        menuAdministrador.cambiarTarifaServicio(nombreServicio,tarifa);
+        
+    }
+
+    private void opcionConfigurarPlato(){
+        Scanner scanner = new Scanner(System.in);
+        if(informacionHotel.getMenuPlatos().isEmpty()){
+            System.out.println("No hay platos cargados, ¿desea cargar los platos?");
+            System.out.println("1. Si.");
+            System.out.println("2. No.");
+            int opcion2 = scanner.nextInt();
+            if(opcion2 == 1){
+                    System.out.println("Ingrese el nombre del archivo: ");
+                    String nombreArchivo = scanner.nextLine();
+                    menuAdministrador.cargarMenuPlatos(nombreArchivo);
+            } else{
+                System.out.println("No se puede configurar un plato que no existe.");
+            }
+        } else{
+            System.out.println("Ingrese el nombre del plato: ");
+            String nombrePlato = scanner.nextLine();
+            if(!informacionHotel.getMenuPlatos().containsKey(nombrePlato)){
+                System.out.println("El plato no existe.");
+            }else{
+                menuAdministrador.configurarPlato(nombrePlato);
+            }
+        }
+        
+    }
+
+    private void opcionConfigurarBebida(){
+        Scanner scanner = new Scanner(System.in);
+        if(informacionHotel.getMenuPlatos().isEmpty()){
+            System.out.println("No hay bebidas cargadas, ¿desea cargar las bebidas?");
+            System.out.println("1. Si.");
+            System.out.println("2. No.");
+            int opcion2 = scanner.nextInt();
+            if(opcion2 == 1){
+                    System.out.println("Ingrese el nombre del archivo: ");
+                    String nombreArchivo = scanner.nextLine();
+                    menuAdministrador.cargarMenuPlatos(nombreArchivo);
+            } else{
+                System.out.println("No se puede configurar una bebida que no existe.");
+            }
+        } else{
+            System.out.println("Ingrese el nombre de la bebida: ");
+            String nombreBebida = scanner.nextLine();
+            if(!informacionHotel.getMenuPlatos().containsKey(nombreBebida)){
+                System.out.println("El plato no existe.");
+            }else{
+                menuAdministrador.configurarBebida(nombreBebida);
+            }
+        }
     }
 }

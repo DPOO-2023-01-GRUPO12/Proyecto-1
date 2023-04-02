@@ -11,5 +11,7 @@ public class Tarifa {
         this.valor = valor;
     }
 
-    public 
+    public double getValor(){
+        return this.valor;
+    }
 }

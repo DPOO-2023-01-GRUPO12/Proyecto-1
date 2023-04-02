@@ -9,7 +9,7 @@ public class TarifaCuarto {
     private ArrayList<String> diasSemana;
     private double valor;
 //TODO
-    public void TarifaCuarto(String cuarto,String rango,ArrayList<String> dias,double valor) {
+    public TarifaCuarto(String cuarto,String rango,ArrayList<String> dias,double valor) {
         this.tipoCuarto=cuarto;
         this.rangoFechas= rango;
         this.diasSemana=dias;
@@ -44,10 +44,5 @@ public class TarifaCuarto {
     public String toString(){
         return "Tipo Cuarto" + getTipoCuarto() + ", Rango Fechas: " + getRangoFechas() + ", Dias Semana: " + getDiasSemana() + ", Valor: " + getValor() ;
 
-    }
-
-
-    public void foString(int i){
-        System.out.format("%15s %20s %30s %60s %15s", i, getTipoCuarto(), getRangoFechas(), getDiasSemana(), getValor());
     }
 }

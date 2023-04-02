@@ -4,57 +4,65 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class InformacionHotel {
+    private Map<String,Habitacion> habitaciones;
+    private Map<String,TipoHabitacion> tipoHabitaciones;
+    private ArrayList<Cama> camas;
+    private ArrayList<TarifaCuarto> tarifasCuarto;
+    private ArrayList<Tarifa> tarifas;
+    private Map<String,Bebida> menuBebidas;
+    private Map <String,Plato> menuPlatos;
+    private Map<String,ArrayList<String>> usuarios;
+    private Map<String,Servicio> servicios;
+    private Map<String,Reserva> reservas;
+    private Map<String,Huesped> huespedes;
+    private Map<Integer, Grupo> grupos;
 
     
-    public Map <String,Habitacion> getInventarioHabitaciones(){
-        return null;
+    public Map<String,Habitacion> getInventarioHabitaciones(){
+        return habitaciones;
     }
 
-    public Map <String,TipoHabitacion> getTipoHabitaciones(){
-        return null;
+    public Map<String,TipoHabitacion> getTipoHabitaciones(){
+        return tipoHabitaciones;
     }
 
     public ArrayList<Cama> getCamas(){
-        return null;
+        return camas;
     }
 
     public ArrayList<TarifaCuarto> getTarifasCuartos(){
-        return null;
+        return tarifasCuarto;
     }
 
-    public ArrayList<Tarifa> geTarifas(){
-        return null;
+    public ArrayList<Tarifa> getTarifas(){
+        return tarifas;
     }
 
     public Map<String,Bebida> getMenuBebidas(){
-        return null;
+        return menuBebidas;
     }
 
     public Map <String,Plato> getMenuPlatos(){
-        return null;
-    }
-
-    public Map<String,ProductoMenu> getProductosMenu() {
-        return null;
+        return menuPlatos;
     }
 
     public Map<String,ArrayList<String>> getUsuarios(){
-        return null;
+        return usuarios;
     }
 
     public Map<String,Servicio> getServicios() {
-        return null;
+        return servicios;
     }
 
     public Map<String,Reserva> getReserva() {
-        return null;
+        return reservas;
     }
 
     public Map<String,Huesped> getHuesped(){
-        return null;
+        return huespedes;
     }
 
-    public Map<int,Grupo> getGrupos() {
-        return null;
+    public Map<Integer,Grupo> getGrupos() {
+        return grupos;
     }
 }
