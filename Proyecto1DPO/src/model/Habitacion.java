@@ -144,7 +144,11 @@ public class Habitacion {
     }
 
     public void agregarConsumo(Consumo consumo){
-        noPagos.add(consumo);
+        if (consumo.getPagado()){
+            this.pagos.add(consumo);
+        } else {
+            this.noPagos.add(consumo);
+        }
     }
 
     public ArrayList<Cama> getCamas(){
@@ -173,21 +177,6 @@ public class Habitacion {
     public String toString(){
         return "ID: " + this.getIdentificador()  + ", Ubicacion: "  + this.getUbicacion()  + ", Capacidad: "  + String.valueOf(this.getCapacidad())  + ", Balcon:"  + String.valueOf(this.hasBalcon()) + ", Vista: " + String.valueOf(this.hasVista()) + ", Cocina: " + String.valueOf(this.hasCocina()) + ", Descripcion: " + this.getDescripcion() + ", Camas: " + this.getCamas().toString() + ", Reservas: " + this.getReservas().toString() + ", Tipo habitacion: " + this.getTipoHabitacion().toString() + ", Consumos pagos: " + this.getConsumosPagos().toString() + ", Consumos no pagos: " + this.getConsumosNoPagos().toString() + ", Huespedes Alojados: " + this.getHuespedesAlojados().toString();
 
-    }
-
-    public void agregarConsumoPago(String tipo,double valor){
-        Consumo consumo= new Consumo(tipo, valor);
-        consumo.setHabitacion(this.identificador);
-        consumo.setPagado(true);
-
-        this.pagos.add(consumo);
-    }
-
-    public void agregarConsumoNoPago(String tipo,double valor){
-        Consumo consumo= new Consumo(tipo, valor);
-        consumo.setHabitacion(this.identificador);
-
-        this.noPagos.add(consumo);
     }
 
 

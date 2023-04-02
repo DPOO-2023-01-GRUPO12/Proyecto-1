@@ -82,6 +82,30 @@ public class Factura{
         contadorFactura++;
     }
 
+    public Factura(Consumo consumo){
+        this.numeroFactura = contadorFactura;
+        this.habitacion = consumo.getHabitacion();
+        this.habitaciones = new ArrayList<Habitacion>();
+        habitaciones.add(consumo.getHabitacionAsignada());
+        this.huespedes = new ArrayList<Huesped>();
+        this.huespedes.add(consumo.getHuesped());
+        if(!consumo.getGrupo().equals(null)){
+            this.esGrupo = true;
+            for(Huesped integrante: consumo.getGrupo().getIntegrantes()){
+                if(!integrante.equals(consumo.getHuesped())){
+                    this.huespedes.add(integrante);
+                }
+            }
+        } else{
+            this.esGrupo = false;
+        }
+        this.consumos = new ArrayList<Consumo>();
+        this.consumos.add(consumo);
+        this.informacionConsumos = "";
+        this.valorTotal = 0;
+        contadorFactura++;
+    }
+
     public String setHabitaciones(ArrayList<Habitacion> habitaciones){
         String habitacionesString = "";
         for (Habitacion habitacion: habitaciones){

@@ -23,7 +23,6 @@ public class InterfazEmpleado {
 
     public void mostrarMenu(){
         System.out.println("1. Registrar consumo de huesped. ");
-        System.out.println("2. Registrar pago de huesped. ");
     }
 
     public void opcionElegida(int opcion){
@@ -31,8 +30,8 @@ public class InterfazEmpleado {
             case 1:
                 opcionConsumo();
                 break;
-            case 2:
-                opcionPago();
+            default:
+                System.out.println("La opcion ingresada no es valida. ");
                 break;
         }
 
@@ -73,38 +72,10 @@ public class InterfazEmpleado {
             valor = scanner.nextDouble();
         }
 
-        Consumo cons = new Consumo(tipoConsumo, valor);
+        Consumo cons = new Consumo(huespedConsumo, tipoConsumo, valor);
         menuEmpleado.registrarConsumoHuesped(huespedConsumo, cons, grupo);
         scanner.close();
     
     }
-    
-    private void opcionPago(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Es un grupo? (si/no): ");
-        String grupo = scanner.nextLine();
-        while(!grupo.equals("si") && !grupo.equals("no")){
-            System.out.println("La respuesta ingresada no es valida. Ingrese nuevamente: ");
-            grupo = scanner.nextLine();
-        }
-        if(grupo.equals("si")){
 
-        } else{
-            
-        }
-
-
-
-        System.out.println("Ingrese el documento del huesped encargado: ");
-        String documento = scanner.nextLine();
-        while(!informacionHotel.getHuesped().containsKey(documento)){
-            System.out.println("El documento ingresado no existe. Ingrese nuevamente: ");
-            documento = scanner.nextLine();
-        }
-
-        Huesped huespedConsumo = informacionHotel.getHuesped().get(documento);
-
-
-
-    }
 }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import model.Cargador;
 import model.Consumo;
+import model.Factura;
 import model.Grupo;
 import model.Huesped;
 import model.InformacionHotel;
@@ -27,16 +28,10 @@ public class MenuEmpleado {
                 System.out.println("La respuesta ingresada no es valida. Ingrese nuevamente: ");
                 cargarHabitacion = scanner.nextLine();
             }
-            if(cargarHabitacion.equals("si")){
-                cons.setPagoInmediato(true);
-                cons.setPagado(false);
-                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
-            } else{
-                cons.setPagoInmediato(true);
-                cons.setPagado(false);
-            }
+
             if(grupo.equals("si")){
                 Grupo g = informacionHotel.getGrupos().get(huesped.getDocumento());
+                cons.setGrupo(g);
                 cons.setEsGrupo(true);
                 g.agregarConsumoNoPago(cons);
             } else{
@@ -44,22 +39,43 @@ public class MenuEmpleado {
                 cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
                 informacionHotel.getHuesped().get(huesped.getDocumento()).agregarConsumo(cons);
             }
+
+            if(cargarHabitacion.equals("si")){
+                cons.setPagoInmediato(false);
+                cons.setPagado(false);
+                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
+            } else{
+                cons.setPagoInmediato(true);
+                cons.setPagado(false);
+                registrarPago(cons);
+            }
+
         } else{
+            if(grupo.equals("si")){
+                Grupo g = informacionHotel.getGrupos().get(huesped.getDocumento());
+                cons.setGrupo(g);
+                cons.setEsGrupo(true);
+                g.agregarConsumoNoPago(cons);
+            } else{
+                cons.setEsGrupo(false);
+                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
+                informacionHotel.getHuesped().get(huesped.getDocumento()).agregarConsumo(cons);
+            }
             cons.setPagoInmediato(true);
             cons.setPagado(false);
-            if(grupo.equals("si")){
-                Grupo g = informacionHotel.getGrupos().get(huesped.getDocumento());
-                cons.setEsGrupo(true);
-                g.agregarConsumoNoPago(cons);
-            } else{
-                cons.setEsGrupo(false);
-                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
-                informacionHotel.getHuesped().get(huesped.getDocumento()).agregarConsumo(cons);
-            }
+            registrarPago(cons);
+            
         }
 
         scanner.close();
 
     }
     
+    private void registrarPago(Consumo cons){
+        cons.setPagado(true);
+        Factura factura =new Factura(cons);
+        factura.generarTextoFactura();
+        System.out.println(factura.getTextoFactura());
+    }
+
 }

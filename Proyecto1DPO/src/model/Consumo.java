@@ -8,6 +8,7 @@ public class Consumo{
     private String fecha;
     private double valor;
     private double iva;
+    private Huesped huesped;
     private String tipoConsumo;
     private String habitacion;
     private Habitacion habitacionAsignada;
@@ -16,20 +17,7 @@ public class Consumo{
     private boolean esGrupo;
     private String descripcion;
     private Factura factura;
-
-    public Consumo(String tipoConsumo,String habitacion,double valor){
-        this.tipoConsumo=tipoConsumo;
-        this.habitacion=habitacion;
-        this.valor=valor;
-        this.iva= valor*0.19;
-        this.esGrupo=false;
-        this.pagado=false;
-        this.pagoInmediato=false;
-
-        LocalDate fechaActual=LocalDate.now();
-        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
-        this.fecha=fechaActual.format(formato); 
-    }
+    private Grupo grupo;
 
     public Consumo(String tipoConsumo,Habitacion habitacion,double valor){
         this.tipoConsumo=tipoConsumo;
@@ -57,6 +45,26 @@ public class Consumo{
         LocalDate fechaActual=LocalDate.now();
         DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
         this.fecha=fechaActual.format(formato);
+    }
+
+    public Consumo(Huesped huesped, String tipoConsumo,double valor){
+        this.huesped=huesped;
+        this.habitacionAsignada = huesped.getHabitacion();
+        this.habitacion=huesped.getHabitacion().getIdentificador();
+        this.tipoConsumo=tipoConsumo;
+        this.valor=valor;
+        this.iva= valor*0.19;
+        this.esGrupo=false;
+        this.pagado=false;
+        this.pagoInmediato=false;
+
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato);
+    }
+
+    public Huesped getHuesped(){
+        return this.huesped;
     }
 
     public void setHabitacion(String habitacion){
@@ -122,6 +130,10 @@ public class Consumo{
         return this.habitacion;
     }
 
+    public Habitacion getHabitacionAsignada() {
+        return this.habitacionAsignada;
+    }
+
     public boolean getPagado(){
         return this.pagado;
     }
@@ -132,6 +144,14 @@ public class Consumo{
 
     public Factura getFactura(){
         return this.factura;
+    }
+
+    public void setGrupo(Grupo grupo){
+        this.grupo=grupo;
+    }
+
+    public Grupo getGrupo(){
+        return this.grupo;
     }
 
 }
