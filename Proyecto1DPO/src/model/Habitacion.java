@@ -30,6 +30,11 @@ public class Habitacion {
     public void setTipoHabitacion (TipoHabitacion tipo){
         tipoHabitacion = tipo;
     }
+
+    public void setCamas(ArrayList<Cama> camas){
+        this.camas = camas;
+        calcularCapacidad();
+    }
     
     public void setBalcon (boolean balcon){
         this.balcon = balcon;

@@ -21,20 +21,19 @@ public class MenuAdministrador {
         informacionHotel = info;
     }
 
-    public void cargarHabitaciones(File habitaciones){
-        cargador.cargarHabitaciones(habitaciones);
+    public void cargarHabitaciones(String pathHabitaciones){
+
     }
 
-    public void cargarTipoHabitaciones(File tipoHabitaciones){
-        cargador.cargarTipoHabitaciones(tipoHabitaciones);
+    public void cargarTipoHabitaciones(String pathTipoHabitaciones){
+
     }
 
-    public void cargarTarifasPorTipoCuarto(File tarifasTipoCuarto){
-        cargador.cargarTarifasCuarto(tarifasTipoCuarto);
+    public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto){
+
     }
     
-    public void cargarCamas(File file){
-        cargador.cargarCamas(file);
+    public void cargarCamas(String pathFile){
     }
 
 
@@ -42,6 +41,13 @@ public class MenuAdministrador {
         Scanner scanner = new Scanner(System.in);
         Habitacion habitacion = new Habitacion(id,ub,desc);
         System.out.println("Para crear una habitacion debe seleccionar un tipo de habitacion y camas.");
+        asignarHabitacionTipo(habitacion);
+        asignarHabitacionCamas(habitacion);
+        cargador.cargarHabitacion(habitacion);
+    }
+
+    private void asignarHabitacionTipo(Habitacion hab){
+        Scanner scanner = new Scanner(System.in);
         mostrarMenuTipoHabitacion();
         int opcion = scanner.nextInt();
         TipoHabitacion tipo = opcionTipoHabitacion(opcion);
@@ -49,13 +55,25 @@ public class MenuAdministrador {
             System.out.println("No se pudo asignar el tipo de habitacion habitacion.");
             tipo = opcionTipoHabitacion(opcion);
         }
-
-        habitacion.setTipoHabitacion(tipo);
-
-        mostrarMenuCamas();
-        
-        
+        cargador.agregarTipoHabitacion(tipo);
+        hab.setTipoHabitacion(tipo);
     }
+
+    private void asignarHabitacionCamas(Habitacion hab){
+        Scanner scanner = new Scanner(System.in);
+        mostrarMenuCamas();
+        int opcion = scanner.nextInt();
+        ArrayList<Cama> camas = opcionCamas(opcion);
+        while(camas.equals(null)){
+            System.out.println("No se pudo asignar las camas a la habitacion.");
+            camas = opcionCamas(opcion);
+        }
+        for(Cama cama: camas){
+            cargador.agregarCama(cama);
+        }
+        hab.setCamas(camas);
+    }
+    
 
     private void mostrarMenuTipoHabitacion(){
         System.out.println("1. Seleccionar tipo de habitacion. ");
@@ -128,10 +146,10 @@ public class MenuAdministrador {
                 }
             }
             System.out.println("Seleccione la tarifa marcando el numero de la que desea: ");
-            System.out.format("%15s %20s %30s %60s %15s", "TARIFA", "TIPO", "RANGO FECHAS", "DIAS SEMANA", "VALOR");
             for(TarifaCuarto tar: informacionHotel.getTarifasCuartos()){
-
-                tar.foString(informacionHotel.getTarifasCuartos().indexOf(tar)); // o usar tar.toString()
+                int index = informacionHotel.getTarifasCuartos().indexOf(tar);
+                System.out.print("Tarifa " + index);
+                System.out.println(tar.toString());
             }
             int opcion3 = scanner.nextInt();
             while(opcion3 < 0 || opcion3 > informacionHotel.getTarifasCuartos().size()){
@@ -174,27 +192,44 @@ public class MenuAdministrador {
                         return null;
                     }
                 }
-                System.out.println("Seleccione las camas que desea agregar a la habitacion: ");
-                System.out.println(informacionHotel.getCamas().keySet());
-                    
-                String nombreTipo = scanner.nextLine();
-                while(!informacionHotel.getCamas().containsKey(nombreTipo)){
-                    System.out.println("La cama no existe, ingrese una nueva: ");
-                    nombreTipo = scanner.nextLine();
+                System.out.println("¿Cuantas camas desea asignar a la habitacion?");
+                int cantidad = scanner.nextInt();
+                ArrayList<Cama> camas = new ArrayList<Cama>();
+                ArrayList<Integer> camasEscogidas = new ArrayList<Integer>();
+                for(Cama cama: informacionHotel.getCamas()){
+                    int index = informacionHotel.getCamas().indexOf(cama);
+                    System.out.print("Cama " + index);
+                    System.out.println(cama.toString());
                 }
-                 return informacionHotel.getCamas().get(nombreTipo);
-            case 2:
-                System.out.println("Ingrese el nombre del tipo de habitacion: ");
-                String nombreTipo2 = scanner.nextLine();
-                while(informacionHotel.getCamas().containsKey(nombreTipo2)){
-                    System.out.println("La cama ya existe, ingrese una nueva: ");
-                    nombreTipo2 = scanner.nextLine();
+
+                for(int i = 0; i < cantidad; i++){
+                    System.out.println("Seleccione la cama que desea agregar a la habitacion: ");
+                    int camaIndex = scanner.nextInt();
+                    while(camaIndex < 0 || camaIndex > informacionHotel.getCamas().size()){
+                        System.out.println("Opcion invalida, intente de nuevo: ");
+                        camaIndex = scanner.nextInt();
+                        
+                    }
+                    if(camasEscogidas.contains(Integer.valueOf(camaIndex))){
+                        System.out.println("La cama ya fue seleccionada, escoja otra: ");
+                        camaIndex = scanner.nextInt();
+                    } else{
+                        camasEscogidas.add(Integer.valueOf(camaIndex));
+                        camas.add(informacionHotel.getCamas().get(camaIndex));
+                    }
                 }
-                return crearTipoHabitacion(nombreTipo2);
+                return camas;
             default:
-                System.out.println("Opcion invalida, intente de nuevo.");
+                System.out.println("Opcion invalida.");
                 return null;
         }
     }
 
+    public void cargarServicios(String pathServicios){
+
+    }
+
+    public void cambiarTarifaServicio(String nombreServicio){
+        
+    }
 }

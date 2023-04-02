@@ -42,7 +42,7 @@ public class InformacionHotel {
         return null;
     }
 
-    public Map<String,Servicios> getServicios() {
+    public Map<String,Servicio> getServicios() {
         return null;
     }
 
