@@ -34,6 +34,7 @@ public class MenuEmpleado {
                 cons.setGrupo(g);
                 cons.setEsGrupo(true);
                 g.agregarConsumoNoPago(cons);
+                cargador.agregarGrupo(g);
             } else{
                 cons.setEsGrupo(false);
                 cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
@@ -66,6 +67,7 @@ public class MenuEmpleado {
             registrarPago(cons);
             
         }
+        cargador.agregarConsumo(cons);
 
         scanner.close();
 
@@ -75,6 +77,8 @@ public class MenuEmpleado {
         cons.setPagado(true);
         Factura factura =new Factura(cons);
         factura.generarTextoFactura();
+        cons.setFactura(factura);
+        cargador.agregarConsumo(cons);
         System.out.println(factura.getTextoFactura());
     }
 

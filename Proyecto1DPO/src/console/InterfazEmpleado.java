@@ -72,7 +72,7 @@ public class InterfazEmpleado {
             valor = scanner.nextDouble();
         }
 
-        Consumo cons = new Consumo(huespedConsumo, tipoConsumo, valor);
+        Consumo cons = new Consumo(hues, tipoConsumo, valor);
         menuEmpleado.registrarConsumoHuesped(huespedConsumo, cons, grupo);
         scanner.close();
     

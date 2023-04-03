@@ -44,7 +44,7 @@ public class Cargador {
             ArrayList<Cama> camas = new ArrayList<>();
             List<TarifaCuarto> tarifasIncluidas = new ArrayList<>();
 
-            //Creador de camas
+            //Creador de camas (Si se selecciona que las camas van incluidas en el archivo)
 
             List<String> myList = Arrays.asList(scamas.split(",")); //Separa cada una de las camas
             for (String scama:myList){
@@ -66,7 +66,7 @@ public class Cargador {
             
            
             TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
-            tipoHabitacion.setTarifaActual();
+            
             
             //Creador de la habitación
 
@@ -78,23 +78,22 @@ public class Cargador {
             elemHabitacion.setCocina(cocina);
             elemHabitacion.calcularCapacidad();
 
+            agregarHabitacion(elemHabitacion); //Actualiza la información (El metodo put actualiza o añade según sea el caso); 
 
             linea = br.readLine(); 
 
-            //Actualiza la información (El metodo put actualiza o añade según sea el caso)
-
-            informacionHotel.getInventarioHabitaciones().put(elemHabitacion.getIdentificador(), elemHabitacion);
-            
         } //While
 
         br.close();
 
         }
 
-
+    public void agregarHabitacion(Habitacion habitacion) {
+        informacionHotel.getInventarioHabitaciones().put(habitacion.getIdentificador(), habitacion);
+    }
     public void agregarTipoHabitacion(TipoHabitacion tipoHabitacion) {
         informacionHotel.getTipoHabitaciones().put(tipoHabitacion.getNombreTipo(), tipoHabitacion);
-        }
+    }
 
 
     public void cargarTipoHabitaciones(File file) throws IOException, FileNotFoundException {
@@ -139,6 +138,8 @@ public class Cargador {
             Cama nuevaCama = new Cama(tamanio, cantidad);
             nuevaCama.setNinios(ninios);
             agregarCama(nuevaCama);
+
+            linea = br.readLine(); 
         }
         br.close();
         
@@ -147,48 +148,167 @@ public class Cargador {
   
 
 
-    public void cargarTarifasCuarto(File file) {
+    public void cargarTarifasCuarto(File file) throws IOException, FileNotFoundException {
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String linea = br.readLine();
+
+        linea = br.readLine();
+        while (linea != null){
+            
+
+                String[] partes = linea.split(";"); //separa los elementos de una tarifa
+                String tipoCuarto = partes[0];
+                String rangoFechas = partes[1];
+                String diasSemana = partes[2];
+                double valor = Double.parseDouble(partes[3]);
+
+
+                ArrayList<String> diasSemanaLista = new  ArrayList<String>(Arrays.asList(diasSemana.split(","))); //Obtiene los días de la semana 
+
+                TarifaCuarto unaTarifa = new TarifaCuarto(tipoCuarto, rangoFechas, diasSemanaLista, valor);
+
+                agregarTarifaCuarto(unaTarifa);
+
+                linea = br.readLine(); 
+                
+        }
+        
+        br.close();
     }
 
-    public void cambiarTarifaServicio(String nombreServicio,double valor) {
-    }
 
 
     private void agregarTarifaCuarto(TarifaCuarto tarifa) {
+
+        informacionHotel.getTarifasCuartos().add(tarifa);
     }
 
-    private void actualizarTarifaCuarto(TarifaCuarto tarifa) {
+    
+    public void cambiarTarifaServicio(String nombreServicio,double valor) {
+
+
     }
 
+    public void cargarMenuBebidas(File file) throws IOException, FileNotFoundException {
 
-    public void cargarMenuBebidas(File file) {
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    String linea = br.readLine();
+
+    linea = br.readLine();
+    while (linea != null){
+        String[] partes = linea.split(";");
+
+        String nombre = partes[0];
+        String rangoHoras = partes[1];
+        String comidaDispon = partes[2];
+        String lugarDispon = partes[3];
+        boolean servicioCuarto = Boolean.parseBoolean(partes[4]);
+        double precio = Double.parseDouble(partes[5]);
+
+        Bebida bebida = new Bebida(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
+        bebida.setServicioCuarto(servicioCuarto);
+
+        agregarBebida(bebida);
+
+        linea = br.readLine(); 
+
+
     }
 
-    private void agregarBebida(Bebida bebida) {   
+    br.close();
+
+    }
+
+    private void agregarBebida(Bebida bebida) { 
+        informacionHotel.getMenuBebidas().put(bebida.getNombre(), bebida);  
     }
     
-    private void actualizarBebida(Bebida bebida) {
+
+    public void cargarMenuPlatos(File file) throws IOException, FileNotFoundException {
+
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    String linea = br.readLine();
+
+    linea = br.readLine();
+    while (linea != null){
+
+        String[] partes = linea.split(";");
+
+        String nombre = partes[0];
+        String rangoHoras = partes[1];
+        String comidaDispon = partes[2];
+        String lugarDispon = partes[3];
+        boolean servicioCuarto = Boolean.parseBoolean(partes[4]);
+        double precio = Double.parseDouble(partes[5]);
+
+        Plato plato = new Plato(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
+        plato.setServicioCuarto(servicioCuarto);
+
+        agregarPlato(plato);
+        linea = br.readLine(); 
+    }
+
+    br.close();
+    }
+
+    private void agregarPlato(Plato plato) {  
+
+        informacionHotel.getMenuPlatos().put(plato.getNombre(), plato);
     }
 
 
-    public void cargarMenuPlatos(File file) {
-    }
-
-    private void agregarPlato(Plato plato) {   
-    }
-
-    private void actualizarPlato(Plato plato) {
-    }
 
 
-    public void cargarUsuarios(File file) {
+    public void cargarUsuarios(String pathUsuarios) throws IOException, FileNotFoundException  {
+        File file = new File(pathUsuarios);
+        if(file.exists()){
+            
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String linea = br.readLine();
+
+            linea = br.readLine();
+            while (linea != null){
+
+                String[] partes = linea.split(";");
+
+                String login = partes[0];
+                String password = partes[1];
+
+                agregarUsuario(login, password);
+                linea = br.readLine(); 
+
+
+            } br.close();
+        } else{
+            System.out.println("No existe el archivo");
+        }
+    
     }
 
     private void agregarUsuario (String login,String password){
+
+
+        ArrayList usuario = new ArrayList<String>();
+        usuario.add(login);
+        usuario.add(password);
+
+        informacionHotel.getUsuarios().put(login, usuario);
     }
 
 
-    public void cargarServicios(File file) {
+    public void cargarServicios(File file) throws IOException, FileNotFoundException  {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+            String linea = br.readLine();
+
+            linea = br.readLine();
+            while (linea != null){
+
+                String[] partes = linea.split(";");
+                
+
+            }
+
     }
 
     private void agregarServicio(Servicio servicio) {
@@ -203,5 +323,9 @@ public class Cargador {
 
     public void agregarGrupo(Grupo grupo){
         
+    }
+
+    public void agregarConsumo(Consumo consumo){
+
     }
 }

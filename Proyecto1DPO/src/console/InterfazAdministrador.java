@@ -1,5 +1,6 @@
 package console;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -49,13 +50,13 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarTipoHabitaciones(nombreArchivo);
-                menuAdministrador.informarFechasSinTarifa();
                 scanner.close();
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
+                menuAdministrador.informarFechasSinTarifa();
                 scanner.close();
                 break;
             case 4:
@@ -146,7 +147,7 @@ public class InterfazAdministrador {
         
     }
 
-    private void opcionConfigurarPlato(){
+    private void opcionConfigurarPlato() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         if(informacionHotel.getMenuPlatos().isEmpty()){
             System.out.println("No hay platos cargados, ¿desea cargar los platos?");
@@ -173,7 +174,7 @@ public class InterfazAdministrador {
         
     }
 
-    private void opcionConfigurarBebida(){
+    private void opcionConfigurarBebida() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         if(informacionHotel.getMenuPlatos().isEmpty()){
             System.out.println("No hay bebidas cargadas, ¿desea cargar las bebidas?");

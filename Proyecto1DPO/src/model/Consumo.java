@@ -98,6 +98,10 @@ public class Consumo{
         this.factura= new Factura(this.habitacionAsignada);
     }
 
+    public void setFactura(Factura far){
+        this.factura= far;
+    }
+
     public void setDescripcion(String descripcion){
         this.descripcion=descripcion;
     }

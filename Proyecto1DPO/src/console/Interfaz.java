@@ -1,5 +1,7 @@
 package console;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import model.Cargador;
@@ -20,7 +22,7 @@ public class Interfaz {
     private static InterfazRecepcionista interfazRecepcionista;
     private static InterfazEmpleado interfazEmpleado;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException, IOException {
         pms = new PMS();
         cargador = pms.getCargador();
         guardador = pms.getGuardador();
@@ -33,7 +35,7 @@ public class Interfaz {
 
         // TODO code application logic here
         corriendo = true;
-
+        cargador.cargarUsuarios("data\\Usuarios.txt");
         while(corriendo){
             mostrarMenu();
             Scanner scanner = new Scanner(System.in);
@@ -45,14 +47,7 @@ public class Interfaz {
                 corriendo = false;
                 scanner.close();
             }
-            }
         }
-
-
-
-
-        
-        
     }
 
     public static void mostrarMenu(){
@@ -61,12 +56,12 @@ public class Interfaz {
         System.out.println("2. Salir");
     }
 
-    public static void iniciarSesion(){
+    public static void iniciarSesion() throws ParseException, IOException{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese su login: ");
         String login = scanner.nextLine();
         System.out.println("Ingrese su password: ");
-        String passwrod = scanner.nextLine();
+        String password = scanner.nextLine();
         if(autenticador.revisarExistencia(login)){
             String tipo = autenticador.revisarTipo(login);
             if(tipo.equals("administrador")){
@@ -82,10 +77,12 @@ public class Interfaz {
 
             } else if(tipo.equals("empleado")){
                 interfazEmpleado.mostrarMenu();
+            }
 
         } else{
             System.out.println("El usuario no existe.");
         }
+        scanner.close();
 
     }
     

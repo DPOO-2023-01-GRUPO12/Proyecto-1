@@ -30,4 +30,16 @@ public class Restaurante{
     public void agregarBebida (Bebida bebida){
         bebidas.add(bebida);
     }
+
+    public void agregarDisponibilidad (String dias,ArrayList<String> horas){
+        this.disponibilidad.put(dias, horas);
+    }
+
+    public boolean getTomadoComedor (){
+        return this.tomadoComedor;
+    }
+
+    public String getUbicacion (){
+        return this.ubicacion;
+    }
 }

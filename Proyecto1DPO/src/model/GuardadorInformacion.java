@@ -1,17 +1,47 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.*;
 import java.io.File;
+import java.io.FilterWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
+private InformacionHotel informacion;
+
 public class GuardadorInformacion {
 
-    public File guardarHabitaciones(Map<String,Habitacion> habitaciones) {
-        return null;
+    public void guardarHabitaciones(Map<String,Habitacion> habitaciones) {
+        
+        try{
+            File file = new File("data/habitaciones.txt");
+            if (file.createNewFile()){
+                System.out.println("File created: " + file.getName());
+                FilterWriter writer = new FileWriter(file);
+                BufferedWriter buff= new BufferedWriter(writer);
+                
+                Map<String,Habitacion> habitaciones= informacion.getHabitaciones()
+
+                for (M)
+            }else{
+                System.out.println("File already exists.");
+            }
+        }catch (Exception e){
+            System.out.println("No se pudo guardar el archivo de habitaciones. ");
+        }
     }
 
-    public File guardarTipoHabitacones(Map<String,TipoHabitacion> tipoHabitaciones) {
-        return null;
+    public void guardarTipoHabitacones(Map<String,TipoHabitacion> tipoHabitaciones) {
+        File file = new File("data/tipoHabitaciones.txt");
+        try{
+            if (file.createNewFile()){
+                System.out.println("File created: " + file.getName());
+            }else{
+                System.out.println("File already exists.");
+            }
+        } catch (Exception e){
+            System.out.println("An error occurred.");
+        }
     }
 
     public File guardarTarifasCuarto(Map<String,TarifaCuarto> tarifasCuarto) {

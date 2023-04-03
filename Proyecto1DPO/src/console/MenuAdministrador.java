@@ -1,6 +1,7 @@
 package console;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -76,9 +77,9 @@ public class MenuAdministrador {
                     cal.add(Calendar.DATE, i);
                 }  
             }
-            if(fechasTomadas.size()<365){
+            if(fechasTomadas.size()!=365){
                 System.out.println("El tipo de habitacion "+tipo.getValue().getNombreTipo()+" no tiene tarifas para las siguientes fechas:");
-                for(int i = 1; i <= 365;i++){
+                for(int i = 1; i < 365;i++){
                     Calendar cal = new GregorianCalendar();
                     cal.setTime(new Date());
                     cal.add(Calendar.DATE, i);
@@ -90,7 +91,8 @@ public class MenuAdministrador {
             }
         }
     }
-    public void cargarTipoHabitaciones(String pathTipoHabitaciones){
+    
+    public void cargarTipoHabitaciones(String pathTipoHabitaciones) throws FileNotFoundException, IOException{
         File file = new File(pathTipoHabitaciones);
         if(file.exists()){
             cargador.cargarTipoHabitaciones(file);
@@ -101,7 +103,7 @@ public class MenuAdministrador {
     }
 
 
-    public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto){
+    public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto) throws FileNotFoundException, IOException{
         File file = new File(pathTarifasTipoCuarto);
         if(file.exists()){
             cargador.cargarTarifasCuarto(file);
@@ -111,7 +113,7 @@ public class MenuAdministrador {
     }
     
 
-    public void cargarCamas(String pathFile){
+    public void cargarCamas(String pathFile) throws FileNotFoundException, IOException{
         File file = new File(pathFile);
         if(file.exists()){
             cargador.cargarCamas(file);
@@ -121,15 +123,15 @@ public class MenuAdministrador {
     }
 
 
-    public void crearHabitacion(String id, String ub, String desc){
+    public void crearHabitacion(String id, String ub, String desc) throws FileNotFoundException, IOException{
         Habitacion habitacion = new Habitacion(id,ub,desc);
         System.out.println("Para crear una habitacion debe seleccionar un tipo de habitacion y camas.");
         asignarHabitacionTipo(habitacion);
         asignarHabitacionCamas(habitacion);
-        cargador.cargarHabitacion(habitacion);
+        cargador.agregarHabitacion(habitacion);
     }
 
-    private void asignarHabitacionTipo(Habitacion hab){
+    private void asignarHabitacionTipo(Habitacion hab) throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         mostrarMenuTipoHabitacion();
         int opcion = scanner.nextInt();
@@ -143,7 +145,7 @@ public class MenuAdministrador {
         scanner.close();
     }
 
-    private void asignarHabitacionCamas(Habitacion hab){
+    private void asignarHabitacionCamas(Habitacion hab) throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         mostrarMenuCamas();
         int opcion = scanner.nextInt();
@@ -165,7 +167,7 @@ public class MenuAdministrador {
 
     }
 
-    private TipoHabitacion opcionTipoHabitacion(int opcion){
+    private TipoHabitacion opcionTipoHabitacion(int opcion) throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         switch(opcion){
             case 1:
@@ -210,7 +212,7 @@ public class MenuAdministrador {
         }
     }
 
-    private TipoHabitacion crearTipoHabitacion(String tipo){
+    private TipoHabitacion crearTipoHabitacion(String tipo) throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         TipoHabitacion tipoHabitacion = new TipoHabitacion(tipo);
         System.out.println("Debe asignarle al menos una tarifa al tipo de habitacion. ");
@@ -261,7 +263,7 @@ public class MenuAdministrador {
         System.out.println("1. Seleccionar camas. ");
     }
 
-    private ArrayList<Cama> opcionCamas(int opcion){
+    private ArrayList<Cama> opcionCamas(int opcion) throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         switch(opcion){
             case 1:
@@ -333,7 +335,7 @@ public class MenuAdministrador {
     }
 
 
-    public void cargarMenuPlatos(String pathPlatos){
+    public void cargarMenuPlatos(String pathPlatos) throws FileNotFoundException, IOException{
         File file = new File(pathPlatos);
         if(file.exists()){
             cargador.cargarMenuPlatos(file);
@@ -343,7 +345,7 @@ public class MenuAdministrador {
     }
 
 
-    public void cargarMenuBebidas(String pathBebidas){
+    public void cargarMenuBebidas(String pathBebidas) throws FileNotFoundException, IOException{
         File file = new File(pathBebidas);
         if(file.exists()){
             cargador.cargarMenuBebidas(file);

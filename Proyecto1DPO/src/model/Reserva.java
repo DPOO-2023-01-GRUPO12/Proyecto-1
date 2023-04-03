@@ -53,6 +53,11 @@ public class Reserva {
 
     }
 
+    public boolean isCheckin(){
+        return checkin;
+    }
+
+
     public boolean isCancelada(){
         return cancelada;
     }
@@ -112,7 +117,9 @@ public class Reserva {
         return cantidadPersonas;
     }
 
-    
+    public Factura getFacturaCheckOut(){
+        return this.facturaCheckout;
+    }    
     
 
 }

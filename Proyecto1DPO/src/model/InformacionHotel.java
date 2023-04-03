@@ -16,6 +16,7 @@ public class InformacionHotel {
     private Map<String,Reserva> reservas;
     private Map<String,Huesped> huespedes;
     private Map<String, Grupo> grupos;
+    private Map<String,Consumo> consumos;
 
     
     public Map<String,Habitacion> getInventarioHabitaciones(){
@@ -65,4 +66,10 @@ public class InformacionHotel {
     public Map<String,Grupo> getGrupos() {
         return grupos;
     }
+
+    public Map<String,Consumo> getConsumos(){
+        return consumos;
+    }
+
+
 }
