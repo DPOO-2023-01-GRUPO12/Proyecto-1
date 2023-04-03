@@ -12,16 +12,24 @@ public class Cama {
         this.cantidadPersonas = cantidad;
     }
 
-    public void setNinios(boolean ninios){
-        this.ninios = ninios;
+    public String getTamanio(){
+        return tamanio;
+    }
+
+    public void setTamanio(String tam){
+        this.tamanio = tam;
     }
 
     public int getCantidadPersonas(){
         return cantidadPersonas;
     }
 
-    public String getTamanio(){
-        return tamanio;
+    public void setCantidadPersonas(int cant){
+        this.cantidadPersonas = cant;
+    }
+
+    public void setNinios(boolean ninios){
+        this.ninios = ninios;
     }
 
     public boolean isNinios(){

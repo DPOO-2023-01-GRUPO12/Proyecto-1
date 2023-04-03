@@ -37,14 +37,14 @@ public class MenuEmpleado {
                 cargador.agregarGrupo(g);
             } else{
                 cons.setEsGrupo(false);
-                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
-                informacionHotel.getHuesped().get(huesped.getDocumento()).agregarConsumo(cons);
+                cons.setHabitacion(informacionHotel.getHuespedes().get(huesped.getDocumento()).getHabitacion().getIdentificador());
+                informacionHotel.getHuespedes().get(huesped.getDocumento()).agregarConsumo(cons);
             }
 
             if(cargarHabitacion.equals("si")){
                 cons.setPagoInmediato(false);
                 cons.setPagado(false);
-                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
+                cons.setHabitacion(informacionHotel.getHuespedes().get(huesped.getDocumento()).getHabitacion().getIdentificador());
             } else{
                 cons.setPagoInmediato(true);
                 cons.setPagado(false);
@@ -59,8 +59,8 @@ public class MenuEmpleado {
                 g.agregarConsumoNoPago(cons);
             } else{
                 cons.setEsGrupo(false);
-                cons.setHabitacion(informacionHotel.getHuesped().get(huesped.getDocumento()).getHabitacion().getIdentificador());
-                informacionHotel.getHuesped().get(huesped.getDocumento()).agregarConsumo(cons);
+                cons.setHabitacion(informacionHotel.getHuespedes().get(huesped.getDocumento()).getHabitacion().getIdentificador());
+                informacionHotel.getHuespedes().get(huesped.getDocumento()).agregarConsumo(cons);
             }
             cons.setPagoInmediato(true);
             cons.setPagado(false);

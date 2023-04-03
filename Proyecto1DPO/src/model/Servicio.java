@@ -20,6 +20,18 @@ public class Servicio {
         this.tipoCobro = tipoCobro;
     }
 
+    public String getNombreTipo(){
+        return nombreTipo;
+    }
+
+    public String getUbicacion(){
+        return ubicacion;
+    }
+
+    public Map<String,ArrayList<String>> getDisponibilidad(){
+        return disponibilidad;
+    }
+
     public void setTarifa(double precio){
         tarifa.setValor(precio);
     }

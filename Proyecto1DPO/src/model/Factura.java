@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Factura{ 
@@ -19,38 +21,53 @@ public class Factura{
 
     public Factura(Habitacion habitacion){
         this.numeroFactura = contadorFactura;
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato);
+        this.huespedes = new ArrayList<Huesped>();
         this.habitacion = habitacion.getIdentificador();
         this.habitaciones = new ArrayList<Habitacion>();
         habitaciones.add(habitacion);
-        this.huespedes = new ArrayList<Huesped>();
         this.consumos = habitacion.getConsumosNoPagos();
         this.informacionConsumos = "";
+        this.textoFactura="";
         this.valorTotal = 0;
+        this.iva = 0.19*valorTotal;
         this.esGrupo = false;
         contadorFactura++;
     }
 
     public Factura(Reserva reserva, Grupo grupo){
         this.numeroFactura = contadorFactura;
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato); 
         this.habitacion = setHabitaciones(reserva.getHabitacionesReservadas());
         this.habitaciones = grupo.getHabitaciones();
         this.huespedes = grupo.getIntegrantes();
         this.consumos = grupo.getConsumosNoPagos();
         this.informacionConsumos = "";
+        this.textoFactura="";
         this.valorTotal = 0;
+        this.iva = 0.19*valorTotal;
         this.esGrupo = true;
         contadorFactura++;
     }
 
     public Factura(Reserva reserva, Huesped huespedEncargado){
         this.numeroFactura = contadorFactura;
+        LocalDate fechaActual=LocalDate.now();
+        DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        this.fecha=fechaActual.format(formato); 
         this.habitacion = setHabitaciones(reserva.getHabitacionesReservadas());
         this.habitaciones = reserva.getHabitacionesReservadas();
         this.huespedes = new ArrayList<Huesped>();
         huespedes.add(huespedEncargado);
         this.consumos = huespedEncargado.getConsumosNoPagos();
         this.informacionConsumos = "";
+        this.textoFactura="";
         this.valorTotal = 0;
+        this.iva = 0.19*valorTotal;
         this.esGrupo = false;
         contadorFactura++;
     }
@@ -65,7 +82,9 @@ public class Factura{
         this.huespedes.add(huesped);
         this.consumos = huesped.getConsumosNoPagos();
         this.informacionConsumos = "";
+        this.textoFactura="";
         this.valorTotal = 0;
+        this.iva = 0.19*valorTotal;
         this.esGrupo = false;
         contadorFactura++;
     }
@@ -106,37 +125,18 @@ public class Factura{
         contadorFactura++;
     }
 
-    public String setHabitaciones(ArrayList<Habitacion> habitaciones){
-        String habitacionesString = "";
-        for (Habitacion habitacion: habitaciones){
-            habitacionesString = habitacionesString + habitacion.getIdentificador() + ", ";
-        }
-        return habitacionesString;
-    }
-
-
-    
-
-    public void setHabitacion(String habitacion){
-        this.habitacion = habitacion;
-    }
-
-    public String getHabitacion(){
-        return habitacion;
-    }
-
-    public ArrayList<Habitacion> getHabitaciones(){
-        return habitaciones;
-    }
-
-    public void setFecha(String fecha){
-        this.fecha = fecha;
+    public String getNumeroFactura(){
+        return Integer.toString(numeroFactura);
     }
 
     public String getFecha(){
         return fecha;
     }
 
+    public void setFecha(String fecha){
+        this.fecha = fecha;
+    }
+    
     public void setHuespedes(ArrayList<Huesped> huespedes){
         this.huespedes = huespedes;
     }
@@ -149,16 +149,82 @@ public class Factura{
         huespedes.add(huesped);
     }
 
+    public void setHabitacion(String habitacion){
+        this.habitacion = habitacion;
+    }
+
+    public String getHabitacion(){
+        return habitacion;
+    }
+
+    public ArrayList<Habitacion> getHabitaciones(){
+        return habitaciones;
+    }
+    
+    public String setHabitaciones(ArrayList<Habitacion> habitaciones){
+        String habitacionesString = "";
+        for (Habitacion habitacion: habitaciones){
+            habitacionesString = habitacionesString + habitacion.getIdentificador() + ", ";
+        }
+        return habitacionesString;
+    }
+
+    public void agregarHabitacion(Habitacion habitacion){
+        habitaciones.add(habitacion);
+    }
+
+    public void setConsumos(ArrayList<Consumo> consumos){
+        this.consumos = consumos;
+    }
+
+    public ArrayList<Consumo> getConsumos(){
+        return consumos;
+    }
+
+    public void agregarConsumo(Consumo consumo){
+        consumos.add(consumo);
+    }
+
+    
+    public void setInformacionConsumos(String informacionConsumos){
+        this.informacionConsumos = informacionConsumos;
+    }
+
+    public String getInformacionConsumos (){
+        return informacionConsumos;
+    }
+
+    public String getTextoFactura(){
+        return textoFactura;
+    }
+
+    public double getIva(){
+        return iva;
+    }
+
+    public void setIva(double val){
+        this.iva = val;
+    }
+
+    public double getValorTotal(){
+        return valorTotal;
+    }
+
+    private void setValorTotal(){
+        double valorTotal = 0;
+        for (Consumo consumo: consumos){
+            valorTotal+= consumo.getValor();
+        }
+        this.valorTotal = valorTotal;
+    }
+
+
     public void setEsGrupo(boolean grupo){
         this.esGrupo = grupo;
     }
 
     public boolean isGrupo(){
         return esGrupo;
-    }
-
-    public void setInformacionConsumos(String informacionConsumos){
-        this.informacionConsumos = informacionConsumos;
     }
 
     public void generarTextoFactura(){
@@ -183,16 +249,7 @@ public class Factura{
         return infoConsumos;
     }
 
-    private void setValorTotal(){
-        double valorTotal = 0;
-        for (Consumo consumo: consumos){
-            valorTotal+= consumo.getValor();
-        }
-        this.valorTotal = valorTotal;
-    }
-
-
-
+    
 
     public void generartextoFactura (Consumo consumo){
         String textoConsumo = ("Descripción del consumo: " + consumo.getDescripcion());
@@ -210,12 +267,8 @@ public class Factura{
         }
     }
 
-    public String getInformacionConsumos (){
-        return informacionConsumos;
-    }
+    
 
-    public String getTextoFactura(){
-        return textoFactura;
-    }
+    
 
 }

@@ -119,7 +119,39 @@ public class Reserva {
 
     public Factura getFacturaCheckOut(){
         return this.facturaCheckout;
-    }    
+    }
+
+    public void setFacturaCheckOut(Factura factura){
+        this.facturaCheckout = factura;
+    }
+
+    public void generarLogGrupo(){
+        String res = "";
+        res+="Huesped encargado: " + grupo.getHuespedEncargado().getNombre();
+
+        res+="\nHuespedes: ";
+
+        for(Huesped hues: grupo.getIntegrantes()){
+            res+=hues.toString();
+        }
+
+        res+="\nHabitaciones reservadas: ";
+        for(Habitacion hab: grupo.getHabitaciones()){
+            res+=hab.toString();
+        }
+        res+="\nConsumos no pagos: ";
+        for(Consumo cons: grupo.getConsumosNoPagos()){
+            res+=cons.toString();
+        }
+
+        res+="\nConsumos pagos: ";
+
+        for(Consumo cons: grupo.getConsumosPagos()){
+            res+=cons.toString();
+        }
+        System.out.println(res);
+        
+    }
     
 
 }

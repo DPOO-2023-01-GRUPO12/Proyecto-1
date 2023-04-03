@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 
 import model.Cargador;
-import model.GuardadorInformacion;
 import model.InformacionHotel;
 import model.Servicio;
 
@@ -24,8 +23,9 @@ public class InterfazAdministrador {
 
     public void mostrarMenu(){
         System.out.println("1. Cargar habitaciones.");
-        System.out.println("2. Cargar tipos de habitaciones.");
-        System.out.println("3. Cargar tarifas por tipo de cuarto.");
+        System.out.println("2. Cargar tarifas por tipo de cuarto.");
+        System.out.println("3. Cargar tipos de habitaciones.");
+        
         System.out.println("4. Cargar camas.");
         System.out.println("5. Crear habitacion.");
         System.out.println("6. Cargar servicios.");
@@ -34,6 +34,7 @@ public class InterfazAdministrador {
         System.out.println("9. Cargar menu de bebidas.");
         System.out.println("10. Configurar plato.");
         System.out.println("11. Configurar bebida.");
+        System.out.println("12. Salir");
 
     }
 
@@ -44,26 +45,23 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese el nombre del archivo: ");
                 String nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarHabitaciones(nombreArchivo);
-                scanner.close();
                 break;
-            case 2:          
+            case 2:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarTipoHabitaciones(nombreArchivo);
-                scanner.close();
+                menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
+                menuAdministrador.informarFechasSinTarifa();       
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
-                menuAdministrador.informarFechasSinTarifa();
-                scanner.close();
+                menuAdministrador.cargarTipoHabitaciones(nombreArchivo);
                 break;
             case 4:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarCamas(nombreArchivo);
-                scanner.close();
+                System.out.println(informacionHotel.getCamas());
                 break;
             case 5:
                 System.out.println("Ingrese el identificador para la habitacion: ");
@@ -77,13 +75,11 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese la descripcion de la habitacion: ");
                 String desc = scanner.nextLine();
                 menuAdministrador.crearHabitacion(id,ub,desc);
-                scanner.close();
                 break;
             case 6:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarServicios(nombreArchivo);
-                scanner.close();
                 break;
             case 7:
                 opcionTarifaServicio();
@@ -92,30 +88,28 @@ public class InterfazAdministrador {
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarMenuPlatos(nombreArchivo);
-                scanner.close();
                 break;
             case 9:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
                 menuAdministrador.cargarMenuBebidas(nombreArchivo);
-                scanner.close();
                 break;
             case 10:
                 opcionConfigurarPlato();
-                scanner.close();
                 break;
             case 11:
                 opcionConfigurarBebida();
-                scanner.close();
+                break;
+            case 12:
+                System.out.println("Saliendo...");
                 break;
             default:
                 System.out.println("Opcion invalida.");
-                scanner.close();
                 break;
         }
     }
 
-    private void opcionTarifaServicio(){
+    private void opcionTarifaServicio() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         if(informacionHotel.getServicios().isEmpty()){
             System.out.println("No hay servicios cargados, ¿desea cargar los servicios?");
@@ -142,9 +136,7 @@ public class InterfazAdministrador {
                 menuAdministrador.cambiarTarifaServicio(nombreServicio,tarifa);
             }
 
-        }
-        scanner.close();
-        
+        }        
     }
 
     private void opcionConfigurarPlato() throws FileNotFoundException, IOException{
@@ -153,8 +145,9 @@ public class InterfazAdministrador {
             System.out.println("No hay platos cargados, ¿desea cargar los platos?");
             System.out.println("1. Si.");
             System.out.println("2. No.");
+            
             int opcion2 = scanner.nextInt();
-            if(opcion2 == 1){
+            if(opcion2==1){
                     System.out.println("Ingrese el nombre del archivo: ");
                     String nombreArchivo = scanner.nextLine();
                     menuAdministrador.cargarMenuPlatos(nombreArchivo);
@@ -170,13 +163,12 @@ public class InterfazAdministrador {
                 menuAdministrador.configurarPlato(nombrePlato);
             }
         }
-        scanner.close();
         
     }
 
     private void opcionConfigurarBebida() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
-        if(informacionHotel.getMenuPlatos().isEmpty()){
+        if(informacionHotel.getMenuBebidas().isEmpty()){
             System.out.println("No hay bebidas cargadas, ¿desea cargar las bebidas?");
             System.out.println("1. Si.");
             System.out.println("2. No.");
@@ -184,19 +176,18 @@ public class InterfazAdministrador {
             if(opcion2 == 1){
                     System.out.println("Ingrese el nombre del archivo: ");
                     String nombreArchivo = scanner.nextLine();
-                    menuAdministrador.cargarMenuPlatos(nombreArchivo);
+                    menuAdministrador.cargarMenuBebidas(nombreArchivo);
             } else{
                 System.out.println("No se puede configurar una bebida que no existe.");
             }
         } else{
             System.out.println("Ingrese el nombre de la bebida: ");
             String nombreBebida = scanner.nextLine();
-            if(!informacionHotel.getMenuPlatos().containsKey(nombreBebida)){
-                System.out.println("El plato no existe.");
+            if(!informacionHotel.getMenuBebidas().containsKey(nombreBebida)){
+                System.out.println("La bebida no existe.");
             }else{
                 menuAdministrador.configurarBebida(nombreBebida);
             }
         }
-        scanner.close();
     }
 }

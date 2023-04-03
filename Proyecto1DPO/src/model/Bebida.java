@@ -14,7 +14,7 @@ public class Bebida {
         this.rangoHoras=rangoHoras;
         this.comidaDispon=comidaDispon;
         this.lugarDispon=lugarDispon;
-        this.tarifa.setValor(precio);
+        this.tarifa = new Tarifa(precio);
         this.servicioCuarto=false;
     }
 

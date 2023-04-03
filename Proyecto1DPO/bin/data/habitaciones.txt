@@ -1,0 +1,7 @@
+identificador;ubicacion;balcon;vista;cocina;descripcion;camas;tipo
+1;primer piso;false;false;true;una bonita pero pequeña habitación;king-4-false;normal
+2;primer piso;false;true;true;pequeña habitación familiar con linda vista al mar;doble-2-false,sencilla-1-false,sencilla-1-true;ejecutiva
+3;segundo piso;true;false;true;pequeña habitación personal con un balcon;sencilla-2-false;economica
+4;segundo piso;true;true;true;linda habitación para pareja con vistas fantasticas;doble-2-false,sencilla-1-true;ejecutiva
+5;tercer piso;true;true;true;fenomenal suite para tomar fotos;queen-3-false,king-4-false,sencilla-1-true;suite
+6;tercer piso;true;true;true;suite economica pero elegante;doble-2-false;suite

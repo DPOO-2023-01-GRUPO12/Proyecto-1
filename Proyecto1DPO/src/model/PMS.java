@@ -5,9 +5,9 @@ public class PMS {
     private GuardadorInformacion guardador;
 
     public PMS(){
-        cargador = new Cargador();
         informacion = new InformacionHotel();
-        guardador = new GuardadorInformacion();
+        cargador = new Cargador(informacion);
+        guardador = new GuardadorInformacion(informacion);
     }
 
     public Cargador getCargador(){

@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class MenuAdministrador {
     private Cargador cargador;
@@ -37,10 +35,11 @@ public class MenuAdministrador {
     }
 
     public void cargarHabitaciones(String pathHabitaciones) throws IOException{
-        File file = new File(pathHabitaciones);
-        if(file.exists()){
+        File file = new File("src\\data\\"+pathHabitaciones);
+        try{
+
             cargador.cargarHabitaciones(file);
-        } else{
+        } catch(FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
     }
@@ -93,10 +92,10 @@ public class MenuAdministrador {
     }
     
     public void cargarTipoHabitaciones(String pathTipoHabitaciones) throws FileNotFoundException, IOException{
-        File file = new File(pathTipoHabitaciones);
-        if(file.exists()){
+        File file = new File("src\\data\\"+pathTipoHabitaciones);
+        try{
             cargador.cargarTipoHabitaciones(file);
-        } else{
+        } catch(FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
 
@@ -104,20 +103,20 @@ public class MenuAdministrador {
 
 
     public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto) throws FileNotFoundException, IOException{
-        File file = new File(pathTarifasTipoCuarto);
-        if(file.exists()){
+        File file = new File("src\\data\\"+pathTarifasTipoCuarto);
+        try{
             cargador.cargarTarifasCuarto(file);
-        } else{
+        } catch(FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
     }
     
 
     public void cargarCamas(String pathFile) throws FileNotFoundException, IOException{
-        File file = new File(pathFile);
-        if(file.exists()){
+        File file = new File("src\\data\\"+pathFile);
+        try{
             cargador.cargarCamas(file);
-        } else{
+        } catch(FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
     }
@@ -135,30 +134,35 @@ public class MenuAdministrador {
         Scanner scanner = new Scanner(System.in);
         mostrarMenuTipoHabitacion();
         int opcion = scanner.nextInt();
+        scanner.nextLine();
         TipoHabitacion tipo = opcionTipoHabitacion(opcion);
-        while(tipo.equals(null)){
+        if(tipo.equals(null)){
             System.out.println("No se pudo asignar el tipo de habitacion habitacion.");
-            tipo = opcionTipoHabitacion(opcion);
+        } else{
+            cargador.agregarTipoHabitacion(tipo);
+            hab.setTipoHabitacion(tipo);
+            cargador.agregarHabitacion(hab);
         }
-        cargador.agregarTipoHabitacion(tipo);
-        hab.setTipoHabitacion(tipo);
-        scanner.close();
+        
     }
 
     private void asignarHabitacionCamas(Habitacion hab) throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
         mostrarMenuCamas();
         int opcion = scanner.nextInt();
+        scanner.nextLine();
         ArrayList<Cama> camas = opcionCamas(opcion);
-        while(camas.equals(null)){
+        if(camas.equals(null)){
             System.out.println("No se pudo asignar las camas a la habitacion.");
-            camas = opcionCamas(opcion);
+        } else {
+            for(Cama cama: camas){
+                cargador.agregarCama(cama);
+            }
+            hab.setCamas(camas);
+            cargador.agregarHabitacion(hab);
+
         }
-        for(Cama cama: camas){
-            cargador.agregarCama(cama);
-        }
-        hab.setCamas(camas);
-        scanner.close();
+        
     }
 
     private void mostrarMenuTipoHabitacion(){
@@ -176,13 +180,13 @@ public class MenuAdministrador {
                     System.out.println("1. Si.");
                     System.out.println("2. No.");
                     int opcion2 = scanner.nextInt();
+                    scanner.nextLine();
                     if(opcion2 == 1){
                         System.out.println("Ingrese el nombre del archivo: ");
                         String nombreArchivo = scanner.nextLine();
                         cargarTipoHabitaciones(nombreArchivo);
                     } else{
                         System.out.println("No se puede crear una habitacion sin un tipo de habitacion.");
-                        scanner.close();
                         return null;
                     }
                 }
@@ -190,24 +194,21 @@ public class MenuAdministrador {
                 System.out.println(informacionHotel.getTipoHabitaciones().keySet());
                     
                 String nombreTipo = scanner.nextLine();
-                while(!informacionHotel.getTipoHabitaciones().containsKey(nombreTipo)){
-                    System.out.println("El tipo de habitacion no existe, ingrese uno nuevo: ");
-                    nombreTipo = scanner.nextLine();
+                if(!informacionHotel.getTipoHabitaciones().containsKey(nombreTipo)){
+                    System.out.println("El tipo de habitacion no existe");
+                    return null;
                 }
-                scanner.close();
                 return informacionHotel.getTipoHabitaciones().get(nombreTipo);
             case 2:
                 System.out.println("Ingrese el nombre del tipo de habitacion: ");
                 String nombreTipo2 = scanner.nextLine();
-                while(informacionHotel.getTipoHabitaciones().containsKey(nombreTipo2)){
+                if(informacionHotel.getTipoHabitaciones().containsKey(nombreTipo2)){
                     System.out.println("El tipo de habitacion ya existe, ingrese uno nuevo: ");
-                    nombreTipo2 = scanner.nextLine();
+                    return null;
                 }
-                scanner.close();
                 return crearTipoHabitacion(nombreTipo2);
             default:
                 System.out.println("Opcion invalida, intente de nuevo.");
-                scanner.close();
                 return null;
         }
     }
@@ -218,42 +219,47 @@ public class MenuAdministrador {
         System.out.println("Debe asignarle al menos una tarifa al tipo de habitacion. ");
         System.out.println("1. Seleccionar tarifa de habitacion. ");
         int opcion = scanner.nextInt();
+        scanner.nextLine();
         if(opcion == 1){
             if(informacionHotel.getTarifasCuartos().isEmpty()){
                 System.out.println("No hay tarifas cargadas, ¿desea cargar las tarifas?.");
                 System.out.println("1. Si.");
                 System.out.println("2. No.");
                 int opcion2 = scanner.nextInt();
+                scanner.nextLine();
                 if(opcion2 == 1){
                     System.out.println("Ingrese el nombre del archivo: ");
                     String nombreArchivo = scanner.nextLine();
                     cargarTarifasPorTipoCuarto(nombreArchivo);
                 } else{
                     System.out.println("No se puede crear una habitacion sin una tarifa.");
-                    scanner.close();
                     return null;
                 }
             }
             System.out.println("Seleccione la tarifa marcando el numero de la que desea: ");
             for(TarifaCuarto tar: informacionHotel.getTarifasCuartos()){
-                int index = informacionHotel.getTarifasCuartos().indexOf(tar);
-                System.out.print("Tarifa " + index);
-                System.out.println(tar.toString());
+                if(tar.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())){
+                    int index = informacionHotel.getTarifasCuartos().indexOf(tar);
+                    System.out.print("Tarifa " + index + ": ");
+                    System.out.println(tar.toString());
+                }
             }
             int opcion3 = scanner.nextInt();
-            while(opcion3 < 0 || opcion3 > informacionHotel.getTarifasCuartos().size()){
-                System.out.println("Opcion invalida, intente de nuevo: ");
-                opcion3 = scanner.nextInt();
+            scanner.nextLine();
+            if(opcion3 < 0 || opcion3 > informacionHotel.getTarifasCuartos().size()){
+                System.out.println("Opcion invalida.");
+
+                return null;
             }
             tipoHabitacion.agregarTarifaCuarto(informacionHotel.getTarifasCuartos().get(opcion3));
-
+            cargador.agregarTipoHabitacion(tipoHabitacion);
 
         } else{
             System.out.println("Opcion invalida.");
-            scanner.close();
+
             return null;
         }
-        scanner.close();
+
         return tipoHabitacion;
         
 
@@ -272,18 +278,19 @@ public class MenuAdministrador {
                     System.out.println("1. Si.");
                     System.out.println("2. No.");
                     int opcion2 = scanner.nextInt();
+                    scanner.nextLine();
                     if(opcion2 == 1){
                         System.out.println("Ingrese el nombre del archivo: ");
                         String nombreArchivo = scanner.nextLine();
                         cargarCamas(nombreArchivo);
                     } else{
                         System.out.println("No se puede crear una habitacion sin camas.");
-                        scanner.close();
                         return null;
                     }
                 }
                 System.out.println("¿Cuantas camas desea asignar a la habitacion?");
                 int cantidad = scanner.nextInt();
+                scanner.nextLine();
                 ArrayList<Cama> camas = new ArrayList<Cama>();
                 ArrayList<Integer> camasEscogidas = new ArrayList<Integer>();
                 for(Cama cama: informacionHotel.getCamas()){
@@ -295,9 +302,8 @@ public class MenuAdministrador {
                 for(int i = 0; i < cantidad; i++){
                     System.out.println("Seleccione la cama que desea agregar a la habitacion: ");
                     int camaIndex = scanner.nextInt();
-                    while(camaIndex < 0 || camaIndex > informacionHotel.getCamas().size()){
-                        System.out.println("Opcion invalida, intente de nuevo: ");
-                        camaIndex = scanner.nextInt();
+                    if(camaIndex < 0 || camaIndex > informacionHotel.getCamas().size()){
+                        System.out.println("Opcion invalida");
                         
                     }
                     if(camasEscogidas.contains(Integer.valueOf(camaIndex))){
@@ -306,23 +312,22 @@ public class MenuAdministrador {
                     } else{
                         camasEscogidas.add(Integer.valueOf(camaIndex));
                         camas.add(informacionHotel.getCamas().get(camaIndex));
+                        
                     }
                 }
-                scanner.close();
                 return camas;
             default:
                 System.out.println("Opcion invalida.");
-                scanner.close();
                 return null;
         }
     }
 
     
-    public void cargarServicios(String pathServicios){
-        File file = new File(pathServicios);
-        if(file.exists()){
+    public void cargarServicios(String pathServicios) throws FileNotFoundException, IOException{
+        File file = new File("src\\data\\"+pathServicios);
+        try{
             cargador.cargarServicios(file);
-        } else{
+        } catch (FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
 
@@ -332,24 +337,25 @@ public class MenuAdministrador {
     public void cambiarTarifaServicio(String nombreServicio, double valor){
         Servicio ser = informacionHotel.getServicios().get(nombreServicio);
         ser.setTarifa(valor);
+        cargador.agregarServicio(ser);
     }
 
 
     public void cargarMenuPlatos(String pathPlatos) throws FileNotFoundException, IOException{
-        File file = new File(pathPlatos);
-        if(file.exists()){
+        File file = new File("src\\data\\"+pathPlatos);
+        try{
             cargador.cargarMenuPlatos(file);
-        } else{
+        } catch (FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
     }
 
 
     public void cargarMenuBebidas(String pathBebidas) throws FileNotFoundException, IOException{
-        File file = new File(pathBebidas);
-        if(file.exists()){
+        File file = new File("src\\data\\"+pathBebidas);
+        try{
             cargador.cargarMenuBebidas(file);
-        } else{
+        } catch (FileNotFoundException e){
             System.out.println("No existe el archivo");
         }
     }
@@ -360,9 +366,11 @@ public class MenuAdministrador {
         mostrarMenuPlatoBebida();
         Scanner scanner = new Scanner(System.in);
         int opcion = scanner.nextInt();
+        scanner.nextLine();
         Plato plato = informacionHotel.getMenuPlatos().get(nombrePlato);
+        cargador.agregarPlato(plato);
         opcionPlatoBebida(opcion,plato);
-        scanner.close();
+
     }
 
     public void configurarBebida(String nombreBebida){
@@ -370,9 +378,11 @@ public class MenuAdministrador {
         mostrarMenuPlatoBebida();
         Scanner scanner = new Scanner(System.in);
         int opcion = scanner.nextInt();
+        scanner.nextLine();
         Bebida bebida = informacionHotel.getMenuBebidas().get(nombreBebida);
+        cargador.agregarBebida(bebida);
         opcionPlatoBebida(opcion,bebida);
-        scanner.close();
+
     }
 
     private void mostrarMenuPlatoBebida(){
@@ -400,46 +410,51 @@ public class MenuAdministrador {
                 plato.setNombre(nombre);
                 informacionHotel.getMenuPlatos().remove(plato.getNombre());
                 informacionHotel.getMenuPlatos().put(nombre, plato);
-                scanner.close();
+
                 break;
             case 2:
                 System.out.println("Tarifa actual del plato: " + plato.getTarifa());
                 System.out.println("Ingrese la nueva tarifa del plato: ");
                 double tarifa = scanner.nextDouble();
                 plato.setTarifa(tarifa);
-                scanner.close();
+                cargador.agregarPlato(plato);
+
                 break;
             case 3:
                 System.out.println("Rango de horas actual del plato: " + plato.getRangoHoras());
                 System.out.println("Ingrese el nuevo rango de horas del plato: ");
                 String horas = scanner.nextLine();
                 plato.setRangoHoras(horas);
-                scanner.close();
+                cargador.agregarPlato(plato);
+
                 break;
             case 4:
                 System.out.println("Comidas de disponibilidad actual del plato: " + plato.getComidaDispon());
                 System.out.println("Ingrese las nuevas comidas de disponiblidad del plato: ");
                 String comida = scanner.nextLine();
                 plato.setComidaDispon(comida);
-                scanner.close();
+                cargador.agregarPlato(plato);
+
                 break;
             case 5:
                 System.out.println("Lugares de disponibilidad actual del plato: " + plato.getLugarDispon());
                 System.out.println("Ingrese los nuevos lugares de disponibilidad del plato: ");
                 String lugar = scanner.nextLine();
                 plato.setLugarDispon(lugar);
-                scanner.close();
+                cargador.agregarPlato(plato);
+   
                 break;
             case 6:
                 System.out.println("Disponibilidad para servicio al cuarto actual del plato: " + plato.hasServicioCuarto());
                 System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto del plato: ");
                 boolean servicioCuarto = scanner.nextBoolean();
                 plato.setServicioCuarto(servicioCuarto);
-                scanner.close();
+                cargador.agregarPlato(plato);
+
                 break;
             default:
                 System.out.println("Opcion invalida.");
-                scanner.close();
+
                 break;
             }
     }
@@ -460,46 +475,51 @@ public class MenuAdministrador {
                 bebida.setNombre(nombre);
                 informacionHotel.getMenuBebidas().remove(bebida.getNombre());
                 informacionHotel.getMenuBebidas().put(nombre, bebida);
-                scanner.close();
+
                 break;
             case 2:
                 System.out.println("Tarifa actual de la bebida: " + bebida.getTarifa());
                 System.out.println("Ingrese la nueva tarifa de la bebida: ");
                 double tarifa = scanner.nextDouble();
                 bebida.setTarifa(tarifa);
-                scanner.close();
+                cargador.agregarBebida(bebida);
+
                 break;
             case 3:
                 System.out.println("Rango de horas actual de la bebida: " + bebida.getRangoHoras());
                 System.out.println("Ingrese el nuevo rango de horas de la bebida: ");
                 String horas = scanner.nextLine();
                 bebida.setRangoHoras(horas);
-                scanner.close();
+                cargador.agregarBebida(bebida);
+
                 break;
             case 4:
                 System.out.println("Comidas de disponibilidad actual de la bebida: " + bebida.getComidaDispon());
                 System.out.println("Ingrese las nuevas comidas de disponiblidad de la bebida: ");
                 String comida = scanner.nextLine();
                 bebida.setComidaDispon(comida);
-                scanner.close();
+                cargador.agregarBebida(bebida);
+
                 break;
             case 5:
                 System.out.println("Lugares de disponibilidad actual de la bebida: " + bebida.getLugarDispon());
                 System.out.println("Ingrese los nuevos lugares de disponibilidad de la bebida: ");
                 String lugar = scanner.nextLine();
                 bebida.setLugarDispon(lugar);
-                scanner.close();
+                cargador.agregarBebida(bebida);
+
                 break;
             case 6:
                 System.out.println("Disponibilidad para servicio al cuarto actual de la bebida: " + bebida.hasServicioCuarto());
                 System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto de la bebida: ");
                 boolean servicioCuarto = scanner.nextBoolean();
                 bebida.setServicioCuarto(servicioCuarto);
-                scanner.close();
+                cargador.agregarBebida(bebida);
+   
                 break;
             default:
                 System.out.println("Opcion invalida.");
-                scanner.close();
+
                 break;
             }
     }

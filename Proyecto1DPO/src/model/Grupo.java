@@ -54,14 +54,12 @@ public class Grupo {
         this.huespedEncargado = huespedEncargado;
     }
 
-
-
     public void agregarIntegrante(Huesped huesped){
         this.integrantes.add(huesped);
     }
 
     public void agregarConsumo(Consumo consumo){
-        if (consumo.getPagado()){
+        if (consumo.isPago()){
             this.consumosPagos.add(consumo);
         } else {
             this.consumosPagos.add(consumo);

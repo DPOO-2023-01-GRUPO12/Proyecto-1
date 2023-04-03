@@ -22,4 +22,13 @@ public class Autenticador {
     public String revisarTipo(String login){
         return informacionHotel.getUsuarios().get(login).get(1);
     }
+
+    public boolean revisarPassword(String login, String password){
+        if(informacionHotel.getUsuarios().get(login).get(0).equals(password)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

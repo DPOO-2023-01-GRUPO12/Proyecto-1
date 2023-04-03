@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import model.Cargador;
 import model.Consumo;
-import model.Grupo;
-import model.Habitacion;
 import model.Huesped;
 import model.InformacionHotel;
 
@@ -23,6 +21,7 @@ public class InterfazEmpleado {
 
     public void mostrarMenu(){
         System.out.println("1. Registrar consumo de huesped. ");
+        System.out.println("2. Salir. ");
     }
 
     public void opcionElegida(int opcion){
@@ -41,13 +40,13 @@ public class InterfazEmpleado {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el documento del huesped encargado: ");
         String documento = scanner.nextLine();
-        while(!informacionHotel.getHuesped().containsKey(documento)){
+        while(!informacionHotel.getHuespedes().containsKey(documento)){
             System.out.println("El documento ingresado no existe. Ingrese nuevamente: ");
             documento = scanner.nextLine();
         }
 
-        Huesped huespedConsumo = informacionHotel.getHuesped().get(documento);
-
+        Huesped huespedConsumo = informacionHotel.getHuespedes().get(documento);
+        cargador.agregarHuesped(huespedConsumo);
         System.out.println("Es un grupo? (si/no); ");
         String grupo = scanner.nextLine();
         while(!grupo.equals("si") && !grupo.equals("no")){
@@ -72,7 +71,8 @@ public class InterfazEmpleado {
             valor = scanner.nextDouble();
         }
 
-        Consumo cons = new Consumo(hues, tipoConsumo, valor);
+        Consumo cons = new Consumo(huespedConsumo, tipoConsumo, valor);
+        cargador.agregarConsumo(cons);
         menuEmpleado.registrarConsumoHuesped(huespedConsumo, cons, grupo);
         scanner.close();
     

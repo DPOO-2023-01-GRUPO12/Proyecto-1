@@ -8,11 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.util.Arrays;
+import java.util.HashMap;
+
 import model.InformacionHotel;
 
 public class Cargador { 
 
     private InformacionHotel informacionHotel;
+
+    public Cargador(InformacionHotel informacion){
+        informacionHotel = informacion;
+    }
     public void cargarHabitaciones(File file) throws IOException, FileNotFoundException {
 
         
@@ -60,12 +66,15 @@ public class Cargador {
                 }
 
             //Creador de tipo de habitación
-            String[] partesTipo = tipoHabitacionS.split(","); //Separa atributos de tipo.
-            String nombre = partesTipo[0];
-
-            
+        
            
-            TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
+            TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionS);
+            ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
+
+            for (TarifaCuarto tarifa:listaTarifas){
+                if (tarifa.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())){
+                    tipoHabitacion.agregarTarifaCuarto(tarifa);
+                }
             
             
             //Creador de la habitación
@@ -87,6 +96,8 @@ public class Cargador {
         br.close();
 
         }
+        
+    }
 
     public void agregarHabitacion(Habitacion habitacion) {
         informacionHotel.getInventarioHabitaciones().put(habitacion.getIdentificador(), habitacion);
@@ -107,6 +118,15 @@ public class Cargador {
             String nombre = partes[0];
 
             TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
+
+            //añadir respectivas tarifas al tipo de la habotación
+            ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
+
+            for (TarifaCuarto tarifa:listaTarifas){
+                if (tarifa.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())){
+                    tipoHabitacion.agregarTarifaCuarto(tarifa);
+                }
+            }
             agregarTipoHabitacion(tipoHabitacion); //Añade el tipo a la lista
 
             linea = br.readLine(); 
@@ -187,6 +207,12 @@ public class Cargador {
     
     public void cambiarTarifaServicio(String nombreServicio,double valor) {
 
+        if (informacionHotel.getServicios().containsKey(nombreServicio))
+        {
+            Servicio servicioEdit = informacionHotel.getServicios().get(nombreServicio);
+            servicioEdit.setTarifa(valor);
+        }
+
 
     }
 
@@ -220,7 +246,7 @@ public class Cargador {
 
     }
 
-    private void agregarBebida(Bebida bebida) { 
+    public void agregarBebida(Bebida bebida) { 
         informacionHotel.getMenuBebidas().put(bebida.getNombre(), bebida);  
     }
     
@@ -252,7 +278,7 @@ public class Cargador {
     br.close();
     }
 
-    private void agregarPlato(Plato plato) {  
+    public void agregarPlato(Plato plato) {  
 
         informacionHotel.getMenuPlatos().put(plato.getNombre(), plato);
     }
@@ -290,8 +316,18 @@ public class Cargador {
 
 
         ArrayList usuario = new ArrayList<String>();
-        usuario.add(login);
         usuario.add(password);
+
+        if(login.contains("admin")){
+            usuario.add("administrador");}
+
+        else if (login.contains("empleado")){
+            usuario.add("empleado");}
+        
+        else if (login.contains("recepcionista")){
+            usuario.add("recepcionista");}
+
+        
 
         informacionHotel.getUsuarios().put(login, usuario);
     }
@@ -305,27 +341,68 @@ public class Cargador {
             while (linea != null){
 
                 String[] partes = linea.split(";");
-                
+
+                String nombreTipo = partes[0];
+                String ubicacion = partes[1];
+                String mapaDispo = partes[2];
+                String tipoCobro = partes[3];
+                boolean servicioCuarto = Boolean.parseBoolean(partes[4]);
+                double precio = Double.parseDouble(partes[5]);
+
+                HashMap<String,ArrayList<String>> disponibilidad = new HashMap<String,ArrayList<String>>();
+
+                List<String> myList = Arrays.asList(mapaDispo.split(",")); //Separa cada uno de los sets Dias-horas
+                for (String diaHora:myList){
+                    String[] dH = diaHora.split("_"); //Separa dia y set de horas.
+
+                    String diaDispo = dH[0];
+                    String horasDispo = dH[1];
+
+                    String[] horas = horasDispo.split("-");
+                    ArrayList setHoras = new ArrayList<String>();
+
+                    for (String hora:horas){
+                        
+                        setHoras.add(hora);   
+                    }
+                    disponibilidad.put(diaDispo, setHoras);
+
+
+                }
+
+            
+                Servicio servicio = new Servicio(nombreTipo, ubicacion, disponibilidad, precio, tipoCobro);
+                servicio.setServicioCuarto(servicioCuarto);
+                agregarServicio(servicio);
+                linea = br.readLine(); 
+
 
             }
 
+        br.close();
     }
 
-    private void agregarServicio(Servicio servicio) {
+    public void agregarServicio(Servicio servicio) {
+
+        informacionHotel.getServicios().put(servicio.getNombreTipo(), servicio);
     }
 
 
     public void agregarReserva(Reserva reserva) {
+        informacionHotel.getReservas().put(reserva.getHuespedEncargado().getDocumento(), reserva);
     }
 
+
     public void agregarHuesped(Huesped Huesped) {
+        informacionHotel.getHuespedes().put(Huesped.getDocumento(), Huesped);
     }
 
     public void agregarGrupo(Grupo grupo){
+        informacionHotel.getGrupos().put(grupo.getHuespedEncargado().getDocumento(), grupo);
         
     }
 
     public void agregarConsumo(Consumo consumo){
-
+        informacionHotel.getConsumos().put(consumo.getHuesped().getDocumento(), consumo);
     }
 }

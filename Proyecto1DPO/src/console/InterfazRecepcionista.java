@@ -10,7 +10,6 @@ import model.Reserva;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class InterfazRecepcionista {
@@ -30,6 +29,8 @@ public class InterfazRecepcionista {
         System.out.println("2. Realizar reserva por huesped. ");
         System.out.println("3. Cancelar reserva. ");
         System.out.println("4. Realizar check-out.");
+        System.out.println("5. Generar Log grupo");
+        System.out.println("6. Salir");
 
     }
 
@@ -37,6 +38,7 @@ public class InterfazRecepcionista {
         switch(opcion){
             case 1:
                 menuRecepcionista.consultarInventarioHabitaciones();
+                break;
             case 2:
                 System.out.println("Ingrese su nombre: ");
                 Scanner scanner = new Scanner(System.in);
@@ -53,13 +55,14 @@ public class InterfazRecepcionista {
                 cargador.agregarHuesped(huespedEncargado);
                 System.out.println("Ingrese la cantidad de huespedes: ");
                 int cantidad = scanner.nextInt();
+                scanner.nextLine();
                 
                 System.out.println("Ingrese la fecha de ingreso: ");
                 String fechaIn= scanner.nextLine();
                 System.out.println("Ingrese la fecha de salida: ");
                 String fechaOut= scanner.nextLine();
                 Reserva reserva = menuRecepcionista.RealizarReservaHuesped(huespedEncargado,cantidad,fechaIn,fechaOut);
-
+                cargador.agregarReserva(reserva);
                 double tarifaTotal = menuRecepcionista.configurarTarifaTotal(fechaIn, fechaOut, cantidad,reserva);
                 reserva.setTarifaTotal(tarifaTotal);
 
@@ -77,6 +80,7 @@ public class InterfazRecepcionista {
                         String correoHuesped = scanner.nextLine();
                         System.out.println("Ingrese la edad del huesped: ");
                         int edadHuesped = scanner.nextInt();
+                        scanner.nextLine();
                         Huesped huesped = menuRecepcionista.realizarRegistro(nombreHuesped, documentoHuesped, celularHuesped, correoHuesped, edadHuesped);
                         cargador.agregarHuesped(huesped);
                         grupo.agregarIntegrante(huesped);
@@ -110,6 +114,28 @@ public class InterfazRecepcionista {
                 Scanner scanner2 = new Scanner(System.in);
                 String documentoHuesped1 = scanner2.nextLine();
                 menuRecepcionista.realizarCheckOut(documentoHuesped1);
+                break;
+            case 5:
+                System.out.println("Ingrese el documento del huesped que hizo la reserva");
+                Scanner scanner3 = new Scanner(System.in);
+                String documentoHuesped2 = scanner3.nextLine();
+                if(!informacionHotel.getHuespedes().containsKey(documentoHuesped2)){
+                    System.out.println("El huesped no existe");
+                    break;
+                } else{
+                    if(!informacionHotel.getGrupos().containsKey(documentoHuesped2)){
+                        System.out.println("El huesped no pertenece a un grupo");
+                        break;
+                    } else{
+                        if(informacionHotel.getReservas().get(documentoHuesped2).isCheckin()==true){
+                            System.out.println("El huesped no ha realizado el check-out");
+                            break;
+                        } else{
+                            menuRecepcionista.generarLogGrupo(documentoHuesped2);
+                        }
+                    }
+                }
+                
                 break;
             default:
                 System.out.println("Opcion invalida.");

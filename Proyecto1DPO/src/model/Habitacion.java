@@ -144,7 +144,7 @@ public class Habitacion {
     }
 
     public void agregarConsumo(Consumo consumo){
-        if (consumo.getPagado()){
+        if (consumo.isPago()){
             this.pagos.add(consumo);
         } else {
             this.noPagos.add(consumo);

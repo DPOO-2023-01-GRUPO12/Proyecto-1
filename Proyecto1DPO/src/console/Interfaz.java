@@ -25,8 +25,8 @@ public class Interfaz {
     public static void main(String[] args) throws ParseException, IOException {
         pms = new PMS();
         cargador = pms.getCargador();
-        guardador = pms.getGuardador();
         informacion = pms.getInformacionHotel();
+        guardador = pms.getGuardador();
         autenticador = new Autenticador(informacion);
         interfazAdministrador = new InterfazAdministrador(cargador, informacion);
         interfazRecepcionista = new InterfazRecepcionista(cargador, informacion);
@@ -35,7 +35,7 @@ public class Interfaz {
 
         // TODO code application logic here
         corriendo = true;
-        cargador.cargarUsuarios("data\\Usuarios.txt");
+        cargador.cargarUsuarios("src\\data\\Usuarios.txt");
         while(corriendo){
             mostrarMenu();
             Scanner scanner = new Scanner(System.in);
@@ -45,7 +45,25 @@ public class Interfaz {
                 iniciarSesion();
             } else{
                 corriendo = false;
-                scanner.close();
+                System.out.println("Desea guardar?");
+                System.out.println("1. Si");
+                System.out.println("2. No");
+                int opcion2 = scanner.nextInt();
+                if(opcion2==1){
+                    guardador.guardarHabitaciones();
+                    guardador.guardarTipoHabitacones();
+                    guardador.guardarUsusariosHotel();
+                    guardador.guardarHuespedes();
+                    guardador.guardarReservas();
+                    guardador.guardarMenuBebidas();
+                    guardador.guardarMenuPlatos();
+                    guardador.guardarServicios();
+                    guardador.guardarConsumos();
+                    guardador.guardarCamas();
+                    guardador.guardarTarifasCuarto();
+                }
+                
+                
             }
         }
     }
@@ -63,26 +81,51 @@ public class Interfaz {
         System.out.println("Ingrese su password: ");
         String password = scanner.nextLine();
         if(autenticador.revisarExistencia(login)){
-            String tipo = autenticador.revisarTipo(login);
-            if(tipo.equals("administrador")){
-                interfazAdministrador.mostrarMenu();
-                int opcion = scanner.nextInt();
-                interfazAdministrador.opcionElegida(opcion);
-
-
-            } else if(tipo.equals("recepcionista")){
-                interfazRecepcionista.mostrarMenu();
-                int opcion = scanner.nextInt();
-                interfazRecepcionista.opcionElegida(opcion);
-
-            } else if(tipo.equals("empleado")){
-                interfazEmpleado.mostrarMenu();
+            if(autenticador.revisarPassword(login, password)){
+                System.out.println("Bienvenido");
+                String tipo = autenticador.revisarTipo(login);
+                if(tipo.equals("administrador")){
+                    boolean corr = true;
+                    while(corr){
+                        interfazAdministrador.mostrarMenu();
+                        int opcion = scanner.nextInt();
+                        if(opcion!=12){
+                            interfazAdministrador.opcionElegida(opcion);
+                        } else {
+                            corr = false;
+                        }
+                    }
+                } else if(tipo.equals("recepcionista")){
+                    boolean corr = true;
+                    while(corr){
+                        interfazRecepcionista.mostrarMenu();
+                        int opcion = scanner.nextInt();
+                        if(opcion!=6){
+                            interfazRecepcionista.opcionElegida(opcion);
+                        } else {
+                            corr = false;
+                        }
+                    }
+                } else if(tipo.equals("empleado")){
+                    boolean corr = true;
+                    while(corr){
+                        interfazEmpleado.mostrarMenu();
+                        int opcion = scanner.nextInt();
+                        if(opcion!=2){
+                            interfazEmpleado.opcionElegida(opcion);
+                        } else {
+                            corr = false;
+                        }
+                    }
+                }
+            } else{
+                System.out.println("Contraseña incorrecta");
             }
+            
 
         } else{
             System.out.println("El usuario no existe.");
         }
-        scanner.close();
 
     }
     

@@ -53,7 +53,7 @@ public class Huesped {
     }
 
     public void agregarConsumo (Consumo consumo){
-        if (consumo.getPagado()){
+        if (consumo.isPago()){
             this.consumosPagos.add(consumo);
         }else{
             this.consumosNoPagos.add(consumo);

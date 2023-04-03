@@ -128,7 +128,6 @@ public class MenuRecepcionista {
                             res.agregarHabitacion(habitacion);
                             return tarifaTotal;
                         } else{
-                            long dife = finTarifa.getTime()-inicioReserva.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -149,7 +148,6 @@ public class MenuRecepcionista {
                             res.agregarHabitacion(habitacion);
                             return tarifaTotal;
                         } else{
-                            long dife = finTarifa.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -160,7 +158,6 @@ public class MenuRecepcionista {
                         }
                     } else{ //inicioTarifa.compareTo(inicioReserva)>0
                         if(finTarifa.compareTo(finReserva)>0){
-                            long dife = finReserva.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -170,7 +167,6 @@ public class MenuRecepcionista {
                             
                             
                         } else if(finTarifa.compareTo(finReserva)==0) {
-                            long dife = finReserva.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -178,7 +174,6 @@ public class MenuRecepcionista {
                             calendario2.add(Calendar.DATE,-(difeTarifaDias+1));
                             finReserva = calendario2.getTime();
                         } else{
-                            long dife = finTarifa.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             calendario2.setTime(inicioTarifa);
                             calendario2.add(Calendar.DATE,-1);
@@ -206,7 +201,6 @@ public class MenuRecepcionista {
                             res.agregarHabitacion(habitacion);
                             break;
                         } else{
-                            long dife = finTarifa.getTime()-inicioReserva.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -229,7 +223,6 @@ public class MenuRecepcionista {
                             res.agregarHabitacion(habitacion);
                             break;
                         } else{
-                            long dife = finTarifa.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -240,7 +233,6 @@ public class MenuRecepcionista {
                         }
                     } else{
                         if(finTarifa.compareTo(finReserva)>0){
-                            long dife = finReserva.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -250,7 +242,6 @@ public class MenuRecepcionista {
                             
                             
                         } else if(finTarifa.compareTo(finReserva)==0) {
-                            long dife = finReserva.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             tarifaTotal+=tar.getValor()*difeTarifaDias;
                             cantidadDias-=(difeTarifaDias+1);
@@ -259,7 +250,6 @@ public class MenuRecepcionista {
                             finReserva = calendario2.getTime();
                         } else{
                             
-                            long dife = finTarifa.getTime()-inicioTarifa.getTime();
                             difeTarifaDias = (int) time.convert(difeTarifaTiempo, TimeUnit.MILLISECONDS);
                             calendario2.setTime(inicioTarifa);
                             calendario2.add(Calendar.DATE,-1);
@@ -289,7 +279,7 @@ public class MenuRecepcionista {
     }
     
     public void cancelarReserva(String documento){
-        for(Map.Entry<String,Reserva> entry: informacionHotel.getReserva().entrySet()){
+        for(Map.Entry<String,Reserva> entry: informacionHotel.getReservas().entrySet()){
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
             if(huesped.getDocumento().equals(documento)){
@@ -304,7 +294,7 @@ public class MenuRecepcionista {
     }
 
     public void realizarCheckOut(String documentoHuesped) {
-        for(Map.Entry<String,Reserva> entry: informacionHotel.getReserva().entrySet()){
+        for(Map.Entry<String,Reserva> entry: informacionHotel.getReservas().entrySet()){
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
             if(huesped.getDocumento().equals(documentoHuesped)){
@@ -326,6 +316,18 @@ public class MenuRecepcionista {
                 System.out.println("No se encontro la reserva");
             }
         }
+        
+    }
+
+    public void generarLogGrupo(String documentoHuesped){
+        for(Map.Entry<String,Reserva> entry: informacionHotel.getReservas().entrySet()){
+            Reserva res = entry.getValue();
+            Huesped huesped = res.getHuespedEncargado();
+            if(huesped.getDocumento().equals(documentoHuesped)){
+                res.generarLogGrupo();
+            }
+        }
+            
     }
 
 

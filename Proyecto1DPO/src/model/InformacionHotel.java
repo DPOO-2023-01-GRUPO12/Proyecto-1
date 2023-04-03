@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class InformacionHotel {
@@ -18,7 +19,21 @@ public class InformacionHotel {
     private Map<String, Grupo> grupos;
     private Map<String,Consumo> consumos;
 
-    
+    public InformacionHotel(){
+        habitaciones = new HashMap<String,Habitacion>();
+        tipoHabitaciones = new HashMap<String,TipoHabitacion>();
+        camas = new ArrayList<Cama>();
+        tarifasCuarto = new ArrayList<TarifaCuarto>();
+        tarifas = new ArrayList<Tarifa>();
+        menuBebidas = new HashMap<String,Bebida>();
+        menuPlatos = new HashMap<String,Plato>();
+        usuarios = new HashMap<String,ArrayList<String>>();
+        servicios = new HashMap<String,Servicio>();
+        reservas = new HashMap<String,Reserva>();
+        huespedes = new HashMap<String,Huesped>();
+        grupos = new HashMap<String,Grupo>();
+        consumos = new HashMap<String,Consumo>();
+    }
     public Map<String,Habitacion> getInventarioHabitaciones(){
         return habitaciones;
     }
@@ -55,11 +70,11 @@ public class InformacionHotel {
         return servicios;
     }
 
-    public Map<String,Reserva> getReserva() {
+    public Map<String,Reserva> getReservas() {
         return reservas;
     }
 
-    public Map<String,Huesped> getHuesped(){
+    public Map<String,Huesped> getHuespedes(){
         return huespedes;
     }
 

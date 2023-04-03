@@ -62,17 +62,81 @@ public class Consumo{
         DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd LLLL yyyy");
         this.fecha=fechaActual.format(formato);
     }
+    
+    public String getFecha(){
+        return this.fecha;
+    }
+
+    public void setFecha(String fecha){
+        this.fecha=fecha;
+    }
+
+    public double getValor(){
+        return this.valor;
+    }
+
+    public void setValor(double valor){
+        this.valor=valor;
+    }
+
+    public double getIva(){
+        return this.iva;
+    }
+
+    public void setIva(double iva){
+        this.iva=iva;
+    }
 
     public Huesped getHuesped(){
         return this.huesped;
+    }
+
+    public void setHuesped(Huesped huesped){
+        this.huesped=huesped;
+    }
+
+    public String getTipoConsumo(){
+        return this.tipoConsumo;
+    }
+
+    public void setTipoConsumo(String tipoConsumo){
+        this.tipoConsumo=tipoConsumo;
+    }
+    
+    public String getHabitacion() {
+        return this.habitacion;
     }
 
     public void setHabitacion(String habitacion){
         this.habitacion=habitacion;
     }
 
-    public void setValor(double valor){
-        this.valor=valor;
+    public Habitacion getHabitacionAsignada() {
+        return this.habitacionAsignada;
+    }
+
+    public void setHabitacionAsignada(Habitacion habitacionAsignada){
+        this.habitacionAsignada=habitacionAsignada;
+    }
+
+    public boolean isPago(){
+        return this.pagado;
+    }
+
+    public void setPago(boolean pago){
+        this.pagado=pago;
+    }
+
+    public boolean isPagoInmediato(){
+        return this.pagoInmediato;
+    }
+
+    public void setPagoInmediato(boolean pago){
+        this.pagoInmediato=pago;
+    }
+   
+    public boolean isGrupo(){
+        return this.esGrupo;
     }
 
     public void setEsGrupo(boolean grupo){
@@ -84,78 +148,47 @@ public class Consumo{
         this.pagado=pago;
     }
 
-    @Override
-    public String toString(){
-        return "Fecha: "+this.fecha+", Habitacion: "+this.habitacion+", Tipo de consumo: "+this.tipoConsumo+", Valor: "+this.valor+", Iva: "+this.iva + ", Es grupo: " + String.valueOf(this.isGrupo());
-
+    public String getDescripcion(){
+        return this.descripcion;
     }
 
-    public void setPagoInmediato(boolean pago){
-        this.pagoInmediato=pago;
-    }   
-
-    public void setFactura(){
-        this.factura= new Factura(this.habitacionAsignada);
+    public void setDescripcion(String descripcion){
+        this.descripcion=descripcion;
+    }
+    
+    public Factura getFactura(){
+        return this.factura;
     }
 
     public void setFactura(Factura far){
         this.factura= far;
     }
 
-    public void setDescripcion(String descripcion){
-        this.descripcion=descripcion;
-    }
-
-    public String getFecha(){
-        return this.fecha;
-    }
-
-    public double getValor(){
-        return this.valor;
-    }
-
-    public double getIva(){
-        return this.iva;
-    }
-
-    public String getTipoConsumo(){
-        return this.tipoConsumo;
-    }
-
-    public String getDescripcion(){
-        return this.descripcion;
-    }
-
-    public boolean isGrupo() {
-        return this.esGrupo;
-    }
-
-    public String getHabitacion() {
-        return this.habitacion;
-    }
-
-    public Habitacion getHabitacionAsignada() {
-        return this.habitacionAsignada;
-    }
-
-    public boolean getPagado(){
-        return this.pagado;
-    }
-
-    public boolean getPagoInmediato(){
-        return this.pagoInmediato;
-    }
-
-    public Factura getFactura(){
-        return this.factura;
-    }
-
-    public void setGrupo(Grupo grupo){
-        this.grupo=grupo;
+    public void setFactura(){
+        this.factura= new Factura(this.habitacionAsignada);
     }
 
     public Grupo getGrupo(){
         return this.grupo;
     }
+
+
+    public void setGrupo(Grupo grupo){
+        this.grupo=grupo;
+    }
+    
+    @Override
+    public String toString(){
+        return "Fecha: "+this.fecha+", Habitacion: "+this.habitacion+", Tipo de consumo: "+this.tipoConsumo+", Valor: "+this.valor+", Iva: "+this.iva + ", Es grupo: " + String.valueOf(this.isGrupo());
+
+    }
+
+    
+
+    
+
+    
+
+    
 
 }
