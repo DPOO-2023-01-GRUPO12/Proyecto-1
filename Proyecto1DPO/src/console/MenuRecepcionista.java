@@ -3,7 +3,7 @@ package console;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 
 
 import java.util.Map;
@@ -19,7 +19,7 @@ import model.InformacionHotel;
 import model.Reserva;
 
 import model.TarifaCuarto;
-import model.TipoHabitacion;
+
 
 
 import java.text.ParseException;
@@ -65,20 +65,13 @@ public class MenuRecepcionista {
     public double configurarTarifaTotal(String fechaIn, String fechaOut, int cantidadHues,Reserva res) throws ParseException{
         String rangoString = fechaIn.trim() + "-" + fechaOut.trim();
         
-        TimeUnit time = TimeUnit.DAYS; 
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
         
         double tarifaTotal = 0;
-        long dife;
-        int difeTarifaDias;
 
         for(Map.Entry<String,Habitacion> entry: informacionHotel.getInventarioHabitaciones().entrySet()){
             Habitacion habitacion = entry.getValue();
-            boolean dispon = habitacion.hasDisponibilidad();
-            TipoHabitacion tipo = habitacion.getTipoHabitacion();
-            int cantidadPersonas = habitacion.getCapacidad();
-            ArrayList<TarifaCuarto> tarifas = tipo.getTarifas();
             Calendar calendario= new GregorianCalendar();
 
             Date inicioReserva = formato.parse(fechaIn);
@@ -88,11 +81,6 @@ public class MenuRecepcionista {
 
             Date finReserva = formato.parse(fechaOut);
             calendario2.setTime(finReserva);
-
-
-
-            long cantidadTiempo = inicioReserva.getTime()-finReserva.getTime();
-            int cantidadDias = (int) time.convert(cantidadTiempo, TimeUnit.MILLISECONDS);
 
             tarifaTotal+= tarifaSeparada(res, habitacion, rangoString, inicioReserva, finReserva, cantidadHues);
         }
