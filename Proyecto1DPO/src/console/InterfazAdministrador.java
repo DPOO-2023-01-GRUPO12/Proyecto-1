@@ -22,10 +22,9 @@ public class InterfazAdministrador {
     }
 
     public void mostrarMenu(){
-        System.out.println("1. Cargar habitaciones.");
-        System.out.println("2. Cargar tarifas por tipo de cuarto.");
+        System.out.println("1. Cargar tarifas por tipo de cuarto.");
+        System.out.println("2. Cargar habitaciones.");
         System.out.println("3. Cargar tipos de habitaciones.");
-        
         System.out.println("4. Cargar camas.");
         System.out.println("5. Crear habitacion.");
         System.out.println("6. Cargar servicios.");
@@ -42,15 +41,16 @@ public class InterfazAdministrador {
         Scanner scanner = new Scanner(System.in);
         switch(opcion){
             case 1:
-                System.out.println("Ingrese el nombre del archivo: ");
+            System.out.println("Ingrese el nombre del archivo: ");
                 String nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarHabitaciones(nombreArchivo);
+                menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
+                menuAdministrador.informarFechasSinTarifa();       
                 break;
+                
             case 2:
                 System.out.println("Ingrese el nombre del archivo: ");
                 nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
-                menuAdministrador.informarFechasSinTarifa();       
+                menuAdministrador.cargarHabitaciones(nombreArchivo);
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del archivo: ");

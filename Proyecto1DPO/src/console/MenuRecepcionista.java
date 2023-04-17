@@ -64,10 +64,8 @@ public class MenuRecepcionista {
 
     public double configurarTarifaTotal(String fechaIn, String fechaOut, int cantidadHues,Reserva res) throws ParseException{
         String rangoString = fechaIn.trim() + "-" + fechaOut.trim();
-        
+        System.out.println(rangoString);
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-        
         double tarifaTotal = 0;
 
         for(Map.Entry<String,Habitacion> entry: informacionHotel.getInventarioHabitaciones().entrySet()){
@@ -84,6 +82,7 @@ public class MenuRecepcionista {
 
             tarifaTotal+= tarifaSeparada(res, habitacion, rangoString, inicioReserva, finReserva, cantidadHues);
         }
+        
         return tarifaTotal;
     }
 
