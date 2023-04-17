@@ -52,7 +52,7 @@ public class Cargador {
                     //Lectura del segundo bloque 
 
                     String scamas = partes[6];
-                    String tipoHabitacionS = partes[7];
+                    String tipoHabitacionString = partes[7];
                     
                     ArrayList<Cama> camas = new ArrayList<>();
                     List<TarifaCuarto> tarifasIncluidas = new ArrayList<>();
@@ -75,7 +75,7 @@ public class Cargador {
                     //Creador de tipo de habitación
                 
                 
-                    TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionS);
+                    TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionString);
                     ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
 
                     for (TarifaCuarto tarifa:listaTarifas){
@@ -121,6 +121,8 @@ public class Cargador {
         
     } //función
 
+
+
     public void agregarHabitacion(Habitacion habitacion) {
         informacionHotel.getInventarioHabitaciones().put(habitacion.getIdentificador(), habitacion);
     }
@@ -152,7 +154,7 @@ public class Cargador {
                     ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
 
                     for (TarifaCuarto tarifa:listaTarifas){
-                        if (tarifa.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())){
+                        if (tarifa.getTipoCuarto().equalsIgnoreCase(tipoHabitacion.getNombreTipo())){
                             tipoHabitacion.agregarTarifaCuarto(tarifa);
                         }   // if tarifa
                     }//for tarifa
@@ -260,6 +262,8 @@ public class Cargador {
 
                         agregarTarifaCuarto(unaTarifa);
 
+                        actualizarTarifasHabitacion();
+
                         linea = br.readLine(); 
                         
                 } //while
@@ -284,6 +288,27 @@ public class Cargador {
     }//funcion
 
 
+    private void actualizarTarifasHabitacion(){
+
+        ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
+        private Map<String,TipoHabitacion> maptipohabitciones  = informacionHotel.getTipoHabitaciones();
+
+        for (String tipo:maptipohabitciones.KeySet()){
+
+            for (TarifaCuarto tarifa:listaTarifas){
+                String nombreTarifa = tarifa.getTipoCuarto();
+                if (tipo.equalsIgnoreCase(nombreTarifa))
+                {
+                   TipoHabitacion tipoActual = maptipohabitciones.get(tipo); 
+                   tipoActual.agregarTarifaCuarto(tarifa);
+                }
+            }//for tarifas
+
+
+        }//for tipos
+        
+
+    }//método
 
     private void agregarTarifaCuarto(TarifaCuarto tarifa) {
 
