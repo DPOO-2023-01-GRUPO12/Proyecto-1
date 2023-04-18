@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.io.BufferedReader;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -262,7 +263,7 @@ public class Cargador {
 
                         agregarTarifaCuarto(unaTarifa);
 
-                        actualizarTarifasHabitacion();
+                        actualizarTarifasHabitacion(); 
 
                         linea = br.readLine(); 
                         
@@ -291,9 +292,9 @@ public class Cargador {
     private void actualizarTarifasHabitacion(){
 
         ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
-        private Map<String,TipoHabitacion> maptipohabitciones  = informacionHotel.getTipoHabitaciones();
+        Map<String, TipoHabitacion> maptipohabitciones  = informacionHotel.getTipoHabitaciones();
 
-        for (String tipo:maptipohabitciones.KeySet()){
+        for (String tipo:maptipohabitciones.keySet()){
 
             for (TarifaCuarto tarifa:listaTarifas){
                 String nombreTarifa = tarifa.getTipoCuarto();
