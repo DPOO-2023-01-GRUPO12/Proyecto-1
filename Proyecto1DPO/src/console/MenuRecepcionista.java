@@ -64,7 +64,7 @@ public class MenuRecepcionista {
 
     public double configurarTarifaTotal(String fechaIn, String fechaOut, int cantidadHues,Reserva res) throws ParseException{
         String rangoString = fechaIn.trim() + "-" + fechaOut.trim();
-        System.out.println(rangoString);
+        //System.out.println(rangoString);
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         double tarifaTotal = 0;
 

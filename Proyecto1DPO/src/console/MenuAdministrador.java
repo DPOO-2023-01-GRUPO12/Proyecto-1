@@ -35,7 +35,7 @@ public class MenuAdministrador {
     }
 
     public void cargarHabitaciones(String pathHabitaciones) throws IOException{
-        File file = new File("src\\data\\"+pathHabitaciones);
+        File file = new File("src/data/"+pathHabitaciones);
         try{
 
             cargador.cargarHabitaciones(file);
@@ -92,7 +92,7 @@ public class MenuAdministrador {
     }
     
     public void cargarTipoHabitaciones(String pathTipoHabitaciones) throws FileNotFoundException, IOException{
-        File file = new File("src\\data\\"+pathTipoHabitaciones);
+        File file = new File("src/data/"+pathTipoHabitaciones);
         try{
             cargador.cargarTipoHabitaciones(file);
         } catch(FileNotFoundException e){
@@ -103,7 +103,7 @@ public class MenuAdministrador {
 
 
     public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto) throws FileNotFoundException, IOException{
-        File file = new File("src\\data\\"+pathTarifasTipoCuarto);
+        File file = new File("src/data/"+pathTarifasTipoCuarto);
         try{
             cargador.cargarTarifasCuarto(file);
         } catch(FileNotFoundException e){
@@ -113,7 +113,7 @@ public class MenuAdministrador {
     
 
     public void cargarCamas(String pathFile) throws FileNotFoundException, IOException{
-        File file = new File("src\\data\\"+pathFile);
+        File file = new File("src/data/"+pathFile);
         try{
             cargador.cargarCamas(file);
         } catch(FileNotFoundException e){
@@ -324,7 +324,7 @@ public class MenuAdministrador {
 
     
     public void cargarServicios(String pathServicios) throws FileNotFoundException, IOException{
-        File file = new File("src\\data\\"+pathServicios);
+        File file = new File("src/data/"+pathServicios);
         try{
             cargador.cargarServicios(file);
         } catch (FileNotFoundException e){
@@ -342,7 +342,7 @@ public class MenuAdministrador {
 
 
     public void cargarMenuPlatos(String pathPlatos) throws FileNotFoundException, IOException{
-        File file = new File("src\\data\\"+pathPlatos);
+        File file = new File("src/data/"+pathPlatos);
         try{
             cargador.cargarMenuPlatos(file);
         } catch (FileNotFoundException e){
@@ -352,7 +352,7 @@ public class MenuAdministrador {
 
 
     public void cargarMenuBebidas(String pathBebidas) throws FileNotFoundException, IOException{
-        File file = new File("src\\data\\"+pathBebidas);
+        File file = new File("src/data/"+pathBebidas);
         try{
             cargador.cargarMenuBebidas(file);
         } catch (FileNotFoundException e){

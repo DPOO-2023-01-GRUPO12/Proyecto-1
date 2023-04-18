@@ -35,7 +35,7 @@ public class Interfaz {
 
         // TODO code application logic here
         corriendo = true;
-        cargador.cargarUsuarios("src\\data\\Usuarios.txt");
+        cargador.cargarUsuarios("src/data/usuarios.txt");
         while(corriendo){
             mostrarMenu();
             Scanner scanner = new Scanner(System.in);
