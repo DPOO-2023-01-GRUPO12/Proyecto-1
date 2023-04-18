@@ -77,13 +77,6 @@ public class Cargador {
                 
                 
                     TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionString);
-                    ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
-
-                    for (TarifaCuarto tarifa:listaTarifas){
-                        if (tarifa.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())){
-                            tipoHabitacion.agregarTarifaCuarto(tarifa);
-                        } //if
-                        }//for tarifa
                     
                     
                     //Creador de la habitación
@@ -103,6 +96,7 @@ public class Cargador {
                 } //While
 
                 br.close();
+                actualizarTarifasHabitacion();
 
                 }//try
                 
@@ -263,13 +257,15 @@ public class Cargador {
 
                         agregarTarifaCuarto(unaTarifa);
 
-                        actualizarTarifasHabitacion(); 
+                         
 
                         linea = br.readLine(); 
                         
                 } //while
                 
                 br.close();
+
+                actualizarTarifasHabitacion();
                 } //Try
 
             catch (FileNotFoundException e)
