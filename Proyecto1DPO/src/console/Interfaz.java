@@ -1,5 +1,6 @@
 package console;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -35,7 +36,11 @@ public class Interfaz {
 
         // TODO code application logic here
         corriendo = true;
-        cargador.cargarUsuarios("src/data/usuarios.txt");
+        
+        String[] pathNames = { "src", "data", "usuarios.txt"};
+        String pathUsers = String.join(File.separator , pathNames);
+        
+        cargador.cargarUsuarios(pathUsers);
         while(corriendo){
             mostrarMenu();
             Scanner scanner = new Scanner(System.in);

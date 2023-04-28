@@ -56,7 +56,6 @@ public class Cargador {
                     String tipoHabitacionString = partes[7];
                     
                     ArrayList<Cama> camas = new ArrayList<>();
-                    List<TarifaCuarto> tarifasIncluidas = new ArrayList<>();
 
                     //Creador de camas (Si se selecciona que las camas van incluidas en el archivo)
 
@@ -77,6 +76,7 @@ public class Cargador {
                 
                 
                     TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionString);
+                    agregarTipoHabitacion(tipoHabitacion);
                     
                     
                     //Creador de la habitación
