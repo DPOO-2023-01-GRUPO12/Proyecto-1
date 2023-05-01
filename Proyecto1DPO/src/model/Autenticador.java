@@ -1,16 +1,14 @@
-package console;
-
-import model.Hotel;
+package model;
 
 public class Autenticador {
-    private Hotel informacionHotel;
+    private PMS pms;
 
-    public Autenticador(Hotel informacionHotel){
-        this.informacionHotel = informacionHotel;
+    public Autenticador(PMS pms){
+        this.pms = pms;
     }
 
     public boolean revisarExistencia(String login){
-        if(informacionHotel.getUsuarios().containsKey(login)){
+        if(pms.getUsuarios().containsKey(login)){
             return true;
         }
         else{
@@ -20,11 +18,11 @@ public class Autenticador {
     }
     
     public String revisarTipo(String login){
-        return informacionHotel.getUsuarios().get(login).get(1);
+        return pms.getUsuarios().get(login).get(1);
     }
 
     public boolean revisarPassword(String login, String password){
-        if(informacionHotel.getUsuarios().get(login).get(0).equals(password)){
+        if(pms.getUsuarios().get(login).get(0).equals(password)){
             return true;
         }
         else{

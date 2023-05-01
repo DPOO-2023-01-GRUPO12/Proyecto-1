@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import persistencia.Cargador;
 import model.Habitacion;
-import model.Hotel;
+import model.PMS;
 import model.Plato;
 import model.Servicio;
 import model.TarifaCuarto;
@@ -29,11 +29,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MenuAdministrador {
     private Cargador cargador;
-    private Hotel informacionHotel;
+    private PMS pms;
 
-    public MenuAdministrador(Cargador car, Hotel info){
+    public MenuAdministrador(Cargador car, PMS pms){
         cargador = car;
-        informacionHotel = info;
+        this.pms = pms;
     }
 
     public void cargarHabitaciones(String pathHabitaciones) throws IOException{
@@ -51,7 +51,7 @@ public class MenuAdministrador {
         TimeUnit time = TimeUnit.DAYS; 
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         
-        for(Map.Entry<String,TipoHabitacion> tipo: informacionHotel.getTipoHabitaciones().entrySet()){
+        for(Map.Entry<String,TipoHabitacion> tipo: pms.getTipoHabitaciones().entrySet()){
             ArrayList<Date> fechasTomadas = new ArrayList<Date>();
             for(TarifaCuarto tar: tipo.getValue().getTarifas()){
                 String rangoFechas = tar.getRangoFechas();
@@ -189,7 +189,7 @@ public class MenuAdministrador {
         System.out.println("Para crear una habitacion debe seleccionar un tipo de habitacion y camas.");
         asignarHabitacionTipo(habitacion);
         asignarHabitacionCamas(habitacion);
-        informacionHotel.agregarHabitacion(habitacion);
+        pms.agregarHabitacion(habitacion);
     }
 
     private void asignarHabitacionTipo(Habitacion hab) throws FileNotFoundException, IOException{
@@ -201,9 +201,9 @@ public class MenuAdministrador {
         if(tipo.equals(null)){
             System.out.println("No se pudo asignar el tipo de habitacion habitacion.");
         } else{
-            informacionHotel.agregarTipoHabitacion(tipo);
+            pms.agregarTipoHabitacion(tipo);
             hab.setTipoHabitacion(tipo);
-            informacionHotel.agregarHabitacion(hab);
+            pms.agregarHabitacion(hab);
         }
         
     }
@@ -218,10 +218,10 @@ public class MenuAdministrador {
             System.out.println("No se pudo asignar las camas a la habitacion.");
         } else {
             for(Cama cama: camas){
-                informacionHotel.agregarCama(cama);
+                pms.agregarCama(cama);
             }
             hab.setCamas(camas);
-            informacionHotel.agregarHabitacion(hab);
+            pms.agregarHabitacion(hab);
 
         }
         
@@ -237,7 +237,7 @@ public class MenuAdministrador {
         Scanner scanner = new Scanner(System.in);
         switch(opcion){
             case 1:
-                if(informacionHotel.getTipoHabitaciones().isEmpty()){
+                if(pms.getTipoHabitaciones().isEmpty()){
                     System.out.println("No hay tipos de habitacion cargados, ¿desea cargar los tipos de habitacion?.");
                     System.out.println("1. Si.");
                     System.out.println("2. No.");
@@ -253,18 +253,18 @@ public class MenuAdministrador {
                     }
                 }
                 System.out.println("Seleccione el tipo de habitacion: ");
-                System.out.println(informacionHotel.getTipoHabitaciones().keySet());
+                System.out.println(pms.getTipoHabitaciones().keySet());
                     
                 String nombreTipo = scanner.nextLine();
-                if(!informacionHotel.getTipoHabitaciones().containsKey(nombreTipo)){
+                if(!pms.getTipoHabitaciones().containsKey(nombreTipo)){
                     System.out.println("El tipo de habitacion no existe");
                     return null;
                 }
-                return informacionHotel.getTipoHabitaciones().get(nombreTipo);
+                return pms.getTipoHabitaciones().get(nombreTipo);
             case 2:
                 System.out.println("Ingrese el nombre del tipo de habitacion: ");
                 String nombreTipo2 = scanner.nextLine();
-                if(informacionHotel.getTipoHabitaciones().containsKey(nombreTipo2)){
+                if(pms.getTipoHabitaciones().containsKey(nombreTipo2)){
                     System.out.println("El tipo de habitacion ya existe, ingrese uno nuevo: ");
                     return null;
                 }
@@ -283,7 +283,7 @@ public class MenuAdministrador {
         int opcion = scanner.nextInt();
         scanner.nextLine();
         if(opcion == 1){
-            if(informacionHotel.getTarifasCuartos().isEmpty()){
+            if(pms.getTarifasCuartos().isEmpty()){
                 System.out.println("No hay tarifas cargadas, ¿desea cargar las tarifas?.");
                 System.out.println("1. Si.");
                 System.out.println("2. No.");
@@ -299,22 +299,22 @@ public class MenuAdministrador {
                 }
             }
             System.out.println("Seleccione la tarifa marcando el numero de la que desea: ");
-            for(TarifaCuarto tar: informacionHotel.getTarifasCuartos()){
+            for(TarifaCuarto tar: pms.getTarifasCuartos()){
                 if(tar.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())){
-                    int index = informacionHotel.getTarifasCuartos().indexOf(tar);
+                    int index = pms.getTarifasCuartos().indexOf(tar);
                     System.out.print("Tarifa " + index + ": ");
                     System.out.println(tar.toString());
                 }
             }
             int opcion3 = scanner.nextInt();
             scanner.nextLine();
-            if(opcion3 < 0 || opcion3 > informacionHotel.getTarifasCuartos().size()){
+            if(opcion3 < 0 || opcion3 > pms.getTarifasCuartos().size()){
                 System.out.println("Opcion invalida.");
 
                 return null;
             }
-            tipoHabitacion.agregarTarifaCuarto(informacionHotel.getTarifasCuartos().get(opcion3));
-            informacionHotel.agregarTipoHabitacion(tipoHabitacion);
+            tipoHabitacion.agregarTarifaCuarto(pms.getTarifasCuartos().get(opcion3));
+            pms.agregarTipoHabitacion(tipoHabitacion);
 
         } else{
             System.out.println("Opcion invalida.");
@@ -335,7 +335,7 @@ public class MenuAdministrador {
         Scanner scanner = new Scanner(System.in);
         switch(opcion){
             case 1:
-                if(informacionHotel.getCamas().isEmpty()){
+                if(pms.getCamas().isEmpty()){
                     System.out.println("No hay camas cargadas, ¿desea cargar las camas?.");
                     System.out.println("1. Si.");
                     System.out.println("2. No.");
@@ -355,8 +355,8 @@ public class MenuAdministrador {
                 scanner.nextLine();
                 ArrayList<Cama> camas = new ArrayList<Cama>();
                 ArrayList<Integer> camasEscogidas = new ArrayList<Integer>();
-                for(Cama cama: informacionHotel.getCamas()){
-                    int index = informacionHotel.getCamas().indexOf(cama);
+                for(Cama cama: pms.getCamas()){
+                    int index = pms.getCamas().indexOf(cama);
                     System.out.print("Cama " + index);
                     System.out.println(cama.toString());
                 }
@@ -364,7 +364,7 @@ public class MenuAdministrador {
                 for(int i = 0; i < cantidad; i++){
                     System.out.println("Seleccione la cama que desea agregar a la habitacion: ");
                     int camaIndex = scanner.nextInt();
-                    if(camaIndex < 0 || camaIndex > informacionHotel.getCamas().size()){
+                    if(camaIndex < 0 || camaIndex > pms.getCamas().size()){
                         System.out.println("Opcion invalida");
                         
                     }
@@ -373,7 +373,7 @@ public class MenuAdministrador {
                         camaIndex = scanner.nextInt();
                     } else{
                         camasEscogidas.add(Integer.valueOf(camaIndex));
-                        camas.add(informacionHotel.getCamas().get(camaIndex));
+                        camas.add(pms.getCamas().get(camaIndex));
                         
                     }
                 }
@@ -397,9 +397,9 @@ public class MenuAdministrador {
 
 
     public void cambiarTarifaServicio(String nombreServicio, double valor){
-        Servicio ser = informacionHotel.getServicios().get(nombreServicio);
+        Servicio ser = pms.getServicios().get(nombreServicio);
         ser.setTarifa(valor);
-        informacionHotel.agregarServicio(ser);
+        pms.agregarServicio(ser);
     }
 
 
@@ -429,8 +429,8 @@ public class MenuAdministrador {
         Scanner scanner = new Scanner(System.in);
         int opcion = scanner.nextInt();
         scanner.nextLine();
-        Plato plato = informacionHotel.getMenuPlatos().get(nombrePlato);
-        informacionHotel.agregarPlato(plato);
+        Plato plato = pms.getMenuPlatos().get(nombrePlato);
+        pms.agregarPlato(plato);
         opcionPlatoBebida(opcion,plato);
 
     }
@@ -441,8 +441,8 @@ public class MenuAdministrador {
         Scanner scanner = new Scanner(System.in);
         int opcion = scanner.nextInt();
         scanner.nextLine();
-        Bebida bebida = informacionHotel.getMenuBebidas().get(nombreBebida);
-        informacionHotel.agregarBebida(bebida);
+        Bebida bebida = pms.getMenuBebidas().get(nombreBebida);
+        pms.agregarBebida(bebida);
         opcionPlatoBebida(opcion,bebida);
 
     }
@@ -465,13 +465,13 @@ public class MenuAdministrador {
                 
                 String nombre = scanner.nextLine();
 
-                while(informacionHotel.getMenuPlatos().containsKey(nombre)){
+                while(pms.getMenuPlatos().containsKey(nombre)){
                     System.out.println("Ya existe un plato con ese nombre, intente de nuevo.");
                     nombre = scanner.nextLine();
                 }
                 plato.setNombre(nombre);
-                informacionHotel.getMenuPlatos().remove(plato.getNombre());
-                informacionHotel.getMenuPlatos().put(nombre, plato);
+                pms.getMenuPlatos().remove(plato.getNombre());
+                pms.getMenuPlatos().put(nombre, plato);
 
                 break;
             case 2:
@@ -479,7 +479,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva tarifa del plato: ");
                 double tarifa = scanner.nextDouble();
                 plato.setTarifa(tarifa);
-                informacionHotel.agregarPlato(plato);
+                pms.agregarPlato(plato);
 
                 break;
             case 3:
@@ -487,7 +487,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese el nuevo rango de horas del plato: ");
                 String horas = scanner.nextLine();
                 plato.setRangoHoras(horas);
-                informacionHotel.agregarPlato(plato);
+                pms.agregarPlato(plato);
 
                 break;
             case 4:
@@ -495,7 +495,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese las nuevas comidas de disponiblidad del plato: ");
                 String comida = scanner.nextLine();
                 plato.setComidaDispon(comida);
-                informacionHotel.agregarPlato(plato);
+                pms.agregarPlato(plato);
 
                 break;
             case 5:
@@ -503,7 +503,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese los nuevos lugares de disponibilidad del plato: ");
                 String lugar = scanner.nextLine();
                 plato.setLugarDispon(lugar);
-                informacionHotel.agregarPlato(plato);
+                pms.agregarPlato(plato);
    
                 break;
             case 6:
@@ -511,7 +511,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto del plato: ");
                 boolean servicioCuarto = scanner.nextBoolean();
                 plato.setServicioCuarto(servicioCuarto);
-                informacionHotel.agregarPlato(plato);
+                pms.agregarPlato(plato);
 
                 break;
             default:
@@ -530,13 +530,13 @@ public class MenuAdministrador {
                 
                 String nombre = scanner.nextLine();
 
-                while(informacionHotel.getMenuBebidas().containsKey(nombre)){
+                while(pms.getMenuBebidas().containsKey(nombre)){
                     System.out.println("Ya existe una bebida con ese nombre, intente de nuevo.");
                     nombre = scanner.nextLine();
                 }
                 bebida.setNombre(nombre);
-                informacionHotel.getMenuBebidas().remove(bebida.getNombre());
-                informacionHotel.getMenuBebidas().put(nombre, bebida);
+                pms.getMenuBebidas().remove(bebida.getNombre());
+                pms.getMenuBebidas().put(nombre, bebida);
 
                 break;
             case 2:
@@ -544,7 +544,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva tarifa de la bebida: ");
                 double tarifa = scanner.nextDouble();
                 bebida.setTarifa(tarifa);
-                informacionHotel.agregarBebida(bebida);
+                pms.agregarBebida(bebida);
 
                 break;
             case 3:
@@ -552,7 +552,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese el nuevo rango de horas de la bebida: ");
                 String horas = scanner.nextLine();
                 bebida.setRangoHoras(horas);
-                informacionHotel.agregarBebida(bebida);
+                pms.agregarBebida(bebida);
 
                 break;
             case 4:
@@ -560,7 +560,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese las nuevas comidas de disponiblidad de la bebida: ");
                 String comida = scanner.nextLine();
                 bebida.setComidaDispon(comida);
-                informacionHotel.agregarBebida(bebida);
+                pms.agregarBebida(bebida);
 
                 break;
             case 5:
@@ -568,7 +568,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese los nuevos lugares de disponibilidad de la bebida: ");
                 String lugar = scanner.nextLine();
                 bebida.setLugarDispon(lugar);
-                informacionHotel.agregarBebida(bebida);
+                pms.agregarBebida(bebida);
 
                 break;
             case 6:
@@ -576,7 +576,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto de la bebida: ");
                 boolean servicioCuarto = scanner.nextBoolean();
                 bebida.setServicioCuarto(servicioCuarto);
-                informacionHotel.agregarBebida(bebida);
+                pms.agregarBebida(bebida);
    
                 break;
             default:

@@ -15,7 +15,7 @@ import model.Factura;
 
 import model.Habitacion;
 import model.Huesped;
-import model.Hotel;
+import model.PMS;
 import model.Reserva;
 
 import model.TarifaCuarto;
@@ -33,16 +33,16 @@ import java.util.concurrent.TimeUnit;
 
 public class MenuRecepcionista {
     private Cargador cargador;
-    private Hotel informacionHotel;
+    private PMS pms;
 
-    public MenuRecepcionista(Cargador car, Hotel info){
+    public MenuRecepcionista(Cargador car, PMS pms){
         cargador = car;
-        informacionHotel = info;
+        this.pms = pms;
     }
 
     public void consultarInventarioHabitaciones(){
         String res="";
-        Map<String, Habitacion> inventario = informacionHotel.getInventarioHabitaciones();
+        Map<String, Habitacion> inventario = pms.getInventarioHabitaciones();
         for(Map.Entry<String,Habitacion> entry: inventario.entrySet()){
             res+=entry.getValue().toString();
         }
@@ -52,13 +52,13 @@ public class MenuRecepcionista {
 
     public Reserva RealizarReservaHuesped(Huesped huesped, int cantidad, String fechaIn, String fechaOut){
         Reserva reserva = new Reserva(huesped, cantidad, fechaIn, fechaOut);
-        informacionHotel.agregarReserva(reserva);
+        pms.agregarReserva(reserva);
         return reserva;
     }
 
     public Huesped realizarRegistro(String nombre, String documento, String celular, String correo, int edad){
         Huesped huesped = new Huesped(nombre, documento, celular, correo, edad);
-        informacionHotel.agregarHuesped(huesped);
+        pms.agregarHuesped(huesped);
         return huesped;
     }
 
@@ -68,7 +68,7 @@ public class MenuRecepcionista {
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         double tarifaTotal = 0;
 
-        for(Map.Entry<String,Habitacion> entry: informacionHotel.getInventarioHabitaciones().entrySet()){
+        for(Map.Entry<String,Habitacion> entry: pms.getInventarioHabitaciones().entrySet()){
             Habitacion habitacion = entry.getValue();
             Calendar calendario= new GregorianCalendar();
 
@@ -271,29 +271,29 @@ public class MenuRecepcionista {
 
         }
         
-        informacionHotel.agregarHabitacion(habitacion);
-        informacionHotel.agregarReserva(res);
+        pms.agregarHabitacion(habitacion);
+        pms.agregarReserva(res);
         return tarifaTotal;
 
     }
     
     public void cancelarReserva(String documento){
-        for(Map.Entry<String,Reserva> entry: informacionHotel.getReservas().entrySet()){
+        for(Map.Entry<String,Reserva> entry: pms.getReservas().entrySet()){
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
             if(huesped.getDocumento().equals(documento)){
                 res.setCancelada(true);
                 for(Habitacion hab: res.getHabitacionesReservadas()){
                     hab.eliminarFechaBloqueada(res.getRango());
-                    informacionHotel.agregarHabitacion(hab);
+                    pms.agregarHabitacion(hab);
                 }
-                informacionHotel.agregarReserva(res);
+                pms.agregarReserva(res);
             }
         }
     }
 
     public void realizarCheckOut(String documentoHuesped) {
-        for(Map.Entry<String,Reserva> entry: informacionHotel.getReservas().entrySet()){
+        for(Map.Entry<String,Reserva> entry: pms.getReservas().entrySet()){
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
             if(huesped.getDocumento().equals(documentoHuesped)){
@@ -307,7 +307,7 @@ public class MenuRecepcionista {
                 
 
                 String facturacheckOut = res.mostrarFacturaCheckout();
-                informacionHotel.agregarReserva(res);
+                pms.agregarReserva(res);
                 System.out.println(facturacheckOut);
 
             
@@ -319,7 +319,7 @@ public class MenuRecepcionista {
     }
 
     public void generarLogGrupo(String documentoHuesped){
-        for(Map.Entry<String,Reserva> entry: informacionHotel.getReservas().entrySet()){
+        for(Map.Entry<String,Reserva> entry: pms.getReservas().entrySet()){
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
             if(huesped.getDocumento().equals(documentoHuesped)){

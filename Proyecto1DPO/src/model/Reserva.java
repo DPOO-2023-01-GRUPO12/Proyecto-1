@@ -43,6 +43,7 @@ public class Reserva {
     public void agregarHabitacion(Habitacion habitacion){
         habitacionesReservadas.add(habitacion);
     }
+    
 
     public void setCheckin(boolean in){
         this.checkin = in;

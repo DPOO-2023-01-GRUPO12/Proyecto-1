@@ -6,12 +6,12 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
-import model.Hotel;
 import model.Bebida;
 import model.Cama;
 import model.Consumo;
 import model.Habitacion;
 import model.Huesped;
+import model.PMS;
 import model.Plato;
 import model.Reserva;
 import model.Servicio;
@@ -21,9 +21,9 @@ import model.TipoHabitacion;
 
 
 public class GuardadorInformacion {
-    private Hotel informacion;
-    public GuardadorInformacion(model.Hotel informacion2){
-        this.informacion=informacion2;
+    private PMS pms;
+    public GuardadorInformacion(PMS pms){
+        this.pms=pms;
     }
     public void guardarHabitaciones() {
         
@@ -34,7 +34,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Habitacion> habitaciones= informacion.getInventarioHabitaciones();
+                Map<String,Habitacion> habitaciones= pms.getInventarioHabitaciones();
 
                 for (Map.Entry<String,Habitacion> entry: habitaciones.entrySet()){
                     Habitacion habitacion=(entry.getValue());
@@ -48,7 +48,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file,false);
                     BufferedWriter buff= new BufferedWriter(writer);
 
-                    Map<String,Habitacion> habitaciones= informacion.getInventarioHabitaciones();
+                    Map<String,Habitacion> habitaciones= pms.getInventarioHabitaciones();
 
                     for (Map.Entry<String,Habitacion> entry: habitaciones.entrySet()){
                         Habitacion habitacion=(entry.getValue());
@@ -74,7 +74,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,TipoHabitacion> tipos= informacion.getTipoHabitaciones();
+                Map<String,TipoHabitacion> tipos= pms.getTipoHabitaciones();
 
                 for (Map.Entry<String,TipoHabitacion> entry: tipos.entrySet()){
                     TipoHabitacion tipo=(entry.getValue());
@@ -88,7 +88,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file,false);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    Map<String,TipoHabitacion> tipos= informacion.getTipoHabitaciones();
+                    Map<String,TipoHabitacion> tipos= pms.getTipoHabitaciones();
 
                     for (Map.Entry<String,TipoHabitacion> entry: tipos.entrySet()){
                         TipoHabitacion tipo=(entry.getValue());
@@ -114,7 +114,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                ArrayList<TarifaCuarto> tarifas= informacion.getTarifasCuartos();
+                ArrayList<TarifaCuarto> tarifas= pms.getTarifasCuartos();
 
                 for (TarifaCuarto tarifa: tarifas){
                     buff.write(tarifa.toString());
@@ -127,7 +127,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file,false);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    ArrayList<TarifaCuarto> tarifas= informacion.getTarifasCuartos();
+                    ArrayList<TarifaCuarto> tarifas= pms.getTarifasCuartos();
 
                 for (TarifaCuarto tarifa: tarifas){
                     buff.write(tarifa.toString());
@@ -152,7 +152,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Reserva> reservas= informacion.getReservas();
+                Map<String,Reserva> reservas= pms.getReservas();
 
                 for (Map.Entry<String,Reserva> entry: reservas.entrySet()){
                     Reserva reserva=(entry.getValue());
@@ -166,7 +166,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    Map<String,Reserva> reservas= informacion.getReservas();
+                    Map<String,Reserva> reservas= pms.getReservas();
 
                     for (Map.Entry<String,Reserva> entry: reservas.entrySet()){
                         Reserva reserva=(entry.getValue());
@@ -192,7 +192,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Bebida> menu= informacion.getMenuBebidas();
+                Map<String,Bebida> menu= pms.getMenuBebidas();
 
                 for (Map.Entry<String,Bebida> entry: menu.entrySet()){
                     Bebida bebida=(entry.getValue());
@@ -206,7 +206,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    Map<String,Bebida> menu= informacion.getMenuBebidas();
+                    Map<String,Bebida> menu= pms.getMenuBebidas();
 
                     for (Map.Entry<String,Bebida> entry: menu.entrySet()){
                         Bebida bebida=(entry.getValue());
@@ -232,7 +232,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Plato> menu= informacion.getMenuPlatos();
+                Map<String,Plato> menu= pms.getMenuPlatos();
 
                 for (Map.Entry<String,Plato> entry: menu.entrySet()){
                     Plato plato=(entry.getValue());
@@ -246,7 +246,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    Map<String,Plato> menu= informacion.getMenuPlatos();
+                    Map<String,Plato> menu= pms.getMenuPlatos();
 
                     for (Map.Entry<String,Plato> entry: menu.entrySet()){
                         Plato plato=(entry.getValue());
@@ -272,7 +272,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Huesped> huespedes= informacion.getHuespedes();
+                Map<String,Huesped> huespedes= pms.getHuespedes();
 
                 for (Map.Entry<String,Huesped> entry: huespedes.entrySet()){
                     Huesped huesped=(entry.getValue());
@@ -286,7 +286,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Huesped> huespedes= informacion.getHuespedes();
+                Map<String,Huesped> huespedes= pms.getHuespedes();
 
                 for (Map.Entry<String,Huesped> entry: huespedes.entrySet()){
                     Huesped huesped=(entry.getValue());
@@ -312,7 +312,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,ArrayList<String>> usuarios= informacion.getUsuarios();
+                Map<String,ArrayList<String>> usuarios= pms.getUsuarios();
 
                 for (Map.Entry<String,ArrayList<String>> entry: usuarios.entrySet()){
                     buff.write(entry.getKey());
@@ -330,7 +330,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    Map<String,ArrayList<String>> usuarios= informacion.getUsuarios();
+                    Map<String,ArrayList<String>> usuarios= pms.getUsuarios();
 
                     for (Map.Entry<String,ArrayList<String>> entry: usuarios.entrySet()){
                         buff.write(entry.getKey());
@@ -361,7 +361,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Servicio> servicios = informacion.getServicios();
+                Map<String,Servicio> servicios = pms.getServicios();
 
                 for (Map.Entry<String,Servicio> entry: servicios.entrySet()){
                     Servicio servicio=(entry.getValue());
@@ -375,7 +375,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Servicio> servicios = informacion.getServicios();
+                Map<String,Servicio> servicios = pms.getServicios();
 
                 for (Map.Entry<String,Servicio> entry: servicios.entrySet()){
                     Servicio servicio=(entry.getValue());
@@ -401,7 +401,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Consumo> consumos = informacion.getConsumos();
+                Map<String,Consumo> consumos = pms.getConsumos();
 
                 for (Map.Entry<String,Consumo> entry: consumos.entrySet()){
                     Consumo consumo=(entry.getValue());
@@ -415,7 +415,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                Map<String,Consumo> consumos = informacion.getConsumos();
+                Map<String,Consumo> consumos = pms.getConsumos();
 
                 for (Map.Entry<String,Consumo> entry: consumos.entrySet()){
                     Consumo consumo=(entry.getValue());
@@ -441,7 +441,7 @@ public class GuardadorInformacion {
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buff= new BufferedWriter(writer);
                 
-                ArrayList<Cama> camas= informacion.getCamas();
+                ArrayList<Cama> camas= pms.getCamas();
 
                 for (Cama cama: camas){
                     buff.write(cama.toString());
@@ -454,7 +454,7 @@ public class GuardadorInformacion {
                     FileWriter writer = new FileWriter(file);
                     BufferedWriter buff= new BufferedWriter(writer);
                 
-                    ArrayList<Cama> camas= informacion.getCamas();
+                    ArrayList<Cama> camas= pms.getCamas();
 
                     for (Cama cama: camas){
                         buff.write(cama.toString());

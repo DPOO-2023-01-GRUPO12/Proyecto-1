@@ -7,18 +7,19 @@ import java.util.Scanner;
 
 
 import persistencia.Cargador;
-import model.Hotel;
+import model.PMS;
 import model.Servicio;
 
 public class InterfazAdministrador {
     private Cargador cargador;
-    private Hotel informacionHotel;
+    private PMS pms;
     private MenuAdministrador menuAdministrador;
 
-    public InterfazAdministrador(Cargador car, Hotel info){
+    public InterfazAdministrador(Cargador car, PMS pms){
         cargador = car;
-        informacionHotel = info;
-        menuAdministrador = new MenuAdministrador(car,info);
+        
+        this.pms = pms;
+        menuAdministrador = new MenuAdministrador(car,pms);
     }
 
     public void mostrarMenu(){
@@ -46,7 +47,7 @@ public class InterfazAdministrador {
             case 2:
                 System.out.println("Ingrese el identificador para la habitacion: ");
                 String id = scanner.nextLine();
-                while(informacionHotel.getInventarioHabitaciones().containsKey(id)){
+                while(pms.getInventarioHabitaciones().containsKey(id)){
                     System.out.println("El identificador ya existe, ingrese uno nuevo: ");
                     id = scanner.nextLine();
                 }
@@ -80,7 +81,7 @@ public class InterfazAdministrador {
 
     private void opcionTarifaServicio() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
-        if(informacionHotel.getServicios().isEmpty()){
+        if(pms.getServicios().isEmpty()){
             System.out.println("No hay servicios cargados, ¿desea cargar los servicios?");
             System.out.println("1. Si.");
             System.out.println("2. No.");
@@ -95,10 +96,10 @@ public class InterfazAdministrador {
         } else{
             System.out.println("Ingrese el nombre del servicio: ");
             String nombreServicio = scanner.nextLine();
-            if(!informacionHotel.getServicios().containsKey(nombreServicio)){
+            if(!pms.getServicios().containsKey(nombreServicio)){
                 System.out.println("El servicio no existe.");
             }else{
-                Servicio ser = informacionHotel.getServicios().get(nombreServicio);
+                Servicio ser = pms.getServicios().get(nombreServicio);
                 System.out.println("La tarifa original es de: " + ser.getTarifa());
                 System.out.println("Ingrese la nueva tarifa: ");
                 double tarifa = scanner.nextDouble();
@@ -110,7 +111,7 @@ public class InterfazAdministrador {
 
     private void opcionConfigurarPlato() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
-        if(informacionHotel.getMenuPlatos().isEmpty()){
+        if(pms.getMenuPlatos().isEmpty()){
             System.out.println("No hay platos cargados, ¿desea cargar los platos?");
             System.out.println("1. Si.");
             System.out.println("2. No.");
@@ -126,7 +127,7 @@ public class InterfazAdministrador {
         } else{
             System.out.println("Ingrese el nombre del plato: ");
             String nombrePlato = scanner.nextLine();
-            if(!informacionHotel.getMenuPlatos().containsKey(nombrePlato)){
+            if(!pms.getMenuPlatos().containsKey(nombrePlato)){
                 System.out.println("El plato no existe.");
             }else{
                 menuAdministrador.configurarPlato(nombrePlato);
@@ -137,7 +138,7 @@ public class InterfazAdministrador {
 
     private void opcionConfigurarBebida() throws FileNotFoundException, IOException{
         Scanner scanner = new Scanner(System.in);
-        if(informacionHotel.getMenuBebidas().isEmpty()){
+        if(pms.getMenuBebidas().isEmpty()){
             System.out.println("No hay bebidas cargadas, ¿desea cargar las bebidas?");
             System.out.println("1. Si.");
             System.out.println("2. No.");
@@ -152,7 +153,7 @@ public class InterfazAdministrador {
         } else{
             System.out.println("Ingrese el nombre de la bebida: ");
             String nombreBebida = scanner.nextLine();
-            if(!informacionHotel.getMenuBebidas().containsKey(nombreBebida)){
+            if(!pms.getMenuBebidas().containsKey(nombreBebida)){
                 System.out.println("La bebida no existe.");
             }else{
                 menuAdministrador.configurarBebida(nombreBebida);

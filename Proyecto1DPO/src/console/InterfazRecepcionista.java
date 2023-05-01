@@ -4,7 +4,7 @@ import persistencia.Cargador;
 import model.Grupo;
 import model.Habitacion;
 import model.Huesped;
-import model.Hotel;
+import model.PMS;
 import model.Reserva;
 
 import java.text.ParseException;
@@ -15,13 +15,13 @@ import java.util.Scanner;
 public class InterfazRecepcionista {
 
     private Cargador cargador;
-    private Hotel informacionHotel;
+    private PMS pms;
     private MenuRecepcionista menuRecepcionista;
 
-    public InterfazRecepcionista(Cargador car, Hotel info){
+    public InterfazRecepcionista(Cargador car, PMS pms){
         cargador = car;
-        informacionHotel = info;
-        menuRecepcionista = new MenuRecepcionista(car, info);
+        this.pms = pms;
+        menuRecepcionista = new MenuRecepcionista(car, pms);
     }
 
     public void mostrarMenu(){
@@ -52,7 +52,7 @@ public class InterfazRecepcionista {
                 System.out.println("Ingrese su edad: ");
                 int edad = scanner.nextInt();
                 Huesped huespedEncargado = menuRecepcionista.realizarRegistro(nombre, documento, celular, correo, edad);
-                informacionHotel.agregarHuesped(huespedEncargado);
+                pms.agregarHuesped(huespedEncargado);
                 System.out.println("Ingrese la cantidad de huespedes: ");
                 int cantidad = scanner.nextInt();
                 scanner.nextLine();
@@ -62,7 +62,7 @@ public class InterfazRecepcionista {
                 System.out.println("Ingrese la fecha de salida: ");
                 String fechaOut= scanner.nextLine();
                 Reserva reserva = menuRecepcionista.RealizarReservaHuesped(huespedEncargado,cantidad,fechaIn,fechaOut);
-                informacionHotel.agregarReserva(reserva);
+                pms.agregarReserva(reserva);
                 double tarifaTotal = menuRecepcionista.configurarTarifaTotal(fechaIn, fechaOut, cantidad,reserva);
                 reserva.setTarifaTotal(tarifaTotal);
 
@@ -82,10 +82,10 @@ public class InterfazRecepcionista {
                         int edadHuesped = scanner.nextInt();
                         scanner.nextLine();
                         Huesped huesped = menuRecepcionista.realizarRegistro(nombreHuesped, documentoHuesped, celularHuesped, correoHuesped, edadHuesped);
-                        informacionHotel.agregarHuesped(huesped);
+                        pms.agregarHuesped(huesped);
                         grupo.agregarIntegrante(huesped);
                     }
-                    informacionHotel.agregarGrupo(grupo);
+                    pms.agregarGrupo(grupo);
                     reserva.setGrupo(grupo);
                     ArrayList<Habitacion> habitacionesAsignadas = reserva.getHabitacionesReservadas();
                     reserva.getGrupo().setHabitaciones(habitacionesAsignadas);
@@ -101,7 +101,13 @@ public class InterfazRecepcionista {
                         diferenciaHabitacion = capacidadHabitacion-1;
                     }
                 }
-                informacionHotel.agregarReserva(reserva);
+                else {
+                    ArrayList<Habitacion> habitacionesAsignadas = reserva.getHabitacionesReservadas();
+                    for(Habitacion habitacion: habitacionesAsignadas){
+                	huespedEncargado.setHabitacion(habitacion);
+                    }
+                }
+                pms.agregarReserva(reserva);
                 break;
             case 3:
                 System.out.println("Ingrese el documento del huesped que hizo la reserva");
@@ -119,15 +125,15 @@ public class InterfazRecepcionista {
                 System.out.println("Ingrese el documento del huesped que hizo la reserva");
                 Scanner scanner3 = new Scanner(System.in);
                 String documentoHuesped2 = scanner3.nextLine();
-                if(!informacionHotel.getHuespedes().containsKey(documentoHuesped2)){
+                if(!pms.getHuespedes().containsKey(documentoHuesped2)){
                     System.out.println("El huesped no existe");
                     break;
                 } else{
-                    if(!informacionHotel.getGrupos().containsKey(documentoHuesped2)){
+                    if(!pms.getGrupos().containsKey(documentoHuesped2)){
                         System.out.println("El huesped no pertenece a un grupo");
                         break;
                     } else{
-                        if(informacionHotel.getReservas().get(documentoHuesped2).isCheckin()==true){
+                        if(pms.getReservas().get(documentoHuesped2).isCheckin()==true){
                             System.out.println("El huesped no ha realizado el check-out");
                             break;
                         } else{

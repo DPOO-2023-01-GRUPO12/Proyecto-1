@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import model.Hotel;
+
 import model.Habitacion;
 import model.TipoHabitacion;
 import model.Cama;
@@ -22,15 +22,16 @@ import model.Plato;
 import model.Servicio;
 import model.Reserva;
 import model.Huesped;
+import model.PMS;
 import model.Grupo;
 import model.Consumo;
 
 public class Cargador { 
 
-    private Hotel Hotel;
+    private PMS pms;
 
-    public Cargador(Hotel informacion){
-        Hotel = informacion;
+    public Cargador(PMS pms){
+        this.pms = pms;
     }
 
 
@@ -88,7 +89,7 @@ public class Cargador {
                 
                 
                     TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionString);
-                    Hotel.agregarTipoHabitacion(tipoHabitacion);
+                    pms.agregarTipoHabitacion(tipoHabitacion);
                     
                     
                     //Creador de la habitación
@@ -101,7 +102,7 @@ public class Cargador {
                     elemHabitacion.setCocina(cocina);
                     elemHabitacion.calcularCapacidad();
 
-                    Hotel.agregarHabitacion(elemHabitacion); //Actualiza la información (El metodo put actualiza o añade según sea el caso); 
+                    pms.agregarHabitacion(elemHabitacion); //Actualiza la información (El metodo put actualiza o añade según sea el caso); 
 
                     linea = br.readLine(); 
 
@@ -150,14 +151,14 @@ public class Cargador {
                     TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
 
                     //añadir respectivas tarifas al tipo de la habotación
-                    ArrayList<TarifaCuarto> listaTarifas = Hotel.getTarifasCuartos();
+                    ArrayList<TarifaCuarto> listaTarifas = pms.getTarifasCuartos();
 
                     for (TarifaCuarto tarifa:listaTarifas){
                         if (tarifa.getTipoCuarto().equalsIgnoreCase(tipoHabitacion.getNombreTipo())){
                             tipoHabitacion.agregarTarifaCuarto(tarifa);
                         }   // if tarifa
                     }//for tarifa
-                    Hotel.agregarTipoHabitacion(tipoHabitacion); //Añade el tipo a la lista
+                    pms.agregarTipoHabitacion(tipoHabitacion); //Añade el tipo a la lista
 
                     linea = br.readLine(); 
 
@@ -202,7 +203,7 @@ public class Cargador {
                         
                     Cama nuevaCama = new Cama(tamanio, cantidad);
                     nuevaCama.setNinios(ninios);
-                    Hotel.agregarCama(nuevaCama);
+                    pms.agregarCama(nuevaCama);
 
                     linea = br.readLine(); 
                 }
@@ -254,7 +255,7 @@ public class Cargador {
 
                         TarifaCuarto unaTarifa = new TarifaCuarto(tipoCuarto, rangoFechas, diasSemanaLista, valor);
 
-                        Hotel.agregarTarifaCuarto(unaTarifa);
+                        pms.agregarTarifaCuarto(unaTarifa);
 
                          
 
@@ -310,7 +311,7 @@ public class Cargador {
                     Bebida bebida = new Bebida(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
                     bebida.setServicioCuarto(servicioCuarto);
 
-                    Hotel.agregarBebida(bebida);
+                    pms.agregarBebida(bebida);
 
                     linea = br.readLine(); 
 
@@ -363,7 +364,7 @@ public class Cargador {
                 Plato plato = new Plato(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
                 plato.setServicioCuarto(servicioCuarto);
 
-                Hotel.agregarPlato(plato);
+                pms.agregarPlato(plato);
                 linea = br.readLine(); 
             }
 
@@ -405,7 +406,7 @@ public class Cargador {
                 String login = partes[0];
                 String password = partes[1];
 
-                Hotel.agregarUsuario(login, password);
+                pms.agregarUsuario(login, password);
                 linea = br.readLine(); 
 
 
@@ -483,7 +484,7 @@ public class Cargador {
                 
                 Servicio servicio = new Servicio(nombreTipo, ubicacion, disponibilidad, precio, tipoCobro);
                 servicio.setServicioCuarto(servicioCuarto);
-                Hotel.agregarServicio(servicio);
+                pms.agregarServicio(servicio);
                 linea = br.readLine(); 
 
 
@@ -510,8 +511,8 @@ public class Cargador {
 
     private void actualizarTarifasHabitacion(){
 
-        ArrayList<TarifaCuarto> listaTarifas = Hotel.getTarifasCuartos();
-        Map<String, TipoHabitacion> maptipohabitciones  = Hotel.getTipoHabitaciones();
+        ArrayList<TarifaCuarto> listaTarifas = pms.getTarifasCuartos();
+        Map<String, TipoHabitacion> maptipohabitciones  = pms.getTipoHabitaciones();
 
         for (String tipo:maptipohabitciones.keySet()){
 

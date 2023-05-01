@@ -7,14 +7,13 @@ import java.util.Scanner;
 
 import persistencia.Cargador;
 import persistencia.GuardadorInformacion;
-import model.Hotel;
+import model.Autenticador;
 import model.PMS;
 
 public class Interfaz {
     private static PMS pms;
     private static Cargador cargador;
     private static GuardadorInformacion guardador;
-    private static Hotel informacion;
     private static Autenticador autenticador;
 
     private static boolean corriendo;
@@ -26,12 +25,11 @@ public class Interfaz {
     public static void main(String[] args) throws ParseException, IOException {
         pms = new PMS();
         cargador = pms.getCargador();
-        informacion = pms.getInformacionHotel();
         guardador = pms.getGuardador();
-        autenticador = new Autenticador(informacion);
-        interfazAdministrador = new InterfazAdministrador(cargador, informacion);
-        interfazRecepcionista = new InterfazRecepcionista(cargador, informacion);
-        interfazEmpleado = new InterfazEmpleado(cargador, informacion);
+        autenticador = new Autenticador(pms);
+        interfazAdministrador = new InterfazAdministrador(cargador, pms);
+        interfazRecepcionista = new InterfazRecepcionista(cargador, pms);
+        interfazEmpleado = new InterfazEmpleado(cargador, pms);
 
 
 

@@ -5,18 +5,18 @@ import java.util.Scanner;
 import persistencia.Cargador;
 import model.Consumo;
 import model.Huesped;
-import model.Hotel;
+import model.PMS;
 
 public class InterfazEmpleado {
 
     private Cargador cargador;
-    private Hotel informacionHotel;
+    private PMS pms;
     private MenuEmpleado menuEmpleado;
 
-    public InterfazEmpleado(Cargador car, Hotel info){
+    public InterfazEmpleado(Cargador car, PMS pms){
         cargador = car;
-        informacionHotel = info;
-        menuEmpleado = new MenuEmpleado(car, info);
+        this.pms = pms;
+        menuEmpleado = new MenuEmpleado(car, pms);
     }
 
     public void mostrarMenu(){
@@ -40,13 +40,13 @@ public class InterfazEmpleado {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el documento del huesped encargado: ");
         String documento = scanner.nextLine();
-        while(!informacionHotel.getHuespedes().containsKey(documento)){
+        while(!pms.getHuespedes().containsKey(documento)){
             System.out.println("El documento ingresado no existe. Ingrese nuevamente: ");
             documento = scanner.nextLine();
         }
 
-        Huesped huespedConsumo = informacionHotel.getHuespedes().get(documento);
-        informacionHotel.agregarHuesped(huespedConsumo);
+        Huesped huespedConsumo = pms.getHuespedes().get(documento);
+        pms.agregarHuesped(huespedConsumo);
         System.out.println("Es un grupo? (si/no); ");
         String grupo = scanner.nextLine();
         while(!grupo.equals("si") && !grupo.equals("no")){
@@ -72,7 +72,7 @@ public class InterfazEmpleado {
         }
 
         Consumo cons = new Consumo(huespedConsumo, tipoConsumo, valor);
-        informacionHotel.agregarConsumo(cons);
+        pms.agregarConsumo(cons);
         menuEmpleado.registrarConsumoHuesped(huespedConsumo, cons, grupo);
         scanner.close();
     
