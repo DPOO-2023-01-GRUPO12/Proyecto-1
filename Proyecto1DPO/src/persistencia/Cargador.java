@@ -1,4 +1,4 @@
-package model;
+package persistencia;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,14 +11,26 @@ import java.io.BufferedReader;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import model.InformacionHotel;
+import model.Hotel;
+import model.Habitacion;
+import model.TipoHabitacion;
+import model.Cama;
+import model.TarifaCuarto;
+import model.Tarifa;
+import model.Bebida;
+import model.Plato;
+import model.Servicio;
+import model.Reserva;
+import model.Huesped;
+import model.Grupo;
+import model.Consumo;
 
 public class Cargador { 
 
-    private InformacionHotel informacionHotel;
+    private Hotel Hotel;
 
-    public Cargador(InformacionHotel informacion){
-        informacionHotel = informacion;
+    public Cargador(Hotel informacion){
+        Hotel = informacion;
     }
 
 
@@ -76,7 +88,7 @@ public class Cargador {
                 
                 
                     TipoHabitacion tipoHabitacion = new TipoHabitacion(tipoHabitacionString);
-                    agregarTipoHabitacion(tipoHabitacion);
+                    Hotel.agregarTipoHabitacion(tipoHabitacion);
                     
                     
                     //Creador de la habitación
@@ -89,7 +101,7 @@ public class Cargador {
                     elemHabitacion.setCocina(cocina);
                     elemHabitacion.calcularCapacidad();
 
-                    agregarHabitacion(elemHabitacion); //Actualiza la información (El metodo put actualiza o añade según sea el caso); 
+                    Hotel.agregarHabitacion(elemHabitacion); //Actualiza la información (El metodo put actualiza o añade según sea el caso); 
 
                     linea = br.readLine(); 
 
@@ -118,14 +130,6 @@ public class Cargador {
 
 
 
-    public void agregarHabitacion(Habitacion habitacion) {
-        informacionHotel.getInventarioHabitaciones().put(habitacion.getIdentificador(), habitacion);
-    }
-    public void agregarTipoHabitacion(TipoHabitacion tipoHabitacion) {
-        informacionHotel.getTipoHabitaciones().put(tipoHabitacion.getNombreTipo(), tipoHabitacion);
-    }
-
-
     public void cargarTipoHabitaciones(File file) throws IOException, FileNotFoundException {
 
         if (file.exists()){
@@ -146,14 +150,14 @@ public class Cargador {
                     TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
 
                     //añadir respectivas tarifas al tipo de la habotación
-                    ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
+                    ArrayList<TarifaCuarto> listaTarifas = Hotel.getTarifasCuartos();
 
                     for (TarifaCuarto tarifa:listaTarifas){
                         if (tarifa.getTipoCuarto().equalsIgnoreCase(tipoHabitacion.getNombreTipo())){
                             tipoHabitacion.agregarTarifaCuarto(tarifa);
                         }   // if tarifa
                     }//for tarifa
-                    agregarTipoHabitacion(tipoHabitacion); //Añade el tipo a la lista
+                    Hotel.agregarTipoHabitacion(tipoHabitacion); //Añade el tipo a la lista
 
                     linea = br.readLine(); 
 
@@ -177,11 +181,6 @@ public class Cargador {
         }//if 
     }//función
 
-    
-    public void agregarCama(Cama Cama) {
-
-        informacionHotel.getCamas().add(Cama);
-    }
 
 
     public void cargarCamas(File file) throws IOException, FileNotFoundException {
@@ -203,7 +202,7 @@ public class Cargador {
                         
                     Cama nuevaCama = new Cama(tamanio, cantidad);
                     nuevaCama.setNinios(ninios);
-                    agregarCama(nuevaCama);
+                    Hotel.agregarCama(nuevaCama);
 
                     linea = br.readLine(); 
                 }
@@ -255,7 +254,7 @@ public class Cargador {
 
                         TarifaCuarto unaTarifa = new TarifaCuarto(tipoCuarto, rangoFechas, diasSemanaLista, valor);
 
-                        agregarTarifaCuarto(unaTarifa);
+                        Hotel.agregarTarifaCuarto(unaTarifa);
 
                          
 
@@ -285,44 +284,7 @@ public class Cargador {
     }//funcion
 
 
-    private void actualizarTarifasHabitacion(){
-
-        ArrayList<TarifaCuarto> listaTarifas = informacionHotel.getTarifasCuartos();
-        Map<String, TipoHabitacion> maptipohabitciones  = informacionHotel.getTipoHabitaciones();
-
-        for (String tipo:maptipohabitciones.keySet()){
-
-            for (TarifaCuarto tarifa:listaTarifas){
-                String nombreTarifa = tarifa.getTipoCuarto();
-                if (tipo.equalsIgnoreCase(nombreTarifa))
-                {
-                   TipoHabitacion tipoActual = maptipohabitciones.get(tipo); 
-                   tipoActual.agregarTarifaCuarto(tarifa);
-                }
-            }//for tarifas
-
-
-        }//for tipos
-        
-
-    }//método
-
-    private void agregarTarifaCuarto(TarifaCuarto tarifa) {
-
-        informacionHotel.getTarifasCuartos().add(tarifa);
-    }
-
     
-    public void cambiarTarifaServicio(String nombreServicio,double valor) {
-
-        if (informacionHotel.getServicios().containsKey(nombreServicio))
-        {
-            Servicio servicioEdit = informacionHotel.getServicios().get(nombreServicio);
-            servicioEdit.setTarifa(valor);
-        }
-
-
-    }
 
     public void cargarMenuBebidas(File file) throws IOException, FileNotFoundException {
 
@@ -348,7 +310,7 @@ public class Cargador {
                     Bebida bebida = new Bebida(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
                     bebida.setServicioCuarto(servicioCuarto);
 
-                    agregarBebida(bebida);
+                    Hotel.agregarBebida(bebida);
 
                     linea = br.readLine(); 
 
@@ -374,9 +336,6 @@ public class Cargador {
 
     }//funcion
 
-    public void agregarBebida(Bebida bebida) { 
-        informacionHotel.getMenuBebidas().put(bebida.getNombre(), bebida);  
-    }
     
 
     public void cargarMenuPlatos(File file) throws IOException, FileNotFoundException {
@@ -404,7 +363,7 @@ public class Cargador {
                 Plato plato = new Plato(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
                 plato.setServicioCuarto(servicioCuarto);
 
-                   agregarPlato(plato);
+                Hotel.agregarPlato(plato);
                 linea = br.readLine(); 
             }
 
@@ -427,16 +386,9 @@ public class Cargador {
         }//if
     }
 
-    public void agregarPlato(Plato plato) {  
-
-        informacionHotel.getMenuPlatos().put(plato.getNombre(), plato);
-    }
 
 
-
-
-    public void cargarUsuarios(String pathUsuarios) throws IOException, FileNotFoundException  {
-        File file = new File(pathUsuarios);
+    public void cargarUsuarios(File file) throws IOException, FileNotFoundException  {
         if(file.exists()){
 
             try
@@ -453,7 +405,7 @@ public class Cargador {
                 String login = partes[0];
                 String password = partes[1];
 
-                agregarUsuario(login, password);
+                Hotel.agregarUsuario(login, password);
                 linea = br.readLine(); 
 
 
@@ -484,25 +436,6 @@ public class Cargador {
     
     } //funcion
 
-    private void agregarUsuario (String login,String password){
-
-
-        ArrayList usuario = new ArrayList<String>();
-        usuario.add(password);
-
-        if(login.contains("admin")){
-            usuario.add("administrador");}
-
-        else if (login.contains("empleado")){
-            usuario.add("empleado");}
-        
-        else if (login.contains("recepcionista")){
-            usuario.add("recepcionista");}
-
-        
-
-        informacionHotel.getUsuarios().put(login, usuario);
-    }
 
 
     public void cargarServicios(File file) throws IOException, FileNotFoundException  {
@@ -536,7 +469,7 @@ public class Cargador {
                     String horasDispo = dH[1];
 
                     String[] horas = horasDispo.split("-");
-                    ArrayList setHoras = new ArrayList<String>();
+                    ArrayList<String> setHoras = new ArrayList<String>();
 
                     for (String hora:horas){
                             
@@ -550,7 +483,7 @@ public class Cargador {
                 
                 Servicio servicio = new Servicio(nombreTipo, ubicacion, disponibilidad, precio, tipoCobro);
                 servicio.setServicioCuarto(servicioCuarto);
-                agregarServicio(servicio);
+                Hotel.agregarServicio(servicio);
                 linea = br.readLine(); 
 
 
@@ -575,27 +508,27 @@ public class Cargador {
          }//if
     }//funcion
 
-    public void agregarServicio(Servicio servicio) {
+    private void actualizarTarifasHabitacion(){
 
-        informacionHotel.getServicios().put(servicio.getNombreTipo(), servicio);
-    }
+        ArrayList<TarifaCuarto> listaTarifas = Hotel.getTarifasCuartos();
+        Map<String, TipoHabitacion> maptipohabitciones  = Hotel.getTipoHabitaciones();
+
+        for (String tipo:maptipohabitciones.keySet()){
+
+            for (TarifaCuarto tarifa:listaTarifas){
+                String nombreTarifa = tarifa.getTipoCuarto();
+                if (tipo.equalsIgnoreCase(nombreTarifa))
+                {
+                   TipoHabitacion tipoActual = maptipohabitciones.get(tipo); 
+                   tipoActual.agregarTarifaCuarto(tarifa);
+                }
+            }//for tarifas
 
 
-    public void agregarReserva(Reserva reserva) {
-        informacionHotel.getReservas().put(reserva.getHuespedEncargado().getDocumento(), reserva);
-    }
-
-
-    public void agregarHuesped(Huesped Huesped) {
-        informacionHotel.getHuespedes().put(Huesped.getDocumento(), Huesped);
-    }
-
-    public void agregarGrupo(Grupo grupo){
-        informacionHotel.getGrupos().put(grupo.getHuespedEncargado().getDocumento(), grupo);
+        }//for tipos
         
-    }
 
-    public void agregarConsumo(Consumo consumo){
-        informacionHotel.getConsumos().put(consumo.getHuesped().getDocumento(), consumo);
-    }
+    }//método
+
+    
 }

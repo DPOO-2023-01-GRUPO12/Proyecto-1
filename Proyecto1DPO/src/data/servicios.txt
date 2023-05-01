@@ -1,5 +1,0 @@
-nombre;ubicacion;disponibilidad;tipocobro;serviciocuarto;precio
-guia turistico;exterior;martes_7:00-9:00-13:00-22:00,jueves_7:00-9:00-13:00-22:00,sabado_7:00-9:00-13:00-22:00;imediato;false;20000
-clase zumba;gimnasio;lunes_8:00-9:00,martes_8:00-9:00,miercoles_8:00-9:00;imediato;false;1000
-desayuno sorpresa;habitacion;lunes_6:00-8:00-10:00,domingo_6:00-8:00-10:00;no imediato;true;35000
-desayuno;comedor;lunes_9:30,martes_9:30,miercoles_9:30,jueves_9:30,viernes_9:30,sabado_10:00,domingo_10:00;imediato;true;13000

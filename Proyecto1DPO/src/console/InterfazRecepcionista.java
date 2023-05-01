@@ -1,10 +1,10 @@
 package console;
 
-import model.Cargador;
+import persistencia.Cargador;
 import model.Grupo;
 import model.Habitacion;
 import model.Huesped;
-import model.InformacionHotel;
+import model.Hotel;
 import model.Reserva;
 
 import java.text.ParseException;
@@ -15,10 +15,10 @@ import java.util.Scanner;
 public class InterfazRecepcionista {
 
     private Cargador cargador;
-    private InformacionHotel informacionHotel;
+    private Hotel informacionHotel;
     private MenuRecepcionista menuRecepcionista;
 
-    public InterfazRecepcionista(Cargador car, InformacionHotel info){
+    public InterfazRecepcionista(Cargador car, Hotel info){
         cargador = car;
         informacionHotel = info;
         menuRecepcionista = new MenuRecepcionista(car, info);
@@ -52,7 +52,7 @@ public class InterfazRecepcionista {
                 System.out.println("Ingrese su edad: ");
                 int edad = scanner.nextInt();
                 Huesped huespedEncargado = menuRecepcionista.realizarRegistro(nombre, documento, celular, correo, edad);
-                cargador.agregarHuesped(huespedEncargado);
+                informacionHotel.agregarHuesped(huespedEncargado);
                 System.out.println("Ingrese la cantidad de huespedes: ");
                 int cantidad = scanner.nextInt();
                 scanner.nextLine();
@@ -62,7 +62,7 @@ public class InterfazRecepcionista {
                 System.out.println("Ingrese la fecha de salida: ");
                 String fechaOut= scanner.nextLine();
                 Reserva reserva = menuRecepcionista.RealizarReservaHuesped(huespedEncargado,cantidad,fechaIn,fechaOut);
-                cargador.agregarReserva(reserva);
+                informacionHotel.agregarReserva(reserva);
                 double tarifaTotal = menuRecepcionista.configurarTarifaTotal(fechaIn, fechaOut, cantidad,reserva);
                 reserva.setTarifaTotal(tarifaTotal);
 
@@ -82,10 +82,10 @@ public class InterfazRecepcionista {
                         int edadHuesped = scanner.nextInt();
                         scanner.nextLine();
                         Huesped huesped = menuRecepcionista.realizarRegistro(nombreHuesped, documentoHuesped, celularHuesped, correoHuesped, edadHuesped);
-                        cargador.agregarHuesped(huesped);
+                        informacionHotel.agregarHuesped(huesped);
                         grupo.agregarIntegrante(huesped);
                     }
-                    cargador.agregarGrupo(grupo);
+                    informacionHotel.agregarGrupo(grupo);
                     reserva.setGrupo(grupo);
                     ArrayList<Habitacion> habitacionesAsignadas = reserva.getHabitacionesReservadas();
                     reserva.getGrupo().setHabitaciones(habitacionesAsignadas);
@@ -101,7 +101,7 @@ public class InterfazRecepcionista {
                         diferenciaHabitacion = capacidadHabitacion-1;
                     }
                 }
-                cargador.agregarReserva(reserva);
+                informacionHotel.agregarReserva(reserva);
                 break;
             case 3:
                 System.out.println("Ingrese el documento del huesped que hizo la reserva");

@@ -1,4 +1,0 @@
-nombre,rangohoras,comidadispon,lugardispon,serviciocuarto,precio
-aguardiente;18:00-23:00;cena;restaurante;false;12000
-limonada;10:00-16:00;almuerzo;restaurante;true;2000
-jugo;8:00-12:00;desayuno;restaurante;true;10000

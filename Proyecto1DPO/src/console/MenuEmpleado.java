@@ -2,19 +2,19 @@ package console;
 
 import java.util.Scanner;
 
-import model.Cargador;
+import persistencia.Cargador;
 import model.Consumo;
 import model.Factura;
 import model.Grupo;
 import model.Huesped;
-import model.InformacionHotel;
+import model.Hotel;
 
 public class MenuEmpleado {
 
     private Cargador cargador;
-    private InformacionHotel informacionHotel;
+    private Hotel informacionHotel;
 
-    public MenuEmpleado(Cargador car, InformacionHotel info){
+    public MenuEmpleado(Cargador car, Hotel info){
         cargador = car;
         informacionHotel = info;
     }
@@ -34,7 +34,7 @@ public class MenuEmpleado {
                 cons.setGrupo(g);
                 cons.setEsGrupo(true);
                 g.agregarConsumoNoPago(cons);
-                cargador.agregarGrupo(g);
+                informacionHotel.agregarGrupo(g);
             } else{
                 cons.setEsGrupo(false);
                 cons.setHabitacion(informacionHotel.getHuespedes().get(huesped.getDocumento()).getHabitacion().getIdentificador());
@@ -67,7 +67,7 @@ public class MenuEmpleado {
             registrarPago(cons);
             
         }
-        cargador.agregarConsumo(cons);
+        informacionHotel.agregarConsumo(cons);
 
         scanner.close();
 
@@ -78,7 +78,7 @@ public class MenuEmpleado {
         Factura factura =new Factura(cons);
         factura.generarTextoFactura();
         cons.setFactura(factura);
-        cargador.agregarConsumo(cons);
+        informacionHotel.agregarConsumo(cons);
         System.out.println(factura.getTextoFactura());
     }
 

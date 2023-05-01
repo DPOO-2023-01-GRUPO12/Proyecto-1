@@ -5,16 +5,16 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
-import model.Cargador;
-import model.GuardadorInformacion;
-import model.InformacionHotel;
+import persistencia.Cargador;
+import persistencia.GuardadorInformacion;
+import model.Hotel;
 import model.PMS;
 
 public class Interfaz {
     private static PMS pms;
     private static Cargador cargador;
     private static GuardadorInformacion guardador;
-    private static InformacionHotel informacion;
+    private static Hotel informacion;
     private static Autenticador autenticador;
 
     private static boolean corriendo;
@@ -34,13 +34,14 @@ public class Interfaz {
         interfazEmpleado = new InterfazEmpleado(cargador, informacion);
 
 
-        // TODO code application logic here
+
         corriendo = true;
         
-        String[] pathNames = { "src", "data", "usuarios.txt"};
+        String[] pathNames = {"Proyecto1DPO","data", "usuarios.txt"};
         String pathUsers = String.join(File.separator , pathNames);
+        File fileUsers = new File(pathUsers);
         
-        cargador.cargarUsuarios(pathUsers);
+        cargador.cargarUsuarios(fileUsers);
         while(corriendo){
             mostrarMenu();
             Scanner scanner = new Scanner(System.in);

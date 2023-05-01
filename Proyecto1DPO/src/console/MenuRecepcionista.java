@@ -9,13 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 
-import model.Cargador;
+import persistencia.Cargador;
 
 import model.Factura;
 
 import model.Habitacion;
 import model.Huesped;
-import model.InformacionHotel;
+import model.Hotel;
 import model.Reserva;
 
 import model.TarifaCuarto;
@@ -33,9 +33,9 @@ import java.util.concurrent.TimeUnit;
 
 public class MenuRecepcionista {
     private Cargador cargador;
-    private InformacionHotel informacionHotel;
+    private Hotel informacionHotel;
 
-    public MenuRecepcionista(Cargador car, InformacionHotel info){
+    public MenuRecepcionista(Cargador car, Hotel info){
         cargador = car;
         informacionHotel = info;
     }
@@ -52,13 +52,13 @@ public class MenuRecepcionista {
 
     public Reserva RealizarReservaHuesped(Huesped huesped, int cantidad, String fechaIn, String fechaOut){
         Reserva reserva = new Reserva(huesped, cantidad, fechaIn, fechaOut);
-        cargador.agregarReserva(reserva);
+        informacionHotel.agregarReserva(reserva);
         return reserva;
     }
 
     public Huesped realizarRegistro(String nombre, String documento, String celular, String correo, int edad){
         Huesped huesped = new Huesped(nombre, documento, celular, correo, edad);
-        cargador.agregarHuesped(huesped);
+        informacionHotel.agregarHuesped(huesped);
         return huesped;
     }
 
@@ -271,8 +271,8 @@ public class MenuRecepcionista {
 
         }
         
-        cargador.agregarHabitacion(habitacion);
-        cargador.agregarReserva(res);
+        informacionHotel.agregarHabitacion(habitacion);
+        informacionHotel.agregarReserva(res);
         return tarifaTotal;
 
     }
@@ -285,9 +285,9 @@ public class MenuRecepcionista {
                 res.setCancelada(true);
                 for(Habitacion hab: res.getHabitacionesReservadas()){
                     hab.eliminarFechaBloqueada(res.getRango());
-                    cargador.agregarHabitacion(hab);
+                    informacionHotel.agregarHabitacion(hab);
                 }
-                cargador.agregarReserva(res);
+                informacionHotel.agregarReserva(res);
             }
         }
     }
@@ -307,7 +307,7 @@ public class MenuRecepcionista {
                 
 
                 String facturacheckOut = res.mostrarFacturaCheckout();
-                cargador.agregarReserva(res);
+                informacionHotel.agregarReserva(res);
                 System.out.println(facturacheckOut);
 
             

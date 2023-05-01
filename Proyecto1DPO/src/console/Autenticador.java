@@ -1,11 +1,11 @@
 package console;
 
-import model.InformacionHotel;
+import model.Hotel;
 
 public class Autenticador {
-    private InformacionHotel informacionHotel;
+    private Hotel informacionHotel;
 
-    public Autenticador(InformacionHotel informacionHotel){
+    public Autenticador(Hotel informacionHotel){
         this.informacionHotel = informacionHotel;
     }
 

@@ -1,11 +1,15 @@
 package model;
+
+import persistencia.Cargador;
+import persistencia.GuardadorInformacion;
+
 public class PMS {
     private Cargador cargador;
-    private InformacionHotel informacion;
+    private Hotel informacion;
     private GuardadorInformacion guardador;
 
     public PMS(){
-        informacion = new InformacionHotel();
+        informacion = new Hotel();
         cargador = new Cargador(informacion);
         guardador = new GuardadorInformacion(informacion);
     }
@@ -14,7 +18,7 @@ public class PMS {
         return cargador;
     }
     
-    public InformacionHotel getInformacionHotel(){
+    public Hotel getInformacionHotel(){
         return informacion;
     }
 

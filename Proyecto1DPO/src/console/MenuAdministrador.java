@@ -1,14 +1,16 @@
 package console;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.Cargador;
+import persistencia.Cargador;
 import model.Habitacion;
-import model.InformacionHotel;
+import model.Hotel;
 import model.Plato;
 import model.Servicio;
 import model.TarifaCuarto;
@@ -27,15 +29,15 @@ import java.util.concurrent.TimeUnit;
 
 public class MenuAdministrador {
     private Cargador cargador;
-    private InformacionHotel informacionHotel;
+    private Hotel informacionHotel;
 
-    public MenuAdministrador(Cargador car, InformacionHotel info){
+    public MenuAdministrador(Cargador car, Hotel info){
         cargador = car;
         informacionHotel = info;
     }
 
     public void cargarHabitaciones(String pathHabitaciones) throws IOException{
-        File file = new File("src/data/"+pathHabitaciones);
+        File file = new File("Proyecto1DPO/data/"+pathHabitaciones);
         try{
 
             cargador.cargarHabitaciones(file);
@@ -90,9 +92,69 @@ public class MenuAdministrador {
             }
         }
     }
+
+    public void cargarInformacionHotel (String pathInformacionHotel)throws FileNotFoundException, IOException{
+
+        String[] pathNames = {"Proyecto1DPO","data", pathInformacionHotel};
+        String pathInformacion = String.join(File.separator , pathNames);
+        File file = new File(pathInformacion);
+        
+        if (file.exists()){
+
+            try{
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String linea = br.readLine(); 
+
+                linea = br.readLine();
+                while (linea != null){
+
+                    String[] partes = linea.split(";");
+
+                    String pathTarifas = partes[0];
+                    String pathTipoHabitaciones = partes[1];
+                    String pathHabitaciones = partes[2];
+                    String pathServicios = partes[3];
+                    String pathCamas = partes[4];
+                    String pathMenuBebidas = partes[5];
+                    String pathMenuPlatos = partes[6];
+
+                    File fileTarifas = new File("Proyecto1DPO/data/"+ pathTarifas);
+                    File fileTipohabitaciones = new File("Proyecto1DPO/data/"+ pathTipoHabitaciones);
+                    File fileHabitaciones = new File("Proyecto1DPO/data/"+pathHabitaciones);
+                    File fileServicios = new File("Proyecto1DPO/data/"+ pathServicios);
+                    File fileCamas = new File("Proyecto1DPO/data/"+ pathCamas);
+                    File fileMenuBebidas = new File("Proyecto1DPO/data/"+ pathMenuBebidas);
+                    File fileMenuPlatos = new File("Proyecto1DPO/data/"+ pathMenuPlatos);
+
+
+                    cargador.cargarTarifasCuarto(fileTarifas);
+                    cargador.cargarTipoHabitaciones(fileTipohabitaciones);
+                    cargador.cargarHabitaciones(fileHabitaciones);
+                    cargador.cargarServicios(fileServicios);
+                    cargador.cargarCamas(fileCamas);
+                    cargador.cargarMenuBebidas(fileMenuBebidas);
+                    cargador.cargarMenuPlatos(fileMenuPlatos);
+
+                    linea = br.readLine(); 
+
+                }//fin while
+
+            br.close();
+            }// fin try
+            catch (FileNotFoundException e){
+                System.out.println("No se encontró el archivo");
+                e.printStackTrace();
+            }//fin catch
+            catch(IOException e){
+                System.out.println("Error de lectura");
+                e.printStackTrace();
+            }//fin cacth
+
+        }//fin if
+    }// fin función
     
     public void cargarTipoHabitaciones(String pathTipoHabitaciones) throws FileNotFoundException, IOException{
-        File file = new File("src/data/"+pathTipoHabitaciones);
+        File file = new File("Proyecto1DPO/data/"+pathTipoHabitaciones);
         try{
             cargador.cargarTipoHabitaciones(file);
         } catch(FileNotFoundException e){
@@ -103,7 +165,7 @@ public class MenuAdministrador {
 
 
     public void cargarTarifasPorTipoCuarto(String pathTarifasTipoCuarto) throws FileNotFoundException, IOException{
-        File file = new File("src/data/"+pathTarifasTipoCuarto);
+        File file = new File("Proyecto1DPO/data/"+pathTarifasTipoCuarto);
         try{
             cargador.cargarTarifasCuarto(file);
         } catch(FileNotFoundException e){
@@ -113,7 +175,7 @@ public class MenuAdministrador {
     
 
     public void cargarCamas(String pathFile) throws FileNotFoundException, IOException{
-        File file = new File("src/data/"+pathFile);
+        File file = new File("Proyecto1DPO/data/"+pathFile);
         try{
             cargador.cargarCamas(file);
         } catch(FileNotFoundException e){
@@ -127,7 +189,7 @@ public class MenuAdministrador {
         System.out.println("Para crear una habitacion debe seleccionar un tipo de habitacion y camas.");
         asignarHabitacionTipo(habitacion);
         asignarHabitacionCamas(habitacion);
-        cargador.agregarHabitacion(habitacion);
+        informacionHotel.agregarHabitacion(habitacion);
     }
 
     private void asignarHabitacionTipo(Habitacion hab) throws FileNotFoundException, IOException{
@@ -139,9 +201,9 @@ public class MenuAdministrador {
         if(tipo.equals(null)){
             System.out.println("No se pudo asignar el tipo de habitacion habitacion.");
         } else{
-            cargador.agregarTipoHabitacion(tipo);
+            informacionHotel.agregarTipoHabitacion(tipo);
             hab.setTipoHabitacion(tipo);
-            cargador.agregarHabitacion(hab);
+            informacionHotel.agregarHabitacion(hab);
         }
         
     }
@@ -156,10 +218,10 @@ public class MenuAdministrador {
             System.out.println("No se pudo asignar las camas a la habitacion.");
         } else {
             for(Cama cama: camas){
-                cargador.agregarCama(cama);
+                informacionHotel.agregarCama(cama);
             }
             hab.setCamas(camas);
-            cargador.agregarHabitacion(hab);
+            informacionHotel.agregarHabitacion(hab);
 
         }
         
@@ -252,7 +314,7 @@ public class MenuAdministrador {
                 return null;
             }
             tipoHabitacion.agregarTarifaCuarto(informacionHotel.getTarifasCuartos().get(opcion3));
-            cargador.agregarTipoHabitacion(tipoHabitacion);
+            informacionHotel.agregarTipoHabitacion(tipoHabitacion);
 
         } else{
             System.out.println("Opcion invalida.");
@@ -324,7 +386,7 @@ public class MenuAdministrador {
 
     
     public void cargarServicios(String pathServicios) throws FileNotFoundException, IOException{
-        File file = new File("src/data/"+pathServicios);
+        File file = new File("Proyecto1DPO/data/"+pathServicios);
         try{
             cargador.cargarServicios(file);
         } catch (FileNotFoundException e){
@@ -337,12 +399,12 @@ public class MenuAdministrador {
     public void cambiarTarifaServicio(String nombreServicio, double valor){
         Servicio ser = informacionHotel.getServicios().get(nombreServicio);
         ser.setTarifa(valor);
-        cargador.agregarServicio(ser);
+        informacionHotel.agregarServicio(ser);
     }
 
 
     public void cargarMenuPlatos(String pathPlatos) throws FileNotFoundException, IOException{
-        File file = new File("src/data/"+pathPlatos);
+        File file = new File("Proyecto1DPO/data/"+pathPlatos);
         try{
             cargador.cargarMenuPlatos(file);
         } catch (FileNotFoundException e){
@@ -352,7 +414,7 @@ public class MenuAdministrador {
 
 
     public void cargarMenuBebidas(String pathBebidas) throws FileNotFoundException, IOException{
-        File file = new File("src/data/"+pathBebidas);
+        File file = new File("Proyecto1DPO/data/"+pathBebidas);
         try{
             cargador.cargarMenuBebidas(file);
         } catch (FileNotFoundException e){
@@ -368,7 +430,7 @@ public class MenuAdministrador {
         int opcion = scanner.nextInt();
         scanner.nextLine();
         Plato plato = informacionHotel.getMenuPlatos().get(nombrePlato);
-        cargador.agregarPlato(plato);
+        informacionHotel.agregarPlato(plato);
         opcionPlatoBebida(opcion,plato);
 
     }
@@ -380,7 +442,7 @@ public class MenuAdministrador {
         int opcion = scanner.nextInt();
         scanner.nextLine();
         Bebida bebida = informacionHotel.getMenuBebidas().get(nombreBebida);
-        cargador.agregarBebida(bebida);
+        informacionHotel.agregarBebida(bebida);
         opcionPlatoBebida(opcion,bebida);
 
     }
@@ -417,7 +479,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva tarifa del plato: ");
                 double tarifa = scanner.nextDouble();
                 plato.setTarifa(tarifa);
-                cargador.agregarPlato(plato);
+                informacionHotel.agregarPlato(plato);
 
                 break;
             case 3:
@@ -425,7 +487,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese el nuevo rango de horas del plato: ");
                 String horas = scanner.nextLine();
                 plato.setRangoHoras(horas);
-                cargador.agregarPlato(plato);
+                informacionHotel.agregarPlato(plato);
 
                 break;
             case 4:
@@ -433,7 +495,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese las nuevas comidas de disponiblidad del plato: ");
                 String comida = scanner.nextLine();
                 plato.setComidaDispon(comida);
-                cargador.agregarPlato(plato);
+                informacionHotel.agregarPlato(plato);
 
                 break;
             case 5:
@@ -441,7 +503,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese los nuevos lugares de disponibilidad del plato: ");
                 String lugar = scanner.nextLine();
                 plato.setLugarDispon(lugar);
-                cargador.agregarPlato(plato);
+                informacionHotel.agregarPlato(plato);
    
                 break;
             case 6:
@@ -449,7 +511,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto del plato: ");
                 boolean servicioCuarto = scanner.nextBoolean();
                 plato.setServicioCuarto(servicioCuarto);
-                cargador.agregarPlato(plato);
+                informacionHotel.agregarPlato(plato);
 
                 break;
             default:
@@ -482,7 +544,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva tarifa de la bebida: ");
                 double tarifa = scanner.nextDouble();
                 bebida.setTarifa(tarifa);
-                cargador.agregarBebida(bebida);
+                informacionHotel.agregarBebida(bebida);
 
                 break;
             case 3:
@@ -490,7 +552,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese el nuevo rango de horas de la bebida: ");
                 String horas = scanner.nextLine();
                 bebida.setRangoHoras(horas);
-                cargador.agregarBebida(bebida);
+                informacionHotel.agregarBebida(bebida);
 
                 break;
             case 4:
@@ -498,7 +560,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese las nuevas comidas de disponiblidad de la bebida: ");
                 String comida = scanner.nextLine();
                 bebida.setComidaDispon(comida);
-                cargador.agregarBebida(bebida);
+                informacionHotel.agregarBebida(bebida);
 
                 break;
             case 5:
@@ -506,7 +568,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese los nuevos lugares de disponibilidad de la bebida: ");
                 String lugar = scanner.nextLine();
                 bebida.setLugarDispon(lugar);
-                cargador.agregarBebida(bebida);
+                informacionHotel.agregarBebida(bebida);
 
                 break;
             case 6:
@@ -514,7 +576,7 @@ public class MenuAdministrador {
                 System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto de la bebida: ");
                 boolean servicioCuarto = scanner.nextBoolean();
                 bebida.setServicioCuarto(servicioCuarto);
-                cargador.agregarBebida(bebida);
+                informacionHotel.agregarBebida(bebida);
    
                 break;
             default:

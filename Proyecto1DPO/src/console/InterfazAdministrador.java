@@ -6,34 +6,29 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 
-import model.Cargador;
-import model.InformacionHotel;
+import persistencia.Cargador;
+import model.Hotel;
 import model.Servicio;
 
 public class InterfazAdministrador {
     private Cargador cargador;
-    private InformacionHotel informacionHotel;
+    private Hotel informacionHotel;
     private MenuAdministrador menuAdministrador;
 
-    public InterfazAdministrador(Cargador car, InformacionHotel info){
+    public InterfazAdministrador(Cargador car, Hotel info){
         cargador = car;
         informacionHotel = info;
         menuAdministrador = new MenuAdministrador(car,info);
     }
 
     public void mostrarMenu(){
-        System.out.println("1. Cargar tarifas por tipo de cuarto.");
-        System.out.println("2. Cargar habitaciones.");
-        System.out.println("3. Cargar tipos de habitaciones.");
-        System.out.println("4. Cargar camas.");
-        System.out.println("5. Crear habitacion.");
-        System.out.println("6. Cargar servicios.");
-        System.out.println("7. Cambiar tarifa de un servicio.");
-        System.out.println("8. Cargar menu de platos.");
-        System.out.println("9. Cargar menu de bebidas.");
-        System.out.println("10. Configurar plato.");
-        System.out.println("11. Configurar bebida.");
-        System.out.println("12. Salir");
+        System.out.println("1. Cargar información del hotel.");
+        System.out.println("2. Crear habitacion.");
+        System.out.println("3. Cambiar tarifa de un servicio.");
+        System.out.println("4. Configurar plato.");
+        System.out.println("5. Configurar bebida.");
+        System.out.println("6. Notificar fechas sin tarifas");
+        System.out.println("6. Salir");
 
     }
 
@@ -43,27 +38,12 @@ public class InterfazAdministrador {
             case 1:
             System.out.println("Ingrese el nombre del archivo: ");
                 String nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarTarifasPorTipoCuarto(nombreArchivo);
-                menuAdministrador.informarFechasSinTarifa();       
+                menuAdministrador.cargarInformacionHotel(nombreArchivo);
+                //menuAdministrador.informarFechasSinTarifa();       
                 break;
-                
+
+
             case 2:
-                System.out.println("Ingrese el nombre del archivo: ");
-                nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarHabitaciones(nombreArchivo);
-                break;
-            case 3:
-                System.out.println("Ingrese el nombre del archivo: ");
-                nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarTipoHabitaciones(nombreArchivo);
-                break;
-            case 4:
-                System.out.println("Ingrese el nombre del archivo: ");
-                nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarCamas(nombreArchivo);
-                System.out.println(informacionHotel.getCamas());
-                break;
-            case 5:
                 System.out.println("Ingrese el identificador para la habitacion: ");
                 String id = scanner.nextLine();
                 while(informacionHotel.getInventarioHabitaciones().containsKey(id)){
@@ -76,33 +56,22 @@ public class InterfazAdministrador {
                 String desc = scanner.nextLine();
                 menuAdministrador.crearHabitacion(id,ub,desc);
                 break;
-            case 6:
-                System.out.println("Ingrese el nombre del archivo: ");
-                nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarServicios(nombreArchivo);
-                break;
-            case 7:
+
+            case 3:
                 opcionTarifaServicio();
                 break;
-            case 8:
-                System.out.println("Ingrese el nombre del archivo: ");
-                nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarMenuPlatos(nombreArchivo);
-                break;
-            case 9:
-                System.out.println("Ingrese el nombre del archivo: ");
-                nombreArchivo = scanner.nextLine();
-                menuAdministrador.cargarMenuBebidas(nombreArchivo);
-                break;
-            case 10:
+
+            case 4:
                 opcionConfigurarPlato();
                 break;
-            case 11:
+            case 5:
                 opcionConfigurarBebida();
                 break;
-            case 12:
+            case 6:
                 System.out.println("Saliendo...");
                 break;
+
+            case 7:
             default:
                 System.out.println("Opcion invalida.");
                 break;

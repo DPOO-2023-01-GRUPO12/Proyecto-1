@@ -1,4 +1,4 @@
-package model;
+package persistencia;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,12 +6,24 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
+import model.Hotel;
+import model.Bebida;
+import model.Cama;
+import model.Consumo;
+import model.Habitacion;
+import model.Huesped;
+import model.Plato;
+import model.Reserva;
+import model.Servicio;
+import model.TarifaCuarto;
+import model.TipoHabitacion;
+
 
 
 public class GuardadorInformacion {
-    private InformacionHotel informacion;
-    public GuardadorInformacion(InformacionHotel info){
-        this.informacion=info;
+    private Hotel informacion;
+    public GuardadorInformacion(model.Hotel informacion2){
+        this.informacion=informacion2;
     }
     public void guardarHabitaciones() {
         
