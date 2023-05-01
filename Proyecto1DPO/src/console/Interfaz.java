@@ -95,7 +95,7 @@ public class Interfaz {
                     while(corr){
                         interfazAdministrador.mostrarMenu();
                         int opcion = scanner.nextInt();
-                        if(opcion!=12){
+                        if(opcion!=6){
                             interfazAdministrador.opcionElegida(opcion);
                         } else {
                             corr = false;
