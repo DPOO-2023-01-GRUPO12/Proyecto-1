@@ -26,8 +26,8 @@ import javax.swing.*;
 
 public class VentanaInicio extends JFrame
 {
+    private JFrame login;
     private PMS pms;
-
     private InterfazAdministrador interfazAdministrador;
     private InterfazRecepcionista interfazRecepcionista;
     private InterfazEmpleado interfazEmpleado;
@@ -41,7 +41,7 @@ public class VentanaInicio extends JFrame
 
 	
 	
-	PanelPrincipal panelPrincipal = new PanelPrincipal();
+	PanelPrincipal panelPrincipal = new PanelPrincipal(this);
 	//pms = new PMS();
 	//interfazAdministrador = new InterfazAdministrador(pms);
 	//interfazRecepcionista = new InterfazRecepcionista(pms);
@@ -113,6 +113,24 @@ public class VentanaInicio extends JFrame
             }
         }
         */
+    }
+
+
+    public void iniciarSesion()
+    {
+	//JDialog dialogo = new JDialog(this);
+	//dialogo.setLocationRelativeTo(this);
+	//dialogo.setLayout
+	//dialogo.setVisible(true);
+	//login = new JFrame();
+	//login.setLayout(getLayout());
+	
+    }
+    
+    public void salir()
+    {
+	this.dispose();
+	
     }
 
 }
