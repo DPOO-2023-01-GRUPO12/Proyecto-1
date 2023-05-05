@@ -26,6 +26,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
     private JButton botonOk;
     private JButton botonCancelar;
+    private JTextField inputUsuario;
 
     public InputHabitacion()  {
         setBackground(Color.lightGray);
@@ -36,8 +37,8 @@ public class InputHabitacion extends JDialog implements ActionListener {
         GroupLayout layout = new GroupLayout(panelCentral);
         panelCentral.setLayout(layout);
 
-        gl.setAutoCreateGaps(true);
-        gl.setAutoCreateContainerGaps(true);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
 
         JLabel usuario = new JLabel("Usuario: ");
         inputUsuario = new JTextField();
@@ -47,15 +48,15 @@ public class InputHabitacion extends JDialog implements ActionListener {
         inputDescripcion = new JTextField();
 
 
-        JLabel cocina = new JLabel("Tiene Cocina: ")
-        JButtonGroup bgCocina = new JButtonGroup();
+        JLabel cocina = new JLabel("Tiene Cocina: ");
+        ButtonGroup bgCocina = new ButtonGroup();
         radioCocina1 = new JRadioButton("Si");
         radioCocina2 = new JRadioButton("No");
         bgCocina.add(radioCocina1);
         bgCocina.add(radioCocina2);
 
-        JLabel balcon = new JLabel("Tiene balcon: ")
-        JButtonGroup bgBalcon = new JButtonGroup();
+        JLabel balcon = new JLabel("Tiene balcon: ");
+        ButtonGroup bgBalcon = new ButtonGroup();
         radioBalcon1 = new JRadioButton("Si");
         radioBalcon2 = new JRadioButton("No");
         bgBalcon.add(radioBalcon1);
@@ -63,7 +64,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
 
         JLabel vista = new JLabel("Tiene vista al mar: ")
-        JButtonGroup bgVista = new JButtonGroup();
+        ButtonGroup bgVista = new ButtonGroup();
         radioVista1 = new JRadioButton("Si");
         radioVista2 = new JRadioButton("No");
         bgVista.add(radioVista1);
