@@ -33,8 +33,8 @@ public class InputHabitacion extends JDialog implements ActionListener {
         setLayout(new BorderLayout());
 
         JPanel panelCentral = new JPanel();
-        GroupLayout layout = new GroupLayout(panel);
-        panelCentral.setLayout(gl);
+        GroupLayout layout = new GroupLayout(panelCentral);
+        panelCentral.setLayout(layout);
 
         gl.setAutoCreateGaps(true);
         gl.setAutoCreateContainerGaps(true);
