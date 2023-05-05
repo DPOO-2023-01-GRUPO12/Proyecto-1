@@ -183,31 +183,18 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                 inputTipoHab.setLayout(new BorderLayout());
 
                 JPanel panelTipoH = new JPanel();
-
-                GroupLayout layout2 = new GroupLayout(panelTipoH);
-                panelTipoH.setLayout(layout2);
-                layout2.setAutoCreateGaps(true);
-                layout2.setAutoCreateContainerGaps(true);
+                panelTipoH.setLayout(new FlowLayout());
 
                 JLabel tipoHLabel = new JLabel("Tipo de Habitacion", SwingConstants.LEFT);
                 JTextField tipoH = new JTextField(10);
                 panelTipoH.add(tipoHLabel);
                 panelTipoH.add(tipoH);
-
-                GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-                h.addGroup(layout.createParallelGroup().addComponent(user).addComponent(password));
-                h.addGroup(layout.createParallelGroup().addComponent(inputUser).addComponent(inputPassword));
-                layout.setHorizontalGroup(h);
-
-                GroupLayout.SequentialGroup v = layout.createSequentialGroup();
-
-                v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(user).addComponent(inputUser));
-                v.addGroup(
-                        layout.createParallelGroup(Alignment.BASELINE).addComponent(password)
-                                .addComponent(inputPassword));
-                layout.setVerticalGroup(v);
+                inputTipoHab.add(panelTipoH, BorderLayout.CENTER);
 
                 // Botones
+
+                JPanel panelSouth = new JPanel();
+                panelSouth.setLayout(new FlowLayout());
                 JButton botonOkTh = new JButton("OK");
                 botonOkTh.addActionListener(new ActionListener() {
                     @Override
@@ -215,6 +202,8 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                         menuAdmin.crearTipoHabitacion(tipoH.getText());
                     }
                 });
+                panelSouth.add(botonOkTh);
+
                 JButton botonCancelarTh = new JButton("CANCELAR");
                 botonCancelarTh.addActionListener(new ActionListener() {
                     @Override
@@ -224,9 +213,9 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                         inputTipoHab.pack();
                     }
                 });
-                inputTipoHab.add(panelTipoH);
-                inputTipoHab.add(botonOkTh);
-                inputTipoHab.add(botonCancelarTh);
+                panelSouth.add(botonCancelarTh);
+
+                inputTipoHab.add(panelSouth, BorderLayout.SOUTH);
 
                 inputTipoHab.pack();
                 inputTipoHab.setVisible(true);
