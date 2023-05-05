@@ -65,7 +65,6 @@ public class VentanaInicio extends JFrame {
         new VentanaInicio();
         pms = new PMS();
         cargador = pms.getCargador();
-        guardador = pms.getGuardador();
         String[] pathNames = { ".", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);

@@ -450,6 +450,61 @@ public class Cargador {
         } // if
     }// funcion
 
+    public void cargarInformacionHotel(File FileInformacionHotel) throws FileNotFoundException, IOException {
+
+        if (FileInformacionHotel.exists()) {
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(FileInformacionHotel));
+                String linea = br.readLine();
+
+                linea = br.readLine();
+                while (linea != null) {
+
+                    String[] partes = linea.split(";");
+
+                    String pathTarifas = partes[0];
+                    String pathTipoHabitaciones = partes[1];
+                    String pathHabitaciones = partes[2];
+                    String pathServicios = partes[3];
+                    String pathCamas = partes[4];
+                    String pathMenuBebidas = partes[5];
+                    String pathMenuPlatos = partes[6];
+
+                    File fileTarifas = new File("Proyecto1DPO/data/" + pathTarifas);
+                    File fileTipohabitaciones = new File("Proyecto1DPO/data/" + pathTipoHabitaciones);
+                    File fileHabitaciones = new File("Proyecto1DPO/data/" + pathHabitaciones);
+                    File fileServicios = new File("Proyecto1DPO/data/" + pathServicios);
+                    File fileCamas = new File("Proyecto1DPO/data/" + pathCamas);
+                    File fileMenuBebidas = new File("Proyecto1DPO/data/" + pathMenuBebidas);
+                    File fileMenuPlatos = new File("Proyecto1DPO/data/" + pathMenuPlatos);
+
+                    cargarTarifasCuarto(fileTarifas);
+                    cargarTipoHabitaciones(fileTipohabitaciones);
+                    cargarHabitaciones(fileHabitaciones);
+                    cargarServicios(fileServicios);
+                    cargarCamas(fileCamas);
+                    cargarMenuBebidas(fileMenuBebidas);
+                    cargarMenuPlatos(fileMenuPlatos);
+
+                    linea = br.readLine();
+
+                } // fin while
+
+                br.close();
+            } // fin try
+            catch (FileNotFoundException e) {
+                System.out.println("No se encontró el archivo");
+                e.printStackTrace();
+            } // fin catch
+            catch (IOException e) {
+                System.out.println("Error de lectura");
+                e.printStackTrace();
+            } // fin cacth
+
+        } // fin if
+    }// fin función
+
     private void actualizarTarifasHabitacion() {
 
         ArrayList<TarifaCuarto> listaTarifas = pms.getTarifasCuartos();

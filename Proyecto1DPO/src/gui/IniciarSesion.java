@@ -13,7 +13,6 @@ import model.PMS;
 public class IniciarSesion extends JDialog implements ActionListener {
 
     private Autenticador authenticator;
-    private VentanaInicio ventanaPrincipal;
     private PMS sistema;
     private JButton botonOk;
     private JButton botonCancelar;
@@ -21,7 +20,6 @@ public class IniciarSesion extends JDialog implements ActionListener {
     private JTextField inputPassword;
 
     public IniciarSesion(VentanaInicio ventanaPrincipal, PMS pms) {
-        this.ventanaPrincipal = ventanaPrincipal;
         authenticator = new Autenticador(pms);
 
         setBackground(Color.lightGray);
@@ -81,8 +79,9 @@ public class IniciarSesion extends JDialog implements ActionListener {
                         inputPassword.getText().strip());
                 if (contrasenaCorrecta) {
                     JOptionPane.showMessageDialog(this, "Sesion iniciada");
-                    ventanaPrincipal.salir();
+                    this.setVisible(false);
                     InterfazAdmin iadmin = new InterfazAdmin(sistema);
+                    iadmin.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
                 }
