@@ -195,7 +195,7 @@ public class MenuAdministrador {
                     System.out.println("El tipo de habitacion ya existe, ingrese uno nuevo: ");
                     return null;
                 }
-                return crearTipoHabitacion(nombreTipo2);
+                crearTipoHabitacion(nombreTipo2);
             default:
                 System.out.println("Opcion invalida, intente de nuevo.");
                 return null;

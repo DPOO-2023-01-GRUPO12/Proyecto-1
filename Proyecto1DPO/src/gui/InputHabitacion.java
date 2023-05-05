@@ -2,7 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.lang.foreign.GroupLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.GroupLayout.Alignment;
 
 public class InputHabitacion extends JDialog implements ActionListener {
     private JTextField inputIdentificador;
@@ -26,7 +28,6 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
     private JButton botonOk;
     private JButton botonCancelar;
-    private JTextField inputUsuario;
 
     public InputHabitacion()  {
         setBackground(Color.lightGray);
@@ -41,7 +42,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
         layout.setAutoCreateContainerGaps(true);
 
         JLabel usuario = new JLabel("Usuario: ");
-        inputUsuario = new JTextField();
+        inputIdentificador = new JTextField();
         JLabel ubicacion = new JLabel("Ubicacion: ");
         inputUbicacion = new JTextField();
         JLabel descripcion = new JLabel("Descripcion: ");
@@ -63,7 +64,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
         bgBalcon.add(radioBalcon2);
 
 
-        JLabel vista = new JLabel("Tiene vista al mar: ")
+        JLabel vista = new JLabel("Tiene vista al mar: ");
         ButtonGroup bgVista = new ButtonGroup();
         radioVista1 = new JRadioButton("Si");
         radioVista2 = new JRadioButton("No");
@@ -72,7 +73,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
 
         GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-        h.addGroup(layout.createParallelGroup().addComponent(usuario).addComponent(inputUsuario));
+        h.addGroup(layout.createParallelGroup().addComponent(usuario).addComponent(inputIdentificador));
         h.addGroup(layout.createParallelGroup().addComponent(ubicacion).addComponent(inputUbicacion));
         h.addGroup(layout.createParallelGroup().addComponent(descripcion).addComponent(inputDescripcion));
         h.addGroup(layout.createParallelGroup().addComponent(cocina).addComponent(radioCocina1).addComponent(radioCocina2));
@@ -81,7 +82,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
         GroupLayout.SequentialGroup v = layout.createSequentialGroup();
 
-        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(usuario).addComponent(inputUsuario));
+        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(usuario).addComponent(inputIdentificador));
         v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(ubicacion).addComponent(inputUbicacion));
         v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(descripcion).addComponent(inputDescripcion));
         v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(cocina).addComponent(radioCocina1).addComponent(radioCocina2));
@@ -108,6 +109,12 @@ public class InputHabitacion extends JDialog implements ActionListener {
         add(panelBotonesInferior, BorderLayout.SOUTH);
 
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
 }

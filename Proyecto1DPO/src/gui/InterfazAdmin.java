@@ -15,7 +15,6 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.foreign.GroupLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -30,7 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout.*;
 import console.MenuAdministrador;
 import model.PMS;
 import persistencia.Cargador;
