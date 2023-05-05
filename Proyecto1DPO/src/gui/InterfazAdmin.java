@@ -15,6 +15,7 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.foreign.GroupLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -26,8 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.filechooser.FileFilter;
-
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
 import console.MenuAdministrador;
 import model.PMS;
 import persistencia.Cargador;
@@ -44,10 +47,10 @@ public class InterfazAdmin extends JFrame implements ActionListener {
     private JButton botonCancelar;
     private MenuAdministrador menuAdmin;
 
-    public InterfazAdmin(PMS pms) {
-        this.pms = pms;
-        cargador = pms.getCargador();
-        menuAdmin = new MenuAdministrador(cargador, pms);
+    public InterfazAdmin(PMS sistema) {
+        pms = sistema;
+        cargador = sistema.getCargador();
+        menuAdmin = new MenuAdministrador(cargador, sistema);
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
         BorderLayout layout = new BorderLayout();
@@ -147,9 +150,9 @@ public class InterfazAdmin extends JFrame implements ActionListener {
         fc.setApproveButtonText("Cargar");
         fc.setApproveButtonToolTipText("Cargar los archivos seleccionados");
         fc.setFileHidingEnabled(true);
-        // fc.setFileFilter(new FiltroArchivos());
-        // fc.setAcceptAllFileFilterUsed(false);
-        // fc.setAccessory(new PanelVistaPrevia(fc));
+        /// fc.setFileFilter(new FiltroArchivos());
+        /// fc.setAcceptAllFileFilterUsed(false);
+        /// fc.setAccessory(new PanelVistaPrevia(fc));
         int resultado = fc.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoHotel = fc.getSelectedFile();
@@ -177,16 +180,39 @@ public class InterfazAdmin extends JFrame implements ActionListener {
             }
             if (radio3.isSelected()) { // Crear Tipo habitacion
                 JDialog inputTipoHab = new JDialog(this);
-                inputTipoHab.setLayout(new BoxLayout(inputTipoHab, BoxLayout.Y_AXIS));
+                inputTipoHab.setLayout(new BorderLayout());
+
+                JPanel panelTipoH = new JPanel();
+
+                GroupLayout layout2 = new GroupLayout(panelTipoH);
+                panelTipoH.setLayout(layout2);
+                layout2.setAutoCreateGaps(true);
+                layout2.setAutoCreateContainerGaps(true);
+
                 JLabel tipoHLabel = new JLabel("Tipo de Habitacion", SwingConstants.LEFT);
                 JTextField tipoH = new JTextField(10);
+                panelTipoH.add(tipoHLabel);
+                panelTipoH.add(tipoH);
+
+                GroupLayout.SequentialGroup h = layout.createSequentialGroup();
+                h.addGroup(layout.createParallelGroup().addComponent(user).addComponent(password));
+                h.addGroup(layout.createParallelGroup().addComponent(inputUser).addComponent(inputPassword));
+                layout.setHorizontalGroup(h);
+
+                GroupLayout.SequentialGroup v = layout.createSequentialGroup();
+
+                v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(user).addComponent(inputUser));
+                v.addGroup(
+                        layout.createParallelGroup(Alignment.BASELINE).addComponent(password)
+                                .addComponent(inputPassword));
+                layout.setVerticalGroup(v);
 
                 // Botones
                 JButton botonOkTh = new JButton("OK");
                 botonOkTh.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        menuAdmin.crearTipoHabitacion();
+                        menuAdmin.crearTipoHabitacion(tipoH.getText());
                     }
                 });
                 JButton botonCancelarTh = new JButton("CANCELAR");
@@ -198,11 +224,15 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                         inputTipoHab.pack();
                     }
                 });
+                inputTipoHab.add(panelTipoH);
                 inputTipoHab.add(botonOkTh);
                 inputTipoHab.add(botonCancelarTh);
 
+                inputTipoHab.pack();
+                inputTipoHab.setVisible(true);
+
             }
-            if (radio4.isSelected()) {
+            if (radio4.isSelected()) { // configurar
             }
         } else if (e.getSource() == botonCancelar) {
             this.setVisible(false);

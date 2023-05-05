@@ -169,6 +169,25 @@ public class PMS {
 
     }
 
+    public void actualizarTarifasHabitacion() {
+
+        ArrayList<TarifaCuarto> listaTarifas = getTarifasCuartos();
+        Map<String, TipoHabitacion> maptipohabitciones = getTipoHabitaciones();
+
+        for (String tipo : maptipohabitciones.keySet()) {
+
+            for (TarifaCuarto tarifa : listaTarifas) {
+                String nombreTarifa = tarifa.getTipoCuarto();
+                if (tipo.equalsIgnoreCase(nombreTarifa)) {
+                    TipoHabitacion tipoActual = maptipohabitciones.get(tipo);
+                    tipoActual.agregarTarifaCuarto(tarifa);
+                }
+            } // for tarifas
+
+        } // for tipos
+
+    }// método
+
     public Cargador getCargador() {
         return cargador;
     }

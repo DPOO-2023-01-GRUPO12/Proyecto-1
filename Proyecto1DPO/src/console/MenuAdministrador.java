@@ -36,16 +36,6 @@ public class MenuAdministrador {
         this.pms = pms;
     }
 
-    public void cargarHabitaciones(String pathHabitaciones) throws IOException {
-        File file = new File("Proyecto1DPO/data/" + pathHabitaciones);
-        try {
-
-            cargador.cargarHabitaciones(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("No existe el archivo");
-        }
-    }
-
     public void informarFechasSinTarifa() throws ParseException {
         TimeUnit time = TimeUnit.DAYS;
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -212,55 +202,10 @@ public class MenuAdministrador {
         }
     }
 
-    public TipoHabitacion crearTipoHabitacion(String tipo) throws FileNotFoundException, IOException {
-        Scanner scanner = new Scanner(System.in);
+    public void crearTipoHabitacion(String tipo) {
         TipoHabitacion tipoHabitacion = new TipoHabitacion(tipo);
-        System.out.println("Debe asignarle al menos una tarifa al tipo de habitacion. ");
-        System.out.println("1. Seleccionar tarifa de habitacion. ");
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        if (opcion == 1) {
-            if (pms.getTarifasCuartos().isEmpty()) {
-                System.out.println("No hay tarifas cargadas, ¿desea cargar las tarifas?.");
-                System.out.println("1. Si.");
-                System.out.println("2. No.");
-                int opcion2 = scanner.nextInt();
-                scanner.nextLine();
-                if (opcion2 == 1) {
-                    System.out.println("Ingrese el nombre del archivo: ");
-                    String nombreArchivo = scanner.nextLine();
-                    cargarTarifasPorTipoCuarto(nombreArchivo);
-                } else {
-                    System.out.println("No se puede crear una habitacion sin una tarifa.");
-                    return null;
-                }
-            }
-            System.out.println("Seleccione la tarifa marcando el numero de la que desea: ");
-            for (TarifaCuarto tar : pms.getTarifasCuartos()) {
-                if (tar.getTipoCuarto().equals(tipoHabitacion.getNombreTipo())) {
-                    int index = pms.getTarifasCuartos().indexOf(tar);
-                    System.out.print("Tarifa " + index + ": ");
-                    System.out.println(tar.toString());
-                }
-            }
-            int opcion3 = scanner.nextInt();
-            scanner.nextLine();
-            if (opcion3 < 0 || opcion3 > pms.getTarifasCuartos().size()) {
-                System.out.println("Opcion invalida.");
-
-                return null;
-            }
-            tipoHabitacion.agregarTarifaCuarto(pms.getTarifasCuartos().get(opcion3));
-            pms.agregarTipoHabitacion(tipoHabitacion);
-
-        } else {
-            System.out.println("Opcion invalida.");
-
-            return null;
-        }
-
-        return tipoHabitacion;
-
+        pms.agregarTipoHabitacion(tipoHabitacion);
+        pms.actualizarTarifasHabitacion();
     }
 
     private void mostrarMenuCamas() {

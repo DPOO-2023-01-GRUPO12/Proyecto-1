@@ -20,6 +20,7 @@ public class IniciarSesion extends JDialog implements ActionListener {
     private JTextField inputPassword;
 
     public IniciarSesion(VentanaInicio ventanaPrincipal, PMS pms) {
+        sistema = pms;
         authenticator = new Autenticador(pms);
 
         setBackground(Color.lightGray);
