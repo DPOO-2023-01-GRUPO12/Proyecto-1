@@ -36,7 +36,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
     private JTextField inputUsuario;
     private MenuAdministrador menuAdmin;
 
-    private
+
 
     public InputHabitacion(MenuAdministrador menuAdmin) {
         this.menuAdmin = menuAdmin;
@@ -89,7 +89,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
         panelVista.add(radioVista2);
 
         GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-        h.addGroup(layout.createParallelGroup().addComponent(usuario).addComponent(inputIdentificador));
+        h.addGroup(layout.createParallelGroup().addComponent(id).addComponent(inputId));
         h.addGroup(layout.createParallelGroup().addComponent(ubicacion).addComponent(inputUbicacion));
         h.addGroup(layout.createParallelGroup().addComponent(descripcion).addComponent(inputDescripcion));
         h.addGroup(layout.createParallelGroup().addComponent(cocina).addComponent(radioCocina1)
@@ -141,7 +141,10 @@ public class InputHabitacion extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonOk) {
-            menuAdmin.crearHabitacion(inputId.getText(), inputUbicacion.getText(), inputDescripcion.getText());
+            
+
+            try {
+                menuAdmin.crearHabitacion(inputId.getText(), inputUbicacion.getText(), inputDescripcion.getText());
             dispose();
             JDialog seleccionarTipoHabitcion = new JDialog();
             seleccionarTipoHabitcion.setLayout(new BorderLayout());
@@ -150,9 +153,7 @@ public class InputHabitacion extends JDialog implements ActionListener {
             JPanel panelLista = new JPanel();
             JList listaTipoHabs = new JList();
 
-            try {
-
-                dispose();
+              
 
             } catch (FileNotFoundException e1) {
                 // TODO Auto-generated catch block
@@ -165,10 +166,6 @@ public class InputHabitacion extends JDialog implements ActionListener {
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
+   
 
 }
