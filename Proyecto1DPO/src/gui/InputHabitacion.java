@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.concurrent.Flow;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,7 +32,6 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
     private JButton botonOk;
     private JButton botonCancelar;
-    private JTextField inputUsuario;
     private MenuAdministrador menuAdmin;
 
 
@@ -156,10 +154,10 @@ public class InputHabitacion extends JDialog implements ActionListener {
               
 
             } catch (FileNotFoundException e1) {
-                // TODO Auto-generated catch block
+                
                 e1.printStackTrace();
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
+                
                 e1.printStackTrace();
             }
 
