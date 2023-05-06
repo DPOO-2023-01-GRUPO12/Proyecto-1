@@ -113,7 +113,6 @@ public class MenuAdministrador {
 
     public void crearHabitacion(String id, String ub, String desc) throws FileNotFoundException, IOException {
         Habitacion habitacion = new Habitacion(id, ub, desc);
-        System.out.println("Para crear una habitacion debe seleccionar un tipo de habitacion y camas.");
         asignarHabitacionTipo(habitacion);
         asignarHabitacionCamas(habitacion);
         pms.agregarHabitacion(habitacion);

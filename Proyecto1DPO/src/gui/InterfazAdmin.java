@@ -175,10 +175,12 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                 }
             }
             if (radio2.isSelected()) { // Crear Habitacion
-
+                InputHabitacion inputHab = new InputHabitacion(menuAdmin);
+                inputHab.setLocationRelativeTo(this);
             }
             if (radio3.isSelected()) { // Crear Tipo habitacion
                 JDialog inputTipoHab = new JDialog(this);
+                inputTipoHab.setLocationRelativeTo(this);
                 inputTipoHab.setLayout(new BorderLayout());
 
                 JPanel panelTipoH = new JPanel();
