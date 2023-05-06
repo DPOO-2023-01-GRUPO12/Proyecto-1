@@ -1,18 +1,17 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.plaf.BorderUIResource;
 
 public class ConfigurarAdmin extends JDialog implements ActionListener{
 
     private JRadioButton radio1;
     private JRadioButton radio2;
     private JRadioButton radio3;
-    private JRadioButton radio4;
 
     private JButton botonOk;
     private JButton botonCancelar;
@@ -90,8 +89,89 @@ public class ConfigurarAdmin extends JDialog implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if(e.getSource() == botonOk){
+            
+
+            JDialog dialogo = new JDialog();
+            dialogo.setLayout(new BorderLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+
+
+            JLabel titulo = new JLabel("¿Qué desea hacer con este producto?", SwingConstants.CENTER);
+
+            Font f = titulo.getFont();
+            titulo.setFont(new Font("macOS SF Pro", Font.BOLD, 12));
+            titulo.setBorder(null);
+            titulo.setForeground(Color.BLACK);
+            titulo.setOpaque(false);
+
+            dialogo.add(titulo,BorderLayout.NORTH);
+
+            JPanel panelCentro = new JPanel();
+            panelCentro.setLayout(new GridBagLayout());
+            //gbc.fill = GridBagConstraints.VERTICAL;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+
+            JButton botonAgregar = new JButton("AGREGAR TARIFA");
+            JButton botonCambiar = new JButton("CAMBIAR TARIFA");
+            panelCentro.add(botonAgregar);
+            panelCentro.add(botonCambiar);
+            panelCentro.setVisible(true);
+
+            dialogo.add(panelCentro,BorderLayout.CENTER);
+
+            dialogo.setVisible(true);
+            dialogo.setSize(300, 110);
+
+            if(botonAgregar.isSelected()){
+                if(radio1.isSelected()){
+                    // configurar tarifa servicio
+    
+    
+    
+                }
+                if(radio2.isSelected()){
+                    // configurar menu de platos
+    
+    
+                }
+                if(radio3.isSelected()){
+                    // configurar menu de bebidas
+                }
+
+            }
+
+            if(botonCambiar.isSelected()){
+
+                if(radio1.isSelected()){
+                    // configurar tarifa servicio
+    
+    
+    
+                }
+                if(radio2.isSelected()){
+                    // configurar menu de platos
+    
+    
+                }
+                if(radio3.isSelected()){
+                    // configurar menu de bebidas
+                }
+
+            }
+        }
+        if(e.getSource() == botonCancelar){
+            this.setVisible(false);
+            this.dispose();
+            this.pack();
+        }
+    }
+
+
+
+    public static void main(String[] args) {
+        ConfigurarAdmin admin = new ConfigurarAdmin();
     }
 
 

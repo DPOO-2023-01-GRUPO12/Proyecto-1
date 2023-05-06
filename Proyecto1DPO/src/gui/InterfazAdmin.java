@@ -223,6 +223,10 @@ public class InterfazAdmin extends JFrame implements ActionListener {
 
             }
             if (radio4.isSelected()) { // configurar
+
+                ConfigurarAdmin configurarAdmin = new ConfigurarAdmin();
+
+                
             }
         } else if (e.getSource() == botonCancelar) {
             this.setVisible(false);
