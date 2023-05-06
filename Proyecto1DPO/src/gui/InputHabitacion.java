@@ -257,7 +257,9 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
             Habitacion hab = menuAdmin.crearHabitacion(inputId.getText(), inputUbicacion.getText(),
                     inputDescripcion.getText());
-
+            this.setVisible(false);
+            this.dispose();
+            this.pack();
             seleccionarTipoHab(hab);
 
         }

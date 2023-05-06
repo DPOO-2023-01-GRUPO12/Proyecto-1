@@ -198,6 +198,9 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         menuAdmin.crearTipoHabitacion(tipoH.getText());
+                        inputTipoHab.setVisible(false);
+                        inputTipoHab.dispose();
+                        inputTipoHab.pack();
                     }
                 });
                 panelSouth.add(botonOkTh);
