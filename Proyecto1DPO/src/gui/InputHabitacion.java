@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,6 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 
 import console.MenuAdministrador;
+import model.Cama;
+import model.Habitacion;
+import model.PMS;
+import model.TipoHabitacion;
 
 public class InputHabitacion extends JDialog implements ActionListener {
     private JTextField inputId;
@@ -33,10 +38,10 @@ public class InputHabitacion extends JDialog implements ActionListener {
     private JButton botonOk;
     private JButton botonCancelar;
     private MenuAdministrador menuAdmin;
+    private PMS sistema;
 
-
-
-    public InputHabitacion(MenuAdministrador menuAdmin) {
+    public InputHabitacion(PMS pms, MenuAdministrador menuAdmin) {
+        sistema = pms;
         this.menuAdmin = menuAdmin;
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
@@ -87,16 +92,6 @@ public class InputHabitacion extends JDialog implements ActionListener {
         panelVista.add(radioVista2);
 
         GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-        h.addGroup(layout.createParallelGroup().addComponent(id).addComponent(inputId));
-        h.addGroup(layout.createParallelGroup().addComponent(ubicacion).addComponent(inputUbicacion));
-        h.addGroup(layout.createParallelGroup().addComponent(descripcion).addComponent(inputDescripcion));
-        h.addGroup(layout.createParallelGroup().addComponent(cocina).addComponent(radioCocina1)
-                .addComponent(radioCocina2));
-        h.addGroup(layout.createParallelGroup().addComponent(balcon).addComponent(radioBalcon1)
-                .addComponent(radioBalcon2));
-        h.addGroup(
-                layout.createParallelGroup().addComponent(vista).addComponent(radioVista1).addComponent(radioVista2));
-
         h.addGroup(layout.createParallelGroup().addComponent(id).addComponent(ubicacion).addComponent(descripcion)
                 .addComponent(cocina).addComponent(balcon).addComponent(vista));
         h.addGroup(layout.createParallelGroup().addComponent(inputId).addComponent(inputUbicacion)
@@ -136,37 +131,136 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
     }
 
+    private void seleccionarTipoHab(Habitacion hab) {
+        JDialog seleccionarTipoHabitacion = new JDialog();
+        seleccionarTipoHabitacion.setLayout(new BorderLayout());
+        JLabel tituloTipoHab = new JLabel("Seleccione el tipo de habitacion", SwingConstants.CENTER);
+        tituloTipoHab.setFont(new Font("macOS SF Pro", Font.BOLD, 15));
+        tituloTipoHab.setBorder(null);
+        tituloTipoHab.setForeground(Color.BLACK);
+        tituloTipoHab.setOpaque(false);
+        seleccionarTipoHabitacion.add(tituloTipoHab, BorderLayout.NORTH);
+
+        // JPanel panelLista = new JPanel();
+        DefaultListModel<String> lm = new DefaultListModel<>();
+        JList<String> listaTipoHabs = new JList<>(lm);
+        for (TipoHabitacion tipo : sistema.getTipoHabitaciones().values()) {
+            lm.addElement(tipo.getNombreTipo());
+        }
+
+        JScrollPane scroll = new JScrollPane(listaTipoHabs);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        seleccionarTipoHabitacion.add(scroll, BorderLayout.CENTER);
+
+        JPanel panelSouth = new JPanel();
+        panelSouth.setLayout(new FlowLayout());
+        JButton botonOkTh = new JButton("OK");
+        botonOkTh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seleccionarTipoHabitacion.setVisible(false);
+                seleccionarTipoHabitacion.dispose();
+                seleccionarTipoHabitacion.pack();
+                String tipoSeleccionado = listaTipoHabs.getSelectedValue();
+                menuAdmin.asignarHabitacionTipo(hab, sistema.getTipoHabitaciones().get(tipoSeleccionado));
+                seleccionarTipoHabitacion.setVisible(false);
+                seleccionarTipoHabitacion.dispose();
+                seleccionarTipoHabitacion.pack();
+                seleccionarCamas(hab);
+            }
+        });
+        panelSouth.add(botonOkTh);
+
+        JButton botonCancelarTh = new JButton("CANCELAR");
+        botonCancelarTh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seleccionarTipoHabitacion.setVisible(false);
+                seleccionarTipoHabitacion.dispose();
+                seleccionarTipoHabitacion.pack();
+            }
+        });
+        panelSouth.add(botonCancelarTh);
+
+        seleccionarTipoHabitacion.add(panelSouth, BorderLayout.SOUTH);
+        seleccionarTipoHabitacion.setSize(300, 400);
+        seleccionarTipoHabitacion.setVisible(true);
+    }
+
+    private void seleccionarCamas(Habitacion hab) {
+        JDialog seleccionarCamas = new JDialog();
+        seleccionarCamas.setLayout(new BorderLayout());
+        JLabel tituloCamas = new JLabel("Seleccionee la/las cama/camas", SwingConstants.CENTER);
+        tituloCamas.setFont(new Font("macOS SF Pro", Font.BOLD, 15));
+        tituloCamas.setBorder(null);
+        tituloCamas.setForeground(Color.BLACK);
+        tituloCamas.setOpaque(false);
+        seleccionarCamas.add(tituloCamas, BorderLayout.NORTH);
+
+        // JPanel panelLista = new JPanel();
+        DefaultListModel<String> lm = new DefaultListModel<>();
+        JList<String> listaCamas = new JList<>(lm);
+        for (Cama cama : sistema.getCamas()) {
+            lm.addElement(cama.toString());
+        }
+
+        JScrollPane scroll = new JScrollPane(listaCamas);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        seleccionarCamas.add(scroll, BorderLayout.CENTER);
+
+        JPanel panelSouth = new JPanel();
+        panelSouth.setLayout(new FlowLayout());
+        JButton botonOkTh = new JButton("OK");
+        botonOkTh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seleccionarCamas.setVisible(false);
+                seleccionarCamas.dispose();
+                seleccionarCamas.pack();
+                int[] camasSeleIndex = listaCamas.getSelectedIndices();
+                ArrayList<Cama> camasSelec = new ArrayList<Cama>();
+                for (int i : camasSeleIndex) {
+                    camasSelec.add(sistema.getCamas().get(i));
+                }
+                menuAdmin.asignarHabitacionCamas(hab, camasSelec);
+                seleccionarCamas.setVisible(false);
+                seleccionarCamas.dispose();
+                seleccionarCamas.pack();
+
+            }
+        });
+        panelSouth.add(botonOkTh);
+
+        JButton botonCancelarTh = new JButton("CANCELAR");
+        botonCancelarTh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seleccionarCamas.setVisible(false);
+                seleccionarCamas.dispose();
+                seleccionarCamas.pack();
+            }
+        });
+        panelSouth.add(botonCancelarTh);
+
+        seleccionarCamas.add(panelSouth, BorderLayout.SOUTH);
+        seleccionarCamas.setSize(300, 400);
+        seleccionarCamas.setVisible(true);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonOk) {
-            
 
-            try {
-                menuAdmin.crearHabitacion(inputId.getText(), inputUbicacion.getText(), inputDescripcion.getText());
-            dispose();
-            JDialog seleccionarTipoHabitcion = new JDialog();
-            seleccionarTipoHabitcion.setLayout(new BorderLayout());
-            seleccionarTipoHabitcion.add(new JLabel("Seleccione el tipo de habitacion"), BorderLayout.NORTH);
+            Habitacion hab = menuAdmin.crearHabitacion(inputId.getText(), inputUbicacion.getText(),
+                    inputDescripcion.getText());
 
-            JPanel panelLista = new JPanel();
-            JList listaTipoHabs = new JList();
-            
-
-
-            // TODO: CREAR HABITACION A PARTIR DEL MODELO E INFORMAR
-              
-
-            } catch (FileNotFoundException e1) {
-                
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                
-                e1.printStackTrace();
-            }
+            seleccionarTipoHab(hab);
 
         }
     }
-
-   
 
 }

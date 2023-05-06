@@ -164,9 +164,6 @@ public class InterfazAdmin extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == botonOk) {
-            this.setVisible(false);
-            this.dispose();
-            this.pack();
             if (radio1.isSelected()) { // Cargar archivos
                 try {
                     cargarArchivos();
@@ -175,8 +172,8 @@ public class InterfazAdmin extends JFrame implements ActionListener {
                 }
             }
             if (radio2.isSelected()) { // Crear Habitacion
-                InputHabitacion inputHab = new InputHabitacion(menuAdmin);
-                inputHab.setLocationRelativeTo(this);
+                InputHabitacion inputHab = new InputHabitacion(pms, menuAdmin);
+                inputHab.setLocationRelativeTo(null);
             }
             if (radio3.isSelected()) { // Crear Tipo habitacion
                 JDialog inputTipoHab = new JDialog(this);
@@ -226,7 +223,6 @@ public class InterfazAdmin extends JFrame implements ActionListener {
 
                 ConfigurarAdmin configurarAdmin = new ConfigurarAdmin();
 
-                
             }
         } else if (e.getSource() == botonCancelar) {
             this.setVisible(false);

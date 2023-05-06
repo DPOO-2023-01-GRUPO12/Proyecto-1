@@ -111,46 +111,18 @@ public class MenuAdministrador {
         }
     }
 
-    public void crearHabitacion(String id, String ub, String desc) throws FileNotFoundException, IOException {
+    public Habitacion crearHabitacion(String id, String ub, String desc) {
         Habitacion habitacion = new Habitacion(id, ub, desc);
-        asignarHabitacionTipo(habitacion);
-        asignarHabitacionCamas(habitacion);
-        pms.agregarHabitacion(habitacion);
+        return habitacion;
     }
 
-    private void asignarHabitacionTipo(Habitacion hab) throws FileNotFoundException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        mostrarMenuTipoHabitacion();
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        TipoHabitacion tipo = opcionTipoHabitacion(opcion);
-        if (tipo.equals(null)) {
-            System.out.println("No se pudo asignar el tipo de habitacion habitacion.");
-        } else {
-            pms.agregarTipoHabitacion(tipo);
-            hab.setTipoHabitacion(tipo);
-            pms.agregarHabitacion(hab);
-        }
-
+    public void asignarHabitacionTipo(Habitacion hab, TipoHabitacion tipo) {
+        hab.setTipoHabitacion(tipo);
     }
 
-    private void asignarHabitacionCamas(Habitacion hab) throws FileNotFoundException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        mostrarMenuCamas();
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        ArrayList<Cama> camas = opcionCamas(opcion);
-        if (camas.equals(null)) {
-            System.out.println("No se pudo asignar las camas a la habitacion.");
-        } else {
-            for (Cama cama : camas) {
-                pms.agregarCama(cama);
-            }
-            hab.setCamas(camas);
-            pms.agregarHabitacion(hab);
-
-        }
-
+    public void asignarHabitacionCamas(Habitacion hab, ArrayList<Cama> camas) {
+        hab.setCamas(camas);
+        pms.agregarHabitacion(hab);
     }
 
     private void mostrarMenuTipoHabitacion() {

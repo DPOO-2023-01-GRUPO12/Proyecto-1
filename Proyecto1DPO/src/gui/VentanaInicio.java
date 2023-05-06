@@ -64,7 +64,7 @@ public class VentanaInicio extends JFrame {
     public static void main(String[] args) throws ParseException, IOException {
         pms = new PMS();
         cargador = pms.getCargador();
-        String[] pathNames = { ".", "data", "usuarios.txt" };
+        String[] pathNames = { "Proyecto1DPO", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);
 
