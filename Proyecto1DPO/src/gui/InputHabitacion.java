@@ -150,7 +150,10 @@ public class InputHabitacion extends JDialog implements ActionListener {
 
             JPanel panelLista = new JPanel();
             JList listaTipoHabs = new JList();
+            
 
+
+            // TODO: CREAR HABITACION A PARTIR DEL MODELO E INFORMAR
               
 
             } catch (FileNotFoundException e1) {
