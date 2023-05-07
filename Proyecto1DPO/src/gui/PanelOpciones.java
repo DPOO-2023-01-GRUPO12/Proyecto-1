@@ -74,9 +74,9 @@ public class PanelOpciones extends JPanel implements ActionListener {
         } else if (e.getSource() == btnHabitacion) {
             frameAdmin.crearHabitacion();
         } else if (e.getSource() == btnTipoHabitacion) {
-            // frameAdmin.mostrarTipoHabitacion();
+            frameAdmin.crearTipoHabitacion();
         } else if (e.getSource() == btnConfigurar) {
-            // frameAdmin.mostrarConfigurar();
+            frameAdmin.mostrarConfigurar();
 
         }
 

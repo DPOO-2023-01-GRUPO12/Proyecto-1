@@ -13,6 +13,8 @@ public class FrameAdmin extends JFrame {
     private PanelCrearHabitacion panelHabitacion;
     private PMS sistema;
     private MenuAdministrador menuAdmin;
+    private PanelTipoHabitacion panelTipoHabitacion;
+    private PanelConfigurar panelConfigurar;
 
     public FrameAdmin(PMS pms) {
 
@@ -30,6 +32,9 @@ public class FrameAdmin extends JFrame {
         panelArchivos = new PanelArchivos(this);
         panelHabitacion = new PanelCrearHabitacion(menuAdmin, sistema.getTipoHabitaciones().values(),
                 sistema.getCamas());
+        panelTipoHabitacion = new PanelTipoHabitacion(menuAdmin);
+        panelConfigurar = new PanelConfigurar(menuAdmin, sistema.getMenuBebidas().values(),
+                sistema.getMenuPlatos().values(), sistema.getServicios().values());
 
         add(arriba, BorderLayout.NORTH);
         add(panelOpciones, BorderLayout.WEST);
@@ -54,6 +59,8 @@ public class FrameAdmin extends JFrame {
     public void mostrarArchivos() {
         panelInfo.setVisible(false);
         panelHabitacion.setVisible(false);
+        panelTipoHabitacion.setVisible(false);
+        panelConfigurar.setVisible(false);
         panelArchivos.setVisible(true);
         add(panelArchivos, BorderLayout.CENTER);
 
@@ -62,9 +69,30 @@ public class FrameAdmin extends JFrame {
     public void crearHabitacion() {
         panelInfo.setVisible(false);
         panelArchivos.setVisible(false);
+        panelTipoHabitacion.setVisible(false);
+        panelConfigurar.setVisible(false);
         panelHabitacion.setVisible(true);
         add(panelHabitacion, BorderLayout.CENTER);
 
+    }
+
+    public void crearTipoHabitacion() {
+        panelInfo.setVisible(false);
+        panelArchivos.setVisible(false);
+        panelHabitacion.setVisible(false);
+        panelConfigurar.setVisible(false);
+        panelTipoHabitacion.setVisible(true);
+        add(panelTipoHabitacion, BorderLayout.CENTER);
+
+    }
+
+    public void mostrarConfigurar() {
+        panelInfo.setVisible(false);
+        panelArchivos.setVisible(false);
+        panelHabitacion.setVisible(false);
+        panelTipoHabitacion.setVisible(false);
+        panelConfigurar.setVisible(true);
+        add(panelConfigurar, BorderLayout.CENTER);
     }
 
 }
