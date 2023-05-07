@@ -20,6 +20,8 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
     private MenuEmpleado menu;
 
     public InterfazEmpleado(PMS sistema)  {
+
+        menu = new MenuEmpleado(sistema.getCargador(), sistema);
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
         BorderLayout layout = new BorderLayout();

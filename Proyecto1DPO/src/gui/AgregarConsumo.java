@@ -101,8 +101,8 @@ public class AgregarConsumo extends JDialog implements ActionListener{
                 JRadioButton radioSi = new JRadioButton("Si");
                 JRadioButton radioNo = new JRadioButton("No");
 
-                double doubleValue = Double.parseDouble(inputvalor.getText());
-
+                
+                
                 radioSi.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -111,8 +111,13 @@ public class AgregarConsumo extends JDialog implements ActionListener{
                                
                                 // Añadir el consumo a la habitacion y a la factura 
 
+                               
+    
+                                
+                                double doubleValue = Double.parseDouble(inputvalor.getText());
+                                
+    
                                 menu.registrarConsumoHuesped(inputDocumento.getText(), inputGrupo.getText(),inputConsumo.getText(), doubleValue,"si");
-
                                 JOptionPane.showMessageDialog(null, "Se ha asignado el consumo con exito");
                                 dialogo.setVisible(false);
                                 dialogo.dispose();
@@ -129,11 +134,22 @@ public class AgregarConsumo extends JDialog implements ActionListener{
                             
                             //SOLO añadir a lo de factura, no cargar a la habitacion
 
+
+                            if(inputvalor.getText() == ""){
+                                JOptionPane.showMessageDialog(null,"NO EXISTE NINGUN VALOR PARA LOS LABELS");
+                                }
+
+                            else{
+                            double doubleValue = Double.parseDouble(inputvalor.getText());
+                            
+
                             menu.registrarConsumoHuesped(inputDocumento.getText(), inputGrupo.getText(),inputConsumo.getText(), doubleValue,"no");
                             JOptionPane.showMessageDialog(null, "Se ha asignado el consumo con exito");
+                            }
                             dialogo.setVisible(false);
                             dialogo.dispose();
                             dialogo.pack();
+                            
                         }
 
                 }
