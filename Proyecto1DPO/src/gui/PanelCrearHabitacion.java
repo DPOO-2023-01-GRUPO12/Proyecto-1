@@ -106,20 +106,20 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         //////////////// Buttons Cocina
         JPanel cocina = new JPanel(new BorderLayout());
-        cocina.setBackground(Color.LIGHT_GRAY);
+        cocina.setBackground(Color.white);
         JLabel tituloCocina = new JLabel("Tiene Cocina", SwingConstants.CENTER);
         tituloCocina.setFont(new Font("Roboto", Font.BOLD, 15));
         cocina.add(tituloCocina, BorderLayout.NORTH);
 
         JPanel radiobuttons = new JPanel(new FlowLayout());
-        radiobuttons.setBackground(Color.LIGHT_GRAY);
+        radiobuttons.setBackground(Color.white);
         ButtonGroup bgCocina = new ButtonGroup();
 
         tiene = new JRadioButton("Si");
         noTiene = new JRadioButton("No");
-        tiene.setBackground(Color.LIGHT_GRAY);
+        tiene.setBackground(Color.white);
         tiene.setPreferredSize(new Dimension(100, 10));
-        noTiene.setBackground(Color.LIGHT_GRAY);
+        noTiene.setBackground(Color.white);
 
         bgCocina.add(tiene);
         bgCocina.add(noTiene);
@@ -134,20 +134,20 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         ////////////////////// Buttons Balcon
 
         JPanel balcon = new JPanel(new BorderLayout());
-        balcon.setBackground(Color.LIGHT_GRAY);
+        balcon.setBackground(Color.WHITE);
         JLabel tituloBalcon = new JLabel("Tiene Balcon", SwingConstants.CENTER);
         tituloBalcon.setFont(new Font("Roboto", Font.BOLD, 15));
         balcon.add(tituloBalcon, BorderLayout.NORTH);
 
         JPanel radiobuttons1 = new JPanel(new FlowLayout());
-        radiobuttons1.setBackground(Color.LIGHT_GRAY);
+        radiobuttons1.setBackground(Color.WHITE);
         ButtonGroup bgBalcon = new ButtonGroup();
 
         tiene1 = new JRadioButton("Si");
         noTiene1 = new JRadioButton("No");
-        tiene1.setBackground(Color.LIGHT_GRAY);
+        tiene1.setBackground(Color.WHITE);
         tiene1.setPreferredSize(new Dimension(100, 10));
-        noTiene1.setBackground(Color.LIGHT_GRAY);
+        noTiene1.setBackground(Color.WHITE);
 
         bgBalcon.add(tiene1);
         bgBalcon.add(noTiene1);
@@ -160,20 +160,21 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         ////////////////////////////// Buttons Vista
         JPanel vista = new JPanel(new BorderLayout());
-        vista.setBackground(Color.LIGHT_GRAY);
+        vista.setBackground(Color.WHITE);
         JLabel tituloVista = new JLabel("Tiene Vista", SwingConstants.CENTER);
         tituloVista.setFont(new Font("Roboto", Font.BOLD, 15));
         vista.add(tituloVista, BorderLayout.NORTH);
 
         JPanel radiobuttons2 = new JPanel(new FlowLayout());
-        radiobuttons2.setBackground(Color.LIGHT_GRAY);
+
+        radiobuttons2.setBackground(Color.WHITE);
         ButtonGroup bgVista = new ButtonGroup();
 
         tiene2 = new JRadioButton("Si");
         noTiene2 = new JRadioButton("No");
-        tiene2.setBackground(Color.LIGHT_GRAY);
+        tiene2.setBackground(Color.WHITE);
         tiene2.setPreferredSize(new Dimension(100, 10));
-        noTiene2.setBackground(Color.LIGHT_GRAY);
+        noTiene2.setBackground(Color.WHITE);
 
         bgVista.add(tiene2);
         bgVista.add(noTiene2);
