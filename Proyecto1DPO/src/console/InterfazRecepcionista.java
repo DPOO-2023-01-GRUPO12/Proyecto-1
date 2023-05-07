@@ -61,7 +61,7 @@ public class InterfazRecepcionista {
                 String fechaIn = scanner.nextLine();
                 System.out.println("Ingrese la fecha de salida: ");
                 String fechaOut = scanner.nextLine();
-                Reserva reserva = menuRecepcionista.RealizarReservaHuesped(huespedEncargado, cantidad, fechaIn,
+                Reserva reserva = menuRecepcionista.RealizarReservaHuesped(documento, cantidad, fechaIn,
                         fechaOut);
                 pms.agregarReserva(reserva);
                 double tarifaTotal = menuRecepcionista.configurarTarifaTotal(fechaIn, fechaOut, cantidad, reserva);

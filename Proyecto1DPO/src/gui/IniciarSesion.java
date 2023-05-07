@@ -74,15 +74,26 @@ public class IniciarSesion extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonOk) {
+
             boolean existenciaUsuario = authenticator.revisarExistencia(inputUser.getText().strip());
             if (existenciaUsuario) {
-                boolean contrasenaCorrecta = authenticator.revisarPassword(inputUser.getText().strip(),
-                        inputPassword.getText().strip());
+                String tipo = authenticator.revisarTipo(inputUser.getText());
+                boolean contrasenaCorrecta = authenticator.revisarPassword(inputUser.getText(),
+                        inputPassword.getText());
                 if (contrasenaCorrecta) {
                     JOptionPane.showMessageDialog(this, "Sesion iniciada");
                     this.setVisible(false);
-                    InterfazAdmin iadmin = new InterfazAdmin(sistema);
-                    iadmin.setVisible(true);
+                    if (tipo.equals("administrador")) {
+                        InterfazAdmin iadmin = new InterfazAdmin(sistema);
+                        iadmin.setVisible(true);
+                    } else if (tipo.equals("recepcionista")) {
+                        InterfazRecepcionista irecep = new InterfazRecepcionista(sistema);
+                        irecep.setVisible(true);
+                    } else if (tipo.equals("empleado")) {
+                        InterfazEmpleado igere = new InterfazEmpleado(sistema);
+                        igere.setVisible(true);
+                    }
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
                 }

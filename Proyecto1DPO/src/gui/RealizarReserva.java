@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 
-public class RealizarReserva extends JFrame implements ActionListener{
+import console.MenuRecepcionista;
+import model.PMS;
 
+public class RealizarReserva extends JFrame implements ActionListener {
 
     private JButton botonOk;
     private JButton botonCancelar;
@@ -17,14 +19,16 @@ public class RealizarReserva extends JFrame implements ActionListener{
     private JTextField inputCantidadDePersonas;
     private JTextField inputFechaIngreso;
     private JTextField inputFechaSalida;
-    
+    private MenuRecepcionista menuRec;
+    private PMS sistema;
 
-    public RealizarReserva(){
+    public RealizarReserva(PMS pms, MenuRecepcionista rec) {
+        sistema = pms;
+        menuRec = rec;
+
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
-        
 
         JPanel panelCentral = new JPanel();
         GroupLayout layout = new GroupLayout(panelCentral);
@@ -42,20 +46,24 @@ public class RealizarReserva extends JFrame implements ActionListener{
         JLabel fechaSalida = new JLabel("Fecha de Salida: ");
         inputFechaSalida = new JTextField();
 
-
         GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-       
 
-        h.addGroup(layout.createParallelGroup().addComponent(nombreHuesped).addComponent(cantidadPersonas).addComponent(fechaIngreso).addComponent(fechaSalida));
-        h.addGroup(layout.createParallelGroup().addComponent(inputHuesped).addComponent(inputCantidadDePersonas).addComponent(inputFechaIngreso).addComponent(inputFechaSalida));
+        h.addGroup(layout.createParallelGroup().addComponent(nombreHuesped).addComponent(cantidadPersonas)
+                .addComponent(fechaIngreso).addComponent(fechaSalida));
+        h.addGroup(layout.createParallelGroup().addComponent(inputHuesped).addComponent(inputCantidadDePersonas)
+                .addComponent(inputFechaIngreso).addComponent(inputFechaSalida));
         layout.setHorizontalGroup(h);
         GroupLayout.SequentialGroup v = layout.createSequentialGroup();
 
-        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(nombreHuesped).addComponent(inputHuesped));
-        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(cantidadPersonas).addComponent(inputCantidadDePersonas));
-        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(fechaIngreso).addComponent(inputFechaIngreso));
-        v.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(fechaSalida).addComponent(inputFechaSalida));
-        
+        v.addGroup(
+                layout.createParallelGroup(Alignment.BASELINE).addComponent(nombreHuesped).addComponent(inputHuesped));
+        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(cantidadPersonas)
+                .addComponent(inputCantidadDePersonas));
+        v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(fechaIngreso)
+                .addComponent(inputFechaIngreso));
+        v.addGroup(
+                layout.createParallelGroup(Alignment.CENTER).addComponent(fechaSalida).addComponent(inputFechaSalida));
+
         layout.setVerticalGroup(v);
 
         add(panelCentral, BorderLayout.CENTER);
@@ -81,19 +89,18 @@ public class RealizarReserva extends JFrame implements ActionListener{
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == botonOk){}
-        if(e.getSource() == botonCancelar){
+        if (e.getSource() == botonOk) {
+            menuRec.RealizarReservaHuesped(inputHuesped.getText(), Integer.parseInt(inputCantidadDePersonas.getText()),
+                    inputFechaIngreso.getText(), inputFechaSalida.getText());
+        }
+        if (e.getSource() == botonCancelar) {
             this.setVisible(false);
             this.dispose();
             this.pack();
         }
-        
+
     }
 
-
-    
-    
 }

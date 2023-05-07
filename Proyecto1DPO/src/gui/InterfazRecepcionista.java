@@ -6,18 +6,28 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class InterfazRecepcionista extends JFrame implements ActionListener{
+import console.MenuRecepcionista;
+import model.Habitacion;
+import model.PMS;
+import persistencia.Cargador;
 
+public class InterfazRecepcionista extends JFrame implements ActionListener {
 
     private JRadioButton radio1;
     private JRadioButton radio2;
     private JRadioButton radio3;
     private JRadioButton radio4;
-    private JRadioButton radio5;    private JButton botonOk;
+    private JRadioButton radio5;
+    private JButton botonOk;
     private JButton botonCancelar;
+    private PMS sistema;
+    private Cargador cargador;
+    private MenuRecepcionista menuRec;
 
-
-    public InterfazRecepcionista(){
+    public InterfazRecepcionista(PMS pms) {
+        sistema = pms;
+        cargador = sistema.getCargador();
+        menuRec = new MenuRecepcionista(cargador, sistema);
         setVisible(true);
         setBackground(Color.lightGray);
 
@@ -49,7 +59,7 @@ public class InterfazRecepcionista extends JFrame implements ActionListener{
         radio2 = new JRadioButton("Realizar reserva");
         radio3 = new JRadioButton("Realizar registro");
         radio4 = new JRadioButton("Cancelar reserva ");
-        radio5 = new JRadioButton("Realizar check-cout ");
+        radio5 = new JRadioButton("Realizar check-out ");
 
         radio1.setBounds(radio1.getX(), radio1.getY(), 150, 70);
         radio2.setBounds(radio2.getX(), radio2.getY(), 150, 70);
@@ -97,48 +107,81 @@ public class InterfazRecepcionista extends JFrame implements ActionListener{
         setVisible(true);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        
 
+        if (e.getSource() == botonOk) {
+            if (radio1.isSelected()) {
 
-        if(e.getSource() == botonOk){
-            if(radio1.isSelected()){
-                //TODO: Añadir codigo consultar habitaciones 
-                // creo que tambien viene aca lo de la visualizacion de disponibilidad
+                JDialog mostrarHabs = new JDialog();
+                mostrarHabs.setResizable(false);
+                mostrarHabs.setLocationRelativeTo(this);
+                mostrarHabs.setLayout(new BorderLayout());
+                JLabel tituloTipoHab = new JLabel("Habitaciones", SwingConstants.CENTER);
+                tituloTipoHab.setFont(new Font("macOS SF Pro", Font.BOLD, 15));
+                tituloTipoHab.setBorder(null);
+                tituloTipoHab.setForeground(Color.BLACK);
+                tituloTipoHab.setOpaque(false);
+                mostrarHabs.add(tituloTipoHab, BorderLayout.NORTH);
 
+                // JPanel panelLista = new JPanel();
+
+                DefaultListModel<String> lm = new DefaultListModel<>();
+                JList<String> listaHabs = new JList<>(lm);
+
+                for (Habitacion hab : sistema.getInventarioHabitaciones().values()) {
+                    lm.addElement(hab.toString());
+                }
+
+                JScrollPane scroll = new JScrollPane(listaHabs);
+                scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+                scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+                mostrarHabs.add(scroll, BorderLayout.CENTER);
+
+                JPanel panelSouth = new JPanel();
+                panelSouth.setLayout(new FlowLayout());
+                JButton botonOkTh = new JButton("OK");
+                botonOkTh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mostrarHabs.setVisible(false);
+                        mostrarHabs.dispose();
+                        mostrarHabs.pack();
+                    }
+                });
+                panelSouth.add(botonOkTh);
+                mostrarHabs.add(panelSouth, BorderLayout.SOUTH);
+                mostrarHabs.setSize(300, 400);
+                mostrarHabs.setVisible(true);
 
             }
-            if(radio2.isSelected()){
-                //TODO: Realizar reserva 
-                RealizarReserva reserva = new RealizarReserva();
+            if (radio2.isSelected()) {
+                // TODO: Realizar reserva
 
+                RealizarRegistro registro = new RealizarRegistro();
+
+                RealizarReserva reserva = new RealizarReserva(sistema, menuRec);
 
             }
-            if(radio3.isSelected()){
-                //TODO: Realizar Registro
+            if (radio3.isSelected()) {
+                // TODO: Realizar Registro
+                RealizarRegistro registro = new RealizarRegistro();
             }
-            if(radio4.isSelected()){
-                // Cancelar Reserva 
+            if (radio4.isSelected()) {
+                // Cancelar Reserva
             }
-            if(radio5.isSelected()){
+            if (radio5.isSelected()) {
                 // Realizar checkout
 
             }
         }
-        if(e.getSource() == botonCancelar){
+        if (e.getSource() == botonCancelar) {
             this.setVisible(false);
             this.dispose();
             this.pack();
         }
-    } 
-
-
-
-    public static void main(String[] args) {
-        InterfazRecepcionista in = new InterfazRecepcionista();
     }
-    
+
 }

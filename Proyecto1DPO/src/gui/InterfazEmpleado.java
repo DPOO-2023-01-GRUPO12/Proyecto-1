@@ -6,8 +6,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class InterfazEmpleado extends JFrame implements ActionListener {
+import model.PMS;
 
+public class InterfazEmpleado extends JFrame implements ActionListener {
 
     private JRadioButton radio1;
     private JButton botonOk;
@@ -15,7 +16,7 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 
     private JRadioButton radio2;
 
-    public InterfazEmpleado(){
+    public InterfazEmpleado(PMS sistema) {
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
         BorderLayout layout = new BorderLayout();
@@ -44,12 +45,11 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
         radio1 = new JRadioButton("Registrar Consumos");
 
         radio1.setBounds(radio1.getX(), radio1.getY(), 150, 70);
-        
+
         bg.add(radio1);
-       
+
         panelCentral.add(radio1);
 
-      
         add(panelCentral, BorderLayout.CENTER);
 
         // Botones OK-Cancelar
@@ -58,7 +58,7 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 
         botonOk = new JButton("OK");
         botonOk.setBorderPainted(true);
-        botonOk.addActionListener( this);
+        botonOk.addActionListener(this);
         botonCancelar = new JButton("CANCELAR");
         botonCancelar.setBorderPainted(true);
         botonCancelar.addActionListener(this);
@@ -68,40 +68,33 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 
         add(panelBotonesInferior, BorderLayout.SOUTH);
 
-        setSize(250,150);
+        setSize(250, 150);
         // pack();
         setResizable(false);
         setVisible(true);
-
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == botonOk){
-            if(radio1.isSelected()){
-
+        if (e.getSource() == botonOk) {
+            if (radio1.isSelected()) {
 
                 AgregarConsumo cons = new AgregarConsumo();
 
                 // Hacer lo de agregar un consumo
 
-
-
-            }
-            else{
-                JOptionPane.showMessageDialog(null , "Porfavor seleccione una opcion");
+            } else {
+                JOptionPane.showMessageDialog(null, "Porfavor seleccione una opcion");
             }
 
         }
 
-        else if(e.getSource() == botonCancelar){
+        else if (e.getSource() == botonCancelar) {
             this.setVisible(false);
             this.dispose();
             this.pack();
         }
     }
 
-   
-    
 }

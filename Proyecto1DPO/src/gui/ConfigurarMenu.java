@@ -111,7 +111,7 @@ public class ConfigurarMenu extends JDialog implements ActionListener {
 
     private void cambiarOpcion(String nombreProducto, int op, String title, String campo1, String campo2, String tipo) {
         JDialog cambiar = new JDialog();
-        cambiar.setLocationRelativeTo(null);
+        cambiar.setLocationRelativeTo(this);
         cambiar.setSize(350, 160);
         cambiar.setResizable(false);
         cambiar.setLayout(new BorderLayout());
