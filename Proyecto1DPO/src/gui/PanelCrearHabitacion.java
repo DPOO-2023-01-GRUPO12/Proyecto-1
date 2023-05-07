@@ -123,13 +123,8 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         cocina.add(tituloCocina, BorderLayout.NORTH);
 
         JPanel radiobuttons = new JPanel(new FlowLayout());
-<<<<<<< HEAD
-        radiobuttons.setBackground(Color.white);
-        ButtonGroup bgCocina = new ButtonGroup();
-=======
         radiobuttons.setBackground(Color.LIGHT_GRAY);
         bgCocina = new ButtonGroup();
->>>>>>> 2f43006 (avance nueva gui)
 
         tiene = new JRadioButton("Si");
         noTiene = new JRadioButton("No");
