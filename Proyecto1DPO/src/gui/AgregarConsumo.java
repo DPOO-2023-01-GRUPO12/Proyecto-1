@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 
+import console.MenuEmpleado;
+
 public class AgregarConsumo extends JDialog implements ActionListener{
     private JTextField inputDocumento;
     private JTextField inputGrupo;
@@ -17,7 +19,11 @@ public class AgregarConsumo extends JDialog implements ActionListener{
     private JButton botonOk;
     private JButton botonCancelar;
 
-    public AgregarConsumo(){
+
+    private MenuEmpleado menu;
+
+    public AgregarConsumo(MenuEmpleado menuEmpleado){
+        menu = menuEmpleado;
         setBackground(Color.lightGray);
         setLocationRelativeTo(this);
         setLayout(new BorderLayout());
@@ -95,12 +101,22 @@ public class AgregarConsumo extends JDialog implements ActionListener{
                 JRadioButton radioSi = new JRadioButton("Si");
                 JRadioButton radioNo = new JRadioButton("No");
 
+                double doubleValue = Double.parseDouble(inputvalor.getText());
+
                 radioSi.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        
                             if(radioSi.isSelected()){
                                
                                 // Añadir el consumo a la habitacion y a la factura 
+
+                                menu.registrarConsumoHuesped(inputDocumento.getText(), inputGrupo.getText(),inputConsumo.getText(), doubleValue,"si");
+
+                                JOptionPane.showMessageDialog(null, "Se ha asignado el consumo con exito");
+                                dialogo.setVisible(false);
+                                dialogo.dispose();
+                                dialogo.pack();
                             }
 
                     }
@@ -112,6 +128,12 @@ public class AgregarConsumo extends JDialog implements ActionListener{
                         if(radioNo.isSelected()){
                             
                             //SOLO añadir a lo de factura, no cargar a la habitacion
+
+                            menu.registrarConsumoHuesped(inputDocumento.getText(), inputGrupo.getText(),inputConsumo.getText(), doubleValue,"no");
+                            JOptionPane.showMessageDialog(null, "Se ha asignado el consumo con exito");
+                            dialogo.setVisible(false);
+                            dialogo.dispose();
+                            dialogo.pack();
                         }
 
                 }
@@ -141,6 +163,8 @@ public class AgregarConsumo extends JDialog implements ActionListener{
         }
         
     }
+
+    
 
 
    

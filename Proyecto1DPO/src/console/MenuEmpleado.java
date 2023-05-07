@@ -1,5 +1,6 @@
 package console;
 
+import java.awt.geom.Arc2D.Double;
 import java.util.Scanner;
 
 import persistencia.Cargador;
@@ -19,15 +20,14 @@ public class MenuEmpleado {
         this.pms = pms;
     }
 
-    public void registrarConsumoHuesped(Huesped huesped, Consumo cons, String grupo){
-        Scanner scanner = new Scanner(System.in);
+    public void registrarConsumoHuesped(String documento, String grupo ,String nombreConsumo, double valor, String cargarHabitacion){
+        Huesped huesped = pms.getHuespedes().get(documento);
+        pms.agregarHuesped(huesped);
+        Consumo cons = new Consumo(huesped,nombreConsumo,valor);
+
+
+        
         if(pms.getServicios().get(cons.getTipoConsumo()).hasServicioCuarto()){
-            System.out.println("Desea cargarlo a la habitacion? (si/no): ");
-            String cargarHabitacion = scanner.nextLine();
-            while(!cargarHabitacion.equals("si") && !cargarHabitacion.equals("no")){
-                System.out.println("La respuesta ingresada no es valida. Ingrese nuevamente: ");
-                cargarHabitacion = scanner.nextLine();
-            }
 
             if(grupo.equals("si")){
                 Grupo g = pms.getGrupos().get(huesped.getDocumento());
@@ -68,8 +68,6 @@ public class MenuEmpleado {
             
         }
         pms.agregarConsumo(cons);
-
-        scanner.close();
 
     }
     

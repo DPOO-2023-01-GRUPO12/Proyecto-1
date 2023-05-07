@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import console.MenuEmpleado;
 import model.PMS;
 
 public class InterfazEmpleado extends JFrame implements ActionListener {
@@ -16,7 +17,9 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 
     private JRadioButton radio2;
 
-    public InterfazEmpleado(PMS sistema) {
+    private MenuEmpleado menu;
+
+    public InterfazEmpleado() {
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
         BorderLayout layout = new BorderLayout();
@@ -80,12 +83,10 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
         if (e.getSource() == botonOk) {
             if (radio1.isSelected()) {
 
-                AgregarConsumo cons = new AgregarConsumo();
-
-                // Hacer lo de agregar un consumo
+                AgregarConsumo cons = new AgregarConsumo(menu);
 
             } else {
-                JOptionPane.showMessageDialog(null, "Porfavor seleccione una opcion");
+                JOptionPane.showMessageDialog(null, "Por favor seleccione una opcion");
             }
 
         }
@@ -96,5 +97,7 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
             this.pack();
         }
     }
-
+    public static void main(String[] args) {
+        InterfazEmpleado n = new InterfazEmpleado();
+    }
 }
