@@ -123,8 +123,12 @@ public class InterfazAdmin extends JFrame implements ActionListener {
     }
 
     public void cargarArchivos() throws FileNotFoundException, IOException {
-        JFileChooser fc = new JFileChooser();
 
+        String[] pathNames = { "Proyecto1DPO", "data"};
+        String path = String.join(File.separator, pathNames);
+        JFileChooser fc = new JFileChooser(path);
+
+        
         FileFilter filtroTXT = new FileFilter() {
 
             public boolean accept(File file) {
