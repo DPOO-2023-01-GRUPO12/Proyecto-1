@@ -224,7 +224,7 @@ public class InterfazAdmin extends JFrame implements ActionListener {
             }
             if (radio4.isSelected()) { // configurar
 
-                ConfigurarAdmin configurarAdmin = new ConfigurarAdmin();
+                ConfigurarAdmin configurarAdmin = new ConfigurarAdmin(pms, menuAdmin);
 
             }
         } else if (e.getSource() == botonCancelar) {

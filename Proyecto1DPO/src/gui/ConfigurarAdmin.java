@@ -8,6 +8,9 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.plaf.BorderUIResource;
 
+import console.MenuAdministrador;
+import model.PMS;
+
 public class ConfigurarAdmin extends JDialog implements ActionListener {
 
         private JRadioButton radio1;
@@ -16,8 +19,13 @@ public class ConfigurarAdmin extends JDialog implements ActionListener {
 
         private JButton botonOk;
         private JButton botonCancelar;
+        private PMS sistema;
+        private MenuAdministrador menuAdmin;
 
-        public ConfigurarAdmin() {
+        public ConfigurarAdmin(PMS pms, MenuAdministrador menuAdmin) {
+                this.sistema = pms;
+                this.menuAdmin = menuAdmin;
+
                 setBackground(Color.lightGray);
                 setLocationRelativeTo(null);
                 BorderLayout layout = new BorderLayout();
@@ -113,6 +121,7 @@ public class ConfigurarAdmin extends JDialog implements ActionListener {
 
                                 JLabel tarifaAntigua = new JLabel("Tarifa Antigua: ");
                                 JTextField inputTarifaAntigua = new JTextField();
+                                inputTarifaAntigua.setEditable(false);
 
                                 JLabel tarifa = new JLabel("Tarifa nueva servicio: ");
                                 JTextField inputTarifanueva = new JTextField();
@@ -145,7 +154,13 @@ public class ConfigurarAdmin extends JDialog implements ActionListener {
                                 cambiar.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
-                                                /// TODO: CODIGO PARA PODER CAMBIAR TARIFA UN SERVCIO
+
+                                                menuAdmin.cambiarTarifaServicio(inputNombre.getText(),
+                                                                (double) Double.parseDouble(
+                                                                                inputTarifanueva.getText()));
+                                                dialogoServcio.setVisible(false);
+                                                dialogoServcio.dispose();
+                                                dialogoServcio.pack();
 
                                         }
                                 });
@@ -157,141 +172,16 @@ public class ConfigurarAdmin extends JDialog implements ActionListener {
 
                         }
                         if (radio2.isSelected()) {
-                                // cambiar tarifa menu de platos
+                                // cambiar menu de platos
 
-                                JDialog dialogoPlatos = new JDialog();
-                                dialogoPlatos.setVisible(true);
-                                dialogoPlatos.setSize(350, 160);
-                                dialogoPlatos.setLayout(new BorderLayout());
-
-                                JLabel tituloPlatos = new JLabel("CAMBIAR TARIFA PLATO", SwingConstants.CENTER);
-                                tituloPlatos.setFont(new Font("macOS SF Pro", Font.BOLD, 12));
-                                tituloPlatos.setBorder(null);
-                                tituloPlatos.setForeground(Color.BLACK);
-                                tituloPlatos.setOpaque(false);
-
-                                dialogoPlatos.add(tituloPlatos, BorderLayout.NORTH);
-
-                                JPanel panelPlatosCentro = new JPanel();
-                                GroupLayout layout = new GroupLayout(panelPlatosCentro);
-                                panelPlatosCentro.setLayout(layout);
-
-                                JLabel nombre = new JLabel("Nombre Plato: ");
-                                JTextField inputNombre = new JTextField();
-
-                                JLabel tarifaAntigua = new JLabel("Tarifa Antigua: ");
-                                JTextField inputTarifaAntigua = new JTextField();
-
-                                JLabel tarifa = new JLabel("Tarifa nueva servicio: ");
-                                JTextField inputTarifanueva = new JTextField();
-
-                                GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-                                h.addGroup(layout.createParallelGroup().addComponent(nombre).addComponent(tarifaAntigua)
-                                                .addComponent(tarifa));
-                                h.addGroup(layout.createParallelGroup().addComponent(inputNombre)
-                                                .addComponent(inputTarifaAntigua)
-                                                .addComponent(inputTarifanueva));
-                                layout.setHorizontalGroup(h);
-
-                                GroupLayout.SequentialGroup v = layout.createSequentialGroup();
-
-                                v.addGroup(
-                                                layout.createParallelGroup(Alignment.BASELINE).addComponent(nombre)
-                                                                .addComponent(inputNombre));
-                                v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(tarifaAntigua)
-                                                .addComponent(inputTarifaAntigua));
-                                v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(tarifa)
-                                                .addComponent(inputTarifanueva));
-                                layout.setVerticalGroup(v);
-
-                                dialogoPlatos.add(panelPlatosCentro, BorderLayout.CENTER);
-
-                                JPanel panelBotonesInferior = new JPanel();
-                                panelBotonesInferior.setLayout(new FlowLayout());
-
-                                JButton cambiar = new JButton("Cambiar");
-                                cambiar.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                                /// TODO: CODIGO PARA PODER CAMBIAR TARIFA UN PLATO
-
-                                        }
-                                });
-                                panelBotonesInferior.add(cambiar);
-
-                                dialogoPlatos.add(panelBotonesInferior, BorderLayout.SOUTH);
-
-                                dialogoPlatos.setLocationRelativeTo(this);
+                                JDialog dialogoPlato = new ConfigurarMenu(sistema, menuAdmin, 0);
 
                         }
                         if (radio3.isSelected()) {
-                                // cambiar tarifa menu de bebidas
+                                // cambiar menu de bebidas
 
-                                JDialog dialogoBebidas = new JDialog();
-                                dialogoBebidas.setVisible(true);
-                                dialogoBebidas.setSize(350, 160);
-                                dialogoBebidas.setLayout(new BorderLayout());
+                                JDialog dialogoBebidas = new ConfigurarMenu(sistema, menuAdmin, 1);
 
-                                JLabel tituloBebidas = new JLabel("CAMBIAR TARIFA BEBIDA", SwingConstants.CENTER);
-                                tituloBebidas.setFont(new Font("macOS SF Pro", Font.BOLD, 12));
-                                tituloBebidas.setBorder(null);
-                                tituloBebidas.setForeground(Color.BLACK);
-                                tituloBebidas.setOpaque(false);
-
-                                dialogoBebidas.add(tituloBebidas, BorderLayout.NORTH);
-
-                                JPanel panelBebidasCentro = new JPanel();
-                                GroupLayout layout = new GroupLayout(panelBebidasCentro);
-                                panelBebidasCentro.setLayout(layout);
-
-                                JLabel nombre = new JLabel("Nombre Bebida: ");
-                                JTextField inputNombre = new JTextField();
-
-                                JLabel tarifaAntigua = new JLabel("Tarifa Antigua: ");
-                                JTextField inputTarifaAntigua = new JTextField();
-
-                                JLabel tarifa = new JLabel("Tarifa nueva servicio: ");
-                                JTextField inputTarifanueva = new JTextField();
-
-                                GroupLayout.SequentialGroup h = layout.createSequentialGroup();
-                                h.addGroup(layout.createParallelGroup().addComponent(nombre).addComponent(tarifaAntigua)
-                                                .addComponent(tarifa));
-                                h.addGroup(layout.createParallelGroup().addComponent(inputNombre)
-                                                .addComponent(inputTarifaAntigua)
-                                                .addComponent(inputTarifanueva));
-                                layout.setHorizontalGroup(h);
-
-                                GroupLayout.SequentialGroup v = layout.createSequentialGroup();
-
-                                v.addGroup(
-                                                layout.createParallelGroup(Alignment.BASELINE).addComponent(nombre)
-                                                                .addComponent(inputNombre));
-                                v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(tarifaAntigua)
-                                                .addComponent(inputTarifaAntigua));
-                                v.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(tarifa)
-                                                .addComponent(inputTarifanueva));
-                                layout.setVerticalGroup(v);
-
-                                dialogoBebidas.add(panelBebidasCentro, BorderLayout.CENTER);
-
-                                JPanel panelBotonesInferior = new JPanel();
-                                panelBotonesInferior.setLayout(new FlowLayout());
-
-                                JButton cambiar = new JButton("Cambiar");
-                                cambiar.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                                /// TODO: CODIGO PARA PODER CAMBIAR TARIFA UNA BEBIDA E INFORMAR QUE YA
-                                                /// QUEDO
-                                                /// HECHO
-
-                                        }
-                                });
-                                panelBotonesInferior.add(cambiar);
-
-                                dialogoBebidas.add(panelBotonesInferior, BorderLayout.SOUTH);
-
-                                dialogoBebidas.setLocationRelativeTo(this);
                         }
 
                 }

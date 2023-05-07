@@ -471,13 +471,16 @@ public class Cargador {
                     String pathMenuBebidas = partes[5];
                     String pathMenuPlatos = partes[6];
 
-                    File fileTarifas = new File("Proyecto1DPO/data/" + pathTarifas);
-                    File fileTipohabitaciones = new File("Proyecto1DPO/data/" + pathTipoHabitaciones);
-                    File fileHabitaciones = new File("Proyecto1DPO/data/" + pathHabitaciones);
-                    File fileServicios = new File("Proyecto1DPO/data/" + pathServicios);
-                    File fileCamas = new File("Proyecto1DPO/data/" + pathCamas);
-                    File fileMenuBebidas = new File("Proyecto1DPO/data/" + pathMenuBebidas);
-                    File fileMenuPlatos = new File("Proyecto1DPO/data/" + pathMenuPlatos);
+                    String[] pathNames = { "Proyecto1DPO", "data", };
+                    String path = String.join(File.separator, pathNames);
+
+                    File fileTarifas = new File(path + pathTarifas);
+                    File fileTipohabitaciones = new File(path + pathTipoHabitaciones);
+                    File fileHabitaciones = new File(path + pathHabitaciones);
+                    File fileServicios = new File(path + pathServicios);
+                    File fileCamas = new File(path + pathCamas);
+                    File fileMenuBebidas = new File(path + pathMenuBebidas);
+                    File fileMenuPlatos = new File(path + pathMenuPlatos);
 
                     cargarTarifasCuarto(fileTarifas);
                     cargarTipoHabitaciones(fileTipohabitaciones);

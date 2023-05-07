@@ -1,7 +1,7 @@
 package model;
 
 public class Bebida {
-    
+
     private String nombre;
     private String rangoHoras;
     private String comidaDispon;
@@ -9,60 +9,64 @@ public class Bebida {
     private Tarifa tarifa;
     private boolean servicioCuarto;
 
-    public Bebida(String nombre,double precio,String rangoHoras,String comidaDispon,String lugarDispon){
-        this.nombre=nombre;
-        this.rangoHoras=rangoHoras;
-        this.comidaDispon=comidaDispon;
-        this.lugarDispon=lugarDispon;
+    public Bebida(String nombre, double precio, String rangoHoras, String comidaDispon, String lugarDispon) {
+        this.nombre = nombre;
+        this.rangoHoras = rangoHoras;
+        this.comidaDispon = comidaDispon;
+        this.lugarDispon = lugarDispon;
         this.tarifa = new Tarifa(precio);
-        this.servicioCuarto=false;
+        this.servicioCuarto = false;
     }
 
-    public String getNombre(){
+    public String getNombre() {
         return this.nombre;
     }
 
-    public void setNombre(String nom){
-        this.nombre=nom;
+    public void setNombre(String nom) {
+        this.nombre = nom;
     }
 
-    public String getRangoHoras(){
+    public String getRangoHoras() {
         return this.rangoHoras;
     }
 
-    public void setRangoHoras(String rango){
-        this.rangoHoras=rango;
+    public void setRangoHoras(String rango) {
+        this.rangoHoras = rango;
     }
 
-    public String getComidaDispon(){
+    public String getComidaDispon() {
         return this.comidaDispon;
     }
 
-    public void setComidaDispon(String comida){
-        this.comidaDispon=comida;
+    public void setComidaDispon(String comida) {
+        this.comidaDispon = comida;
     }
 
-    public String getLugarDispon(){
+    public String getLugarDispon() {
         return this.lugarDispon;
     }
 
-    public void setLugarDispon(String lugar){
-        this.lugarDispon=lugar;
+    public void setLugarDispon(String lugar) {
+        this.lugarDispon = lugar;
     }
 
-    public double getTarifa(){
+    public double getTarifa() {
         return this.tarifa.getValor();
     }
 
-    public void setTarifa(double precio){
+    public void setTarifa(double precio) {
         this.tarifa.setValor(precio);
     }
 
-    public boolean hasServicioCuarto(){
+    public boolean hasServicioCuarto() {
         return this.servicioCuarto;
     }
 
-    public void setServicioCuarto(boolean servicio){
-        this.servicioCuarto=servicio;
+    public void setServicioCuarto(boolean servicio) {
+        this.servicioCuarto = servicio;
+    }
+
+    public void setNombreBebida(String nuevo) {
+        this.nombre = nuevo;
     }
 }
