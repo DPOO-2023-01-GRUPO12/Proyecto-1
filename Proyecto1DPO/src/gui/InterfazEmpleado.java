@@ -19,7 +19,7 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 
     private MenuEmpleado menu;
 
-    public InterfazEmpleado() {
+    public InterfazEmpleado(PMS sistema)  {
         setBackground(Color.lightGray);
         setLocationRelativeTo(null);
         BorderLayout layout = new BorderLayout();
@@ -97,7 +97,5 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
             this.pack();
         }
     }
-    public static void main(String[] args) {
-        InterfazEmpleado n = new InterfazEmpleado();
-    }
+   
 }
