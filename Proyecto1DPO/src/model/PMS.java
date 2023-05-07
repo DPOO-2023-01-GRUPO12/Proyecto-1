@@ -23,6 +23,7 @@ public class PMS {
     private Map<String, Huesped> huespedes;
     private Map<String, Grupo> grupos;
     private Map<String, Consumo> consumos;
+    private Map<String, Integer> fechas;
 
     public PMS() {
 
@@ -41,10 +42,16 @@ public class PMS {
         consumos = new HashMap<String, Consumo>();
         cargador = new Cargador(this);
         guardador = new GuardadorInformacion(this);
+        fechas  = new HashMap<String, Integer>();
+
     }
 
     public Map<String, Habitacion> getInventarioHabitaciones() {
         return habitaciones;
+    }
+
+    public Map<String, Integer> getFechas() {
+        return fechas;
     }
 
     public Map<String, TipoHabitacion> getTipoHabitaciones() {
@@ -158,6 +165,39 @@ public class PMS {
 
     public void agregarConsumo(Consumo consumo) {
         getConsumos().put(consumo.getHuesped().getDocumento(), consumo);
+    }
+
+    public void agregarFechas(Reserva reserva){
+
+        String fechaInicial = reserva.getFechaIn();
+        String fechaFinal = reserva.getFechaOut();
+        int cantidad = reserva.getHabitacionesReservadas().size();
+
+        String[] listInicial = fechaInicial.split(",");
+        String[] listFinal = fechaFinal.split(",");
+        Integer diainicial = Integer.parseInt(listInicial[0]) ;
+        Integer diafinal = Integer.parseInt(listFinal[0]);
+
+        // condicion para ver si la reserva se hizo en el mismo mes
+        if(listInicial[1] == listFinal[1]){
+            for(int i = diainicial; i<diafinal;i++){
+                String fechaNueva = String.valueOf(i ) + "," + listInicial[1] + "," + listInicial[2] ;
+                if(fechas.containsKey(fechaNueva)){
+                    fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
+                }
+                else{
+                    fechas.put(fechaNueva, cantidad);
+                }
+            }
+        }
+        else {
+            
+        }
+
+
+
+
+        
     }
 
     public void cambiarTarifaServicio(String nombreServicio, double valor) {
