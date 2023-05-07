@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import console.MenuAdministrador;
 import model.Cama;
+import model.PMS;
 import model.TipoHabitacion;
 
 public class PanelCrearHabitacion extends JPanel implements ActionListener {
@@ -24,17 +26,26 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
     private Campo ubicacion;
     private Campo descripcion;
 
+    private ButtonGroup bgCocina;
     private JRadioButton tiene;
     private JRadioButton noTiene;
 
+    private ButtonGroup bgBalcon;
     private JRadioButton tiene1;
     private JRadioButton noTiene1;
 
+    private ButtonGroup bgVista;
     private JRadioButton tiene2;
     private JRadioButton noTiene2;
 
-    public PanelCrearHabitacion(FrameAdmin frameAdmin, Collection<TipoHabitacion> coleccionTipoHabs,
+    private JList<String> listaTipoHabs;
+    private JList<String> listaCamas;
+
+    private MenuAdministrador menuAdmin;
+
+    public PanelCrearHabitacion(MenuAdministrador menuAdministrador, Collection<TipoHabitacion> coleccionTipoHabs,
             ArrayList<Cama> lstCams) {
+        menuAdmin = menuAdministrador;
 
         setLayout(new BorderLayout());
         setForeground(Color.WHITE);
@@ -45,7 +56,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         Border whiteLine = BorderFactory.createLineBorder(Color.WHITE);
         panelTitulo.setBorder(whiteLine);
         panelTitulo.setBackground(new Color(6, 57, 112));
-        JLabel titulo = new JLabel("Cargar Archivos", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("Crear Habitacion", SwingConstants.CENTER);
         titulo.setFont(new Font("Roboto", Font.BOLD, 30));
         titulo.setForeground(getForeground());
         panelTitulo.add(titulo);
@@ -112,8 +123,13 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         cocina.add(tituloCocina, BorderLayout.NORTH);
 
         JPanel radiobuttons = new JPanel(new FlowLayout());
+<<<<<<< HEAD
         radiobuttons.setBackground(Color.white);
         ButtonGroup bgCocina = new ButtonGroup();
+=======
+        radiobuttons.setBackground(Color.LIGHT_GRAY);
+        bgCocina = new ButtonGroup();
+>>>>>>> 2f43006 (avance nueva gui)
 
         tiene = new JRadioButton("Si");
         noTiene = new JRadioButton("No");
@@ -204,7 +220,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         tiposHabitaciones.add(tituloTipoHab, BorderLayout.NORTH);
 
         DefaultListModel<String> lm = new DefaultListModel<>();
-        JList<String> listaTipoHabs = new JList<>(lm);
+        listaTipoHabs = new JList<>(lm);
         for (TipoHabitacion tipo : coleccionTipoHabs) {
             lm.addElement(tipo.getNombreTipo());
         }
@@ -230,7 +246,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         // JPanel panelLista = new JPanel();
         DefaultListModel<String> lmC = new DefaultListModel<>();
-        JList<String> listaCamas = new JList<>(lm);
+        listaCamas = new JList<>(lm);
         for (Cama cama : lstCams) {
             lmC.addElement(cama.toString());
         }
@@ -249,7 +265,15 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         add(general, BorderLayout.CENTER);
 
         botonCrear = new NormalButton("CREAR");
-        botonCrear.addActionListener(this);
+        botonCrear.setEnabled(false);
+        botonCrear.setFocusable(false);
+        if (bgCocina.getSelection() != null || bgBalcon.getSelection() != null || bgVista.getSelection() != null
+                || listaTipoHabs.getSelectedValue() != null || listaCamas.getSelectedIndex() > -1) {
+            botonCrear.setEnabled(true);
+            botonCrear.setFocusable(true);
+            botonCrear.addActionListener(this);
+        }
+
         add(botonCrear, BorderLayout.SOUTH);
 
         setVisible(true);
@@ -257,7 +281,28 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        if (e.getSource() == botonCrear) {
+            String tipoSeleccionado = listaTipoHabs.getSelectedValue();
+            boolean tieneCocina = false;
+            boolean tieneBalcon = false;
+            boolean tieneVista = false;
+
+            if (tiene.isSelected()) {
+                tieneCocina = true;
+            }
+
+            if (tiene1.isSelected()) {
+                tieneBalcon = true;
+            }
+
+            if (tiene2.isSelected()) {
+                tieneVista = true;
+            }
+
+            menuAdmin.crearHabitacion(campoId.getText(), ubicacion.getText(), descripcion.getText(), tieneCocina,
+                    tieneBalcon, tieneVista, tipoSeleccionado, listaCamas.getSelectedIndices());
+
+        }
 
     }
 

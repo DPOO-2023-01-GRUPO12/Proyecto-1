@@ -116,6 +116,22 @@ public class MenuAdministrador {
         return habitacion;
     }
 
+    public void crearHabitacion(String id, String ub, String desc, boolean cocina, boolean balcon,
+            boolean vista, String tipoHab, int[] indicesCamas) {
+        Habitacion habitacion = new Habitacion(id, ub, desc);
+        habitacion.setCocina(cocina);
+        habitacion.setBalcon(balcon);
+        habitacion.setVista(vista);
+        TipoHabitacion tipo = pms.getTipoHabitaciones().get(tipoHab);
+        habitacion.setTipoHabitacion(tipo);
+        ArrayList<Cama> camasSelec = new ArrayList<Cama>();
+        for (int i : indicesCamas) {
+            camasSelec.add(pms.getCamas().get(i));
+        }
+        habitacion.setCamas(camasSelec);
+        pms.agregarHabitacion(habitacion);
+    }
+
     public void asignarHabitacionTipo(Habitacion hab, TipoHabitacion tipo) {
         hab.setTipoHabitacion(tipo);
     }

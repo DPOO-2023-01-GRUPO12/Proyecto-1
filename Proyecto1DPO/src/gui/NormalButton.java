@@ -74,15 +74,19 @@ public class NormalButton extends JButton implements MouseListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        setBackground(selected);
-        repaint();
+        if (isEnabled()) {
+            setBackground(selected);
+            repaint();
+        }
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
-        setBackground(unselected);
-        repaint();
+        if (isEnabled()) {
+            setBackground(unselected);
+            repaint();
+        }
 
     }
 
