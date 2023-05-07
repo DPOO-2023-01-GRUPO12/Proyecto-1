@@ -42,8 +42,22 @@ public class PMS {
         consumos = new HashMap<String, Consumo>();
         cargador = new Cargador(this);
         guardador = new GuardadorInformacion(this);
-        fechas  = new HashMap<String, Integer>();
+        fechas  =crearMapaFechas();
 
+    }
+
+
+    private HashMap<String, Integer> crearMapaFechas(){
+
+        HashMap<String, Integer> mapa = new HashMap<String, Integer>();
+        for(int mes = 1; mes<=12; mes++){
+            for(int dia = 1; dia <=31; dia++){
+                String fecha = String.valueOf(dia) + "," + String.valueOf(mes) + "," + "2024";
+                mapa.put(fecha, 0);
+
+            }
+        }
+        return mapa;
     }
 
     public Map<String, Habitacion> getInventarioHabitaciones() {
@@ -191,13 +205,27 @@ public class PMS {
             }
         }
         else {
-            
-        }
+            for(int i = diainicial ; i<31 ; i++){
 
+                String fechaNueva = String.valueOf(i ) + "," + listInicial[1] + "," + listInicial[2] ;
+                if(fechas.containsKey(fechaNueva)){
+                    fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
+                }
+                else{
+                    fechas.put(fechaNueva, cantidad);
+                }
+            }
+            for(int i = 1 ; i<=diafinal ; i++){
 
-
-
-        
+                String fechaNueva = String.valueOf(i ) + "," + listFinal[1] + "," + listInicial[2] ;
+                if(fechas.containsKey(fechaNueva)){
+                    fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
+                }
+                else{
+                    fechas.put(fechaNueva, cantidad);
+                }
+            }   
+        }    
     }
 
     public void cambiarTarifaServicio(String nombreServicio, double valor) {

@@ -46,6 +46,7 @@ public class MenuRecepcionista {
         Huesped huesped = pms.getHuespedes().get(huespedDoc);
         Reserva reserva = new Reserva(huesped, cantidad, fechaIn, fechaOut);
         pms.agregarReserva(reserva);
+        pms.agregarFechas(reserva);
         return reserva;
     }
 

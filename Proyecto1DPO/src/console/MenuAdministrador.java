@@ -113,6 +113,8 @@ public class MenuAdministrador {
 
     public Habitacion crearHabitacion(String id, String ub, String desc) {
         Habitacion habitacion = new Habitacion(id, ub, desc);
+
+       
         return habitacion;
     }
 
