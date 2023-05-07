@@ -81,37 +81,9 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
         if(e.getSource() == botonOk){
             if(radio1.isSelected()){
 
-                JDialog dialogo = new JDialog();
-                dialogo.setLayout(new BorderLayout());
 
-                JLabel titulo = new JLabel("¿Desea cargar consumo a la habitacion?", SwingConstants.CENTER);
+                AgregarConsumo cons = new AgregarConsumo();
 
-                Font f = titulo.getFont();
-                titulo.setFont(new Font("macOS SF Pro", Font.BOLD, 12));
-                titulo.setBorder(null);
-                titulo.setForeground(Color.BLACK);
-                titulo.setOpaque(false);
-
-                dialogo.add(titulo, BorderLayout.NORTH);
-
-                JRadioButton radioSi = new JRadioButton("Si");
-                JRadioButton radioNo = new JRadioButton("No");
-
-                ButtonGroup bg1 = new ButtonGroup();
-
-                bg1.add(radioSi);
-                bg1.add(radioNo);
-
-                JPanel panelCentral =  new JPanel();
-                panelCentral.add(radioSi);
-                panelCentral.add(radioNo);
-
-
-                dialogo.add(panelCentral, BorderLayout.CENTER);
-
-                dialogo.setVisible(true);
-                dialogo.setSize(244,100);
-                dialogo.setLocationRelativeTo(this);
                 // Hacer lo de agregar un consumo
 
 
@@ -130,8 +102,6 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        InterfazEmpleado in = new InterfazEmpleado();
-    }
+   
     
 }
