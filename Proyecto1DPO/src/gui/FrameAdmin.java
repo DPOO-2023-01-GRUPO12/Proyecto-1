@@ -4,6 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import console.MenuAdministrador;
 import model.PMS;
 
 public class FrameAdmin extends JFrame {
@@ -11,10 +12,12 @@ public class FrameAdmin extends JFrame {
     private PanelArchivos panelArchivos;
     private PanelCrearHabitacion panelHabitacion;
     private PMS sistema;
+    private MenuAdministrador menuAdmin;
 
     public FrameAdmin(PMS pms) {
 
         sistema = pms;
+        menuAdmin = new MenuAdministrador(pms.getCargador(), pms);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1500, 900);
 
@@ -25,7 +28,8 @@ public class FrameAdmin extends JFrame {
 
         panelInfo = new PanelInfo(this);
         panelArchivos = new PanelArchivos(this);
-        panelHabitacion = new PanelCrearHabitacion(this, sistema.getTipoHabitaciones().values(), sistema.getCamas());
+        panelHabitacion = new PanelCrearHabitacion(menuAdmin, sistema.getTipoHabitaciones().values(),
+                sistema.getCamas());
 
         add(arriba, BorderLayout.NORTH);
         add(panelOpciones, BorderLayout.WEST);
