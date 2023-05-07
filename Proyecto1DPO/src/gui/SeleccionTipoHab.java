@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Menu;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -17,6 +19,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import console.MenuAdministrador;
+import model.Habitacion;
 import model.PMS;
 import model.TipoHabitacion;
 
@@ -24,7 +27,7 @@ public class SeleccionTipoHab extends JDialog {
     private PMS sistema;
     private MenuAdministrador menuAdmin;
 
-    public SeleccionTipoHab(PMS pms, MenuAdministrador menu, Habitacion) {
+    public SeleccionTipoHab(PMS pms, MenuAdministrador menu, Habitacion hab) {
         sistema = pms;
         menuAdmin = menu;
         setLayout(new BorderLayout());

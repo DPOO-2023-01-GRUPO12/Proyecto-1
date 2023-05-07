@@ -1,2 +1,2 @@
-path tarifas;path tipos;path habitacion; 
-tarifas.txt;tipohabitaciones.txt;habitaciones.txt;servicios;camas.txt;menubebidas.txt;menuplatos.txt
+path tarifas;path tipos;path habitacion;path servicios;path camas;path bebidas;path platos;
+tarifas.txt;tipohabitaciones.txt;habitaciones.txt;servicios.txt;camas.txt;menubebidas.txt;menuplatos.txt

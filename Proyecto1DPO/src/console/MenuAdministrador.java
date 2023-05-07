@@ -125,115 +125,10 @@ public class MenuAdministrador {
         pms.agregarHabitacion(hab);
     }
 
-    private void mostrarMenuTipoHabitacion() {
-        System.out.println("1. Seleccionar tipo de habitacion. ");
-        System.out.println("2. Crear tipo de habitacion. ");
-
-    }
-
-    private TipoHabitacion opcionTipoHabitacion(int opcion) throws FileNotFoundException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        switch (opcion) {
-            case 1:
-                if (pms.getTipoHabitaciones().isEmpty()) {
-                    System.out.println("No hay tipos de habitacion cargados, ¿desea cargar los tipos de habitacion?.");
-                    System.out.println("1. Si.");
-                    System.out.println("2. No.");
-                    int opcion2 = scanner.nextInt();
-                    scanner.nextLine();
-                    if (opcion2 == 1) {
-                        System.out.println("Ingrese el nombre del archivo: ");
-                        String nombreArchivo = scanner.nextLine();
-                        cargarTipoHabitaciones(nombreArchivo);
-                    } else {
-                        System.out.println("No se puede crear una habitacion sin un tipo de habitacion.");
-                        return null;
-                    }
-                }
-                System.out.println("Seleccione el tipo de habitacion: ");
-                System.out.println(pms.getTipoHabitaciones().keySet());
-
-                String nombreTipo = scanner.nextLine();
-                if (!pms.getTipoHabitaciones().containsKey(nombreTipo)) {
-                    System.out.println("El tipo de habitacion no existe");
-                    return null;
-                }
-                return pms.getTipoHabitaciones().get(nombreTipo);
-            case 2:
-                System.out.println("Ingrese el nombre del tipo de habitacion: ");
-                String nombreTipo2 = scanner.nextLine();
-                if (pms.getTipoHabitaciones().containsKey(nombreTipo2)) {
-                    System.out.println("El tipo de habitacion ya existe, ingrese uno nuevo: ");
-                    return null;
-                }
-                crearTipoHabitacion(nombreTipo2);
-            default:
-                System.out.println("Opcion invalida, intente de nuevo.");
-                return null;
-        }
-    }
-
     public void crearTipoHabitacion(String tipo) {
         TipoHabitacion tipoHabitacion = new TipoHabitacion(tipo);
         pms.agregarTipoHabitacion(tipoHabitacion);
         pms.actualizarTarifasHabitacion();
-    }
-
-    private void mostrarMenuCamas() {
-        System.out.println("1. Seleccionar camas. ");
-    }
-
-    private ArrayList<Cama> opcionCamas(int opcion) throws FileNotFoundException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        switch (opcion) {
-            case 1:
-                if (pms.getCamas().isEmpty()) {
-                    System.out.println("No hay camas cargadas, ¿desea cargar las camas?.");
-                    System.out.println("1. Si.");
-                    System.out.println("2. No.");
-                    int opcion2 = scanner.nextInt();
-                    scanner.nextLine();
-                    if (opcion2 == 1) {
-                        System.out.println("Ingrese el nombre del archivo: ");
-                        String nombreArchivo = scanner.nextLine();
-                        cargarCamas(nombreArchivo);
-                    } else {
-                        System.out.println("No se puede crear una habitacion sin camas.");
-                        return null;
-                    }
-                }
-                System.out.println("¿Cuantas camas desea asignar a la habitacion?");
-                int cantidad = scanner.nextInt();
-                scanner.nextLine();
-                ArrayList<Cama> camas = new ArrayList<Cama>();
-                ArrayList<Integer> camasEscogidas = new ArrayList<Integer>();
-                for (Cama cama : pms.getCamas()) {
-                    int index = pms.getCamas().indexOf(cama);
-                    System.out.print("Cama " + index);
-                    System.out.println(cama.toString());
-                }
-
-                for (int i = 0; i < cantidad; i++) {
-                    System.out.println("Seleccione la cama que desea agregar a la habitacion: ");
-                    int camaIndex = scanner.nextInt();
-                    if (camaIndex < 0 || camaIndex > pms.getCamas().size()) {
-                        System.out.println("Opcion invalida");
-
-                    }
-                    if (camasEscogidas.contains(Integer.valueOf(camaIndex))) {
-                        System.out.println("La cama ya fue seleccionada, escoja otra: ");
-                        camaIndex = scanner.nextInt();
-                    } else {
-                        camasEscogidas.add(Integer.valueOf(camaIndex));
-                        camas.add(pms.getCamas().get(camaIndex));
-
-                    }
-                }
-                return camas;
-            default:
-                System.out.println("Opcion invalida.");
-                return null;
-        }
     }
 
     public void cargarServicios(String pathServicios) throws FileNotFoundException, IOException {
@@ -248,8 +143,11 @@ public class MenuAdministrador {
 
     public void cambiarTarifaServicio(String nombreServicio, double valor) {
         Servicio ser = pms.getServicios().get(nombreServicio);
+        System.out.println(pms.getServicios());
+        System.out.println(nombreServicio + ", " + valor + ", " + ser);
         ser.setTarifa(valor);
         pms.agregarServicio(ser);
+
     }
 
     public void cargarMenuPlatos(String pathPlatos) throws FileNotFoundException, IOException {
@@ -270,169 +168,82 @@ public class MenuAdministrador {
         }
     }
 
-    public void configurarPlato(String nombrePlato) {
-        System.out.println("¿Que desea cambiar del plato?");
-        mostrarMenuPlatoBebida();
-        Scanner scanner = new Scanner(System.in);
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        Plato plato = pms.getMenuPlatos().get(nombrePlato);
+    public void configurarPlatoNombre(String nombreString, String nuevo) {
+        Plato plato = pms.getMenuPlatos().get(nombreString);
+        plato.setNombre(nombreString);
+        pms.getMenuPlatos().remove(plato.getNombre());
+        pms.getMenuPlatos().put(nuevo, plato);
+    }
+
+    public void configurarPlatoTarifa(String nombreString, double nuevo) {
+        Plato plato = pms.getMenuPlatos().get(nombreString);
+        plato.setTarifa(nuevo);
         pms.agregarPlato(plato);
-        opcionPlatoBebida(opcion, plato);
-
     }
 
-    public void configurarBebida(String nombreBebida) {
-        System.out.println("¿Que desea cambiar de la bebida?");
-        mostrarMenuPlatoBebida();
-        Scanner scanner = new Scanner(System.in);
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        Bebida bebida = pms.getMenuBebidas().get(nombreBebida);
+    public void configurarPlatoRangoHoras(String nombreString, String nuevo) {
+        Plato plato = pms.getMenuPlatos().get(nombreString);
+        plato.setRangoHoras(nuevo);
+        pms.agregarPlato(plato);
+    }
+
+    public void configurarPlatoDisponibilidadComida(String nombreString, String nuevo) {
+        Plato plato = pms.getMenuPlatos().get(nombreString);
+        plato.setComidaDispon(nuevo);
+        pms.agregarPlato(plato);
+    }
+
+    public void configurarPlatoDisponibilidadLugar(String nombreString, String nuevo) {
+        Plato plato = pms.getMenuPlatos().get(nombreString);
+        plato.setLugarDispon(nuevo);
+        pms.agregarPlato(plato);
+    }
+
+    public void configurarPlatoDisponibilidadServicioCuarto(String nombreString, boolean nuevo) {
+        Plato plato = pms.getMenuPlatos().get(nombreString);
+        plato.setServicioCuarto(nuevo);
+        pms.agregarPlato(plato);
+    }
+
+    //
+    //
+    //
+
+    public void configurarBebidaNombre(String nombreString, String nuevo) {
+        Bebida bebida = pms.getMenuBebidas().get(nombreString);
+        bebida.setNombreBebida(nuevo);
+        pms.getMenuBebidas().remove(bebida.getNombre());
+        pms.getMenuBebidas().put(nuevo, bebida);
+    }
+
+    public void configurarBebidaTarifa(String nombreString, double nuevo) {
+        Bebida bebida = pms.getMenuBebidas().get(nombreString);
+        bebida.setTarifa(nuevo);
         pms.agregarBebida(bebida);
-        opcionPlatoBebida(opcion, bebida);
-
     }
 
-    private void mostrarMenuPlatoBebida() {
-        System.out.println("1. Cambiar nombre. ");
-        System.out.println("2. Cambiar tarifa.");
-        System.out.println("3. Cambiar rango de horas disponible. ");
-        System.out.println("4. Cambiar comida de disponibilidad. ");
-        System.out.println("5. Cambiar lugar de disponibilidad. ");
-        System.out.println("6. Cambiar disponibilidad para servicio al cuarto.. ");
+    public void configurarBebidaRangoHoras(String nombreString, String nuevo) {
+        Bebida bebida = pms.getMenuBebidas().get(nombreString);
+        bebida.setRangoHoras(nuevo);
+        pms.agregarBebida(bebida);
     }
 
-    private void opcionPlatoBebida(int opcion, Plato plato) {
-        Scanner scanner = new Scanner(System.in);
-        switch (opcion) {
-            case 1:
-                System.out.println("Nombre actual del plato: " + plato.getNombre());
-                System.out.println("Ingrese el nuevo nombre del plato: ");
-
-                String nombre = scanner.nextLine();
-
-                while (pms.getMenuPlatos().containsKey(nombre)) {
-                    System.out.println("Ya existe un plato con ese nombre, intente de nuevo.");
-                    nombre = scanner.nextLine();
-                }
-                plato.setNombre(nombre);
-                pms.getMenuPlatos().remove(plato.getNombre());
-                pms.getMenuPlatos().put(nombre, plato);
-
-                break;
-            case 2:
-                System.out.println("Tarifa actual del plato: " + plato.getTarifa());
-                System.out.println("Ingrese la nueva tarifa del plato: ");
-                double tarifa = scanner.nextDouble();
-                plato.setTarifa(tarifa);
-                pms.agregarPlato(plato);
-
-                break;
-            case 3:
-                System.out.println("Rango de horas actual del plato: " + plato.getRangoHoras());
-                System.out.println("Ingrese el nuevo rango de horas del plato: ");
-                String horas = scanner.nextLine();
-                plato.setRangoHoras(horas);
-                pms.agregarPlato(plato);
-
-                break;
-            case 4:
-                System.out.println("Comidas de disponibilidad actual del plato: " + plato.getComidaDispon());
-                System.out.println("Ingrese las nuevas comidas de disponiblidad del plato: ");
-                String comida = scanner.nextLine();
-                plato.setComidaDispon(comida);
-                pms.agregarPlato(plato);
-
-                break;
-            case 5:
-                System.out.println("Lugares de disponibilidad actual del plato: " + plato.getLugarDispon());
-                System.out.println("Ingrese los nuevos lugares de disponibilidad del plato: ");
-                String lugar = scanner.nextLine();
-                plato.setLugarDispon(lugar);
-                pms.agregarPlato(plato);
-
-                break;
-            case 6:
-                System.out.println(
-                        "Disponibilidad para servicio al cuarto actual del plato: " + plato.hasServicioCuarto());
-                System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto del plato: ");
-                boolean servicioCuarto = scanner.nextBoolean();
-                plato.setServicioCuarto(servicioCuarto);
-                pms.agregarPlato(plato);
-
-                break;
-            default:
-                System.out.println("Opcion invalida.");
-
-                break;
-        }
+    public void configurarBebidaDisponibilidadComida(String nombreString, String nuevo) {
+        Bebida bebida = pms.getMenuBebidas().get(nombreString);
+        bebida.setComidaDispon(nuevo);
+        pms.agregarBebida(bebida);
     }
 
-    private void opcionPlatoBebida(int opcion, Bebida bebida) {
-        Scanner scanner = new Scanner(System.in);
-        switch (opcion) {
-            case 1:
-                System.out.println("Nombre actual de la bebida: " + bebida.getNombre());
-                System.out.println("Ingrese el nuevo nombre de la bebida: ");
+    public void configurarBebidaDisponibilidadLugar(String nombreString, String nuevo) {
+        Bebida bebida = pms.getMenuBebidas().get(nombreString);
+        bebida.setLugarDispon(nuevo);
+        pms.agregarBebida(bebida);
+    }
 
-                String nombre = scanner.nextLine();
-
-                while (pms.getMenuBebidas().containsKey(nombre)) {
-                    System.out.println("Ya existe una bebida con ese nombre, intente de nuevo.");
-                    nombre = scanner.nextLine();
-                }
-                bebida.setNombre(nombre);
-                pms.getMenuBebidas().remove(bebida.getNombre());
-                pms.getMenuBebidas().put(nombre, bebida);
-
-                break;
-            case 2:
-                System.out.println("Tarifa actual de la bebida: " + bebida.getTarifa());
-                System.out.println("Ingrese la nueva tarifa de la bebida: ");
-                double tarifa = scanner.nextDouble();
-                bebida.setTarifa(tarifa);
-                pms.agregarBebida(bebida);
-
-                break;
-            case 3:
-                System.out.println("Rango de horas actual de la bebida: " + bebida.getRangoHoras());
-                System.out.println("Ingrese el nuevo rango de horas de la bebida: ");
-                String horas = scanner.nextLine();
-                bebida.setRangoHoras(horas);
-                pms.agregarBebida(bebida);
-
-                break;
-            case 4:
-                System.out.println("Comidas de disponibilidad actual de la bebida: " + bebida.getComidaDispon());
-                System.out.println("Ingrese las nuevas comidas de disponiblidad de la bebida: ");
-                String comida = scanner.nextLine();
-                bebida.setComidaDispon(comida);
-                pms.agregarBebida(bebida);
-
-                break;
-            case 5:
-                System.out.println("Lugares de disponibilidad actual de la bebida: " + bebida.getLugarDispon());
-                System.out.println("Ingrese los nuevos lugares de disponibilidad de la bebida: ");
-                String lugar = scanner.nextLine();
-                bebida.setLugarDispon(lugar);
-                pms.agregarBebida(bebida);
-
-                break;
-            case 6:
-                System.out.println(
-                        "Disponibilidad para servicio al cuarto actual de la bebida: " + bebida.hasServicioCuarto());
-                System.out.println("Ingrese la nueva disponibilidad para servicio al cuarto de la bebida: ");
-                boolean servicioCuarto = scanner.nextBoolean();
-                bebida.setServicioCuarto(servicioCuarto);
-                pms.agregarBebida(bebida);
-
-                break;
-            default:
-                System.out.println("Opcion invalida.");
-
-                break;
-        }
+    public void configurarBebidaDisponibilidadServicioCuarto(String nombreString, boolean nuevo) {
+        Bebida bebida = pms.getMenuBebidas().get(nombreString);
+        bebida.setServicioCuarto(nuevo);
+        pms.agregarBebida(bebida);
     }
 
 }
