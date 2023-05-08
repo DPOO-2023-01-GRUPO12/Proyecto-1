@@ -30,9 +30,7 @@ public class FrameRecep extends JFrame {
         PanelOpcionesRecep panelOpcionesRecep = new PanelOpcionesRecep(this);
 
         panelInfo = new PanelInfo(this);
-        panelConsulta = new PanelConsulta(sistema.getInventarioHabitaciones().values());
-        panelReserva = new PanelReserva();
-        panelRegistro = new PanelRegistro(menuRecep);
+
         // panelArchivos = new PanelArchivos(this);
         // panelHabitacion = new PanelCrearHabitacion(menuAdmin,
         // sistema.getTipoHabitaciones().values(),
@@ -51,27 +49,61 @@ public class FrameRecep extends JFrame {
     }
 
     public void mostrarUsuario() {
-        panelConsulta.setVisible(false);
-        panelRegistro.setVisible(true);
+        if (panelConsulta != null) {
+            panelConsulta.setVisible(false);
+        }
+        if (panelRegistro != null) {
+            panelRegistro.setVisible(false);
+        }
+        if (panelReserva != null) {
+            panelReserva.setVisible(false);
+        }
         panelInfo.setVisible(true);
         add(panelInfo, BorderLayout.CENTER);
 
     }
 
     public void consultarHabitaciones() {
-        panelInfo.setVisible(false);
+        panelConsulta = new PanelConsulta(sistema);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelRegistro != null) {
+            panelRegistro.setVisible(false);
+        }
+        if (panelReserva != null) {
+            panelReserva.setVisible(false);
+        }
         panelConsulta.setVisible(true);
         add(panelConsulta, BorderLayout.CENTER);
     }
 
     public void hacerReserva() {
-        panelInfo.setVisible(false);
-        panelConsulta.setVisible(false);
+        panelReserva = new PanelReserva();
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelRegistro != null) {
+            panelRegistro.setVisible(false);
+        }
+        if (panelConsulta != null) {
+            panelConsulta.setVisible(false);
+        }
+        add(panelReserva, BorderLayout.CENTER);
+
     }
 
     public void hacerRegistro() {
-        panelInfo.setVisible(false);
-        panelConsulta.setVisible(false);
+        panelRegistro = new PanelRegistro(menuRecep);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelReserva != null) {
+            panelReserva.setVisible(false);
+        }
+        if (panelConsulta != null) {
+            panelConsulta.setVisible(false);
+        }
         panelRegistro.setVisible(true);
         add(panelRegistro, BorderLayout.CENTER);
     }

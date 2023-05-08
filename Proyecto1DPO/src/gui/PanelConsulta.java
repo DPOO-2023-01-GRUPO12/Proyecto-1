@@ -19,15 +19,15 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import model.Habitacion;
+import model.PMS;
 
 public class PanelConsulta extends JPanel implements ActionListener {
     private NormalButton botonConsultar;
     private JList<String> listaHabs;
-    private Collection<Habitacion> colHabs;
     private DefaultListModel<String> lm;
 
-    public PanelConsulta(Collection<Habitacion> colHabs) {
-        this.colHabs = colHabs;
+    public PanelConsulta(PMS pms) {
+
         setLayout(new BorderLayout());
         setForeground(Color.WHITE);
 
@@ -48,7 +48,7 @@ public class PanelConsulta extends JPanel implements ActionListener {
         lm = new DefaultListModel<>();
         listaHabs = new JList<>(lm);
         listaHabs.setVisible(false);
-        for (Habitacion hab : colHabs) {
+        for (Habitacion hab : pms.getInventarioHabitaciones().values()) {
             lm.addElement(hab.toString());
         }
 
@@ -69,9 +69,6 @@ public class PanelConsulta extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonConsultar) {
-            for (Habitacion hab : colHabs) {
-                lm.addElement(hab.toString());
-            }
             listaHabs.setVisible(true);
         }
     }
