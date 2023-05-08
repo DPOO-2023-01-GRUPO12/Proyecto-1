@@ -73,6 +73,10 @@ public class FrameRecep extends JFrame {
 
     public void consultarHabitaciones() {
         panelConsulta = new PanelConsulta(sistema);
+        if(panelCancelar != null){panelCancelar.setVisible(false);}
+        if(panelCheck != null){ panelCheck.setVisible(false);}
+        if(panelLog != null){ panelLog.setVisible(false);}
+        
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
@@ -82,12 +86,18 @@ public class FrameRecep extends JFrame {
         if (panelReserva != null) {
             panelReserva.setVisible(false);
         }
+        
         panelConsulta.setVisible(true);
         add(panelConsulta, BorderLayout.CENTER);
     }
 
     public void hacerReserva() {
         panelReserva = new PanelReserva(this);
+        if(panelCancelar != null){panelCancelar.setVisible(false);}
+        if(panelCheck != null){ panelCheck.setVisible(false);}
+        if(panelLog != null){ panelLog.setVisible(false);}
+        
+        
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
@@ -104,6 +114,10 @@ public class FrameRecep extends JFrame {
 
     public void hacerRegistro() {
         panelRegistro = new PanelRegistro(menuRecep);
+        if(panelCancelar != null){panelCancelar.setVisible(false);}
+        if(panelLog != null){panelLog.setVisible(false);}
+        if(panelCheck != null){panelCheck.setVisible(false);}
+        
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
@@ -119,6 +133,10 @@ public class FrameRecep extends JFrame {
 
     public void cancelarReserva() {
         panelCancelar = new PanelCancelar(menuRecep);
+        if(panelCheck != null){panelCheck.setVisible(false);}
+        if(panelLog != null){panelLog.setVisible(false);}
+        if(panelConsulta != null){panelConsulta.setVisible(false);}
+        
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
@@ -134,6 +152,10 @@ public class FrameRecep extends JFrame {
 
     public void hacerCheckout() {
         panelCheck = new PanelCheck(menuRecep);
+        if(panelCancelar != null){panelCancelar.setVisible(false);}
+        if(panelConsulta != null){panelConsulta.setVisible(false);}
+        if(panelLog != null){panelLog.setVisible(false);}
+        
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
@@ -149,6 +171,12 @@ public class FrameRecep extends JFrame {
 
     public void generarLog() {
         panelLog = new PanelLog(menuRecep);
+        if(panelCancelar != null){panelCancelar.setVisible(false);}
+        if(panelCheck != null){panelCheck.setVisible(false);}
+        if(panelConsulta != null){panelConsulta.setVisible(false);}
+        
+        
+        
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
