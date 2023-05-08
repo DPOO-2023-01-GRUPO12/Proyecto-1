@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,7 @@ public class PanelConsulta extends JPanel implements ActionListener {
         add(panelTitulo, BorderLayout.NORTH);
         //////////////////////////////////////////
         JPanel panelCentral = new JPanel();
+        panelCentral.setPreferredSize(new Dimension(500, 500));
         lm = new DefaultListModel<>();
         listaHabs = new JList<>(lm);
         listaHabs.setVisible(false);

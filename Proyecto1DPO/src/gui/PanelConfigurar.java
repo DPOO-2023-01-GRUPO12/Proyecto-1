@@ -53,8 +53,10 @@ public class PanelConfigurar extends JPanel implements ActionListener {
     private JPanel fieldsProducto;
     private JPanel tarifaServicio;
     private JPanel derecha;
+    private PMS sistema;
 
     public PanelConfigurar(MenuAdministrador menuAdministrador, PMS pms) {
+        sistema = pms;
         menuAdmin = menuAdministrador;
 
         setLayout(new GridLayout(1, 2, 20, 20));
@@ -209,21 +211,21 @@ public class PanelConfigurar extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonBuscar) {
             if (bebida.isSelected()) {
-                for (Bebida beb : colBebidas) {
+                for (Bebida beb : sistema.getMenuBebidas().values()) {
                     if (beb.getNombre().equals(campo.getText())) {
                         infoProducto.setText(beb.toString());
                     }
                 }
 
             } else if (plato.isSelected()) {
-                for (Plato pl : colPlatos) {
+                for (Plato pl : sistema.getMenuPlatos().values()) {
                     if (pl.getNombre().equals(campo.getText())) {
                         infoProducto.setText(pl.toString());
                     }
                 }
 
             } else if (servicio.isSelected()) {
-                for (Servicio ser : colServicios) {
+                for (Servicio ser : sistema.getServicios().values()) {
                     if (ser.getNombreTipo().equals(campo.getText())) {
                         infoProducto.setText(ser.toString());
                     }

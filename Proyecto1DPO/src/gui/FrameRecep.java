@@ -26,6 +26,7 @@ public class FrameRecep extends JFrame {
 
         setLayout(new BorderLayout());
         JPanel arriba = new JPanel();
+        arriba.setBackground(new Color(23, 35, 31));
 
         PanelOpcionesRecep panelOpcionesRecep = new PanelOpcionesRecep(this);
 
@@ -49,6 +50,7 @@ public class FrameRecep extends JFrame {
     }
 
     public void mostrarUsuario() {
+        panelInfo = new PanelInfo(this);
         if (panelConsulta != null) {
             panelConsulta.setVisible(false);
         }
@@ -79,7 +81,7 @@ public class FrameRecep extends JFrame {
     }
 
     public void hacerReserva() {
-        panelReserva = new PanelReserva();
+        panelReserva = new PanelReserva(this);
         if (panelInfo != null) {
             panelInfo.setVisible(false);
         }
@@ -89,6 +91,7 @@ public class FrameRecep extends JFrame {
         if (panelConsulta != null) {
             panelConsulta.setVisible(false);
         }
+        panelReserva.setVisible(true);
         add(panelReserva, BorderLayout.CENTER);
 
     }
@@ -114,6 +117,10 @@ public class FrameRecep extends JFrame {
 
     public static void main(String[] args) {
         new FrameRecep(new PMS());
+
+    }
+
+    public void realizarRegistro() {
 
     }
 

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,6 +45,15 @@ public class PanelRegistro extends JPanel implements ActionListener {
         add(panelTitulo, BorderLayout.NORTH);
         //////////////////////////////////////////
         setLayout(new BorderLayout());
+        JPanel der = new JPanel();
+        der.setPreferredSize(new Dimension(800, getHeight()));
+        der.setBackground(Color.black);
+        add(der, BorderLayout.EAST);
+
+        JPanel izq = new JPanel();
+        izq.setBackground(new Color(23, 35, 31));
+        add(izq, BorderLayout.WEST);
+
         JPanel central = new JPanel();
         GroupLayout layout = new GroupLayout(central);
         central.setLayout(layout);

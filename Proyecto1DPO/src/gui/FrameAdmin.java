@@ -25,6 +25,7 @@ public class FrameAdmin extends JFrame {
 
         setLayout(new BorderLayout());
         JPanel arriba = new JPanel();
+        arriba.setBackground(new Color(23, 35, 31));
 
         PanelOpciones panelOpciones = new PanelOpciones(this);
 
