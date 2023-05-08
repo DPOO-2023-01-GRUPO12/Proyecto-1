@@ -3,3 +3,18 @@ guia turistico;exterior;martes_7:00-9:00-13:00-22:00,jueves_7:00-9:00-13:00-22:0
 clase zumba;gimnasio;lunes_8:00-9:00,martes_8:00-9:00,miercoles_8:00-9:00;imediato;false;1000
 desayuno sorpresa;habitacion;lunes_6:00-8:00-10:00,domingo_6:00-8:00-10:00;no imediato;true;35000
 desayuno;comedor;lunes_9:30,martes_9:30,miercoles_9:30,jueves_9:30,viernes_9:30,sabado_10:00,domingo_10:00;imediato;true;13000
+servicio de masaje;spa;lunes-domingo_9:00-21:00;imediato;true;50000
+servicio de limpieza;habitacion;lunes-domingo_8:00-16:00;imediato;true;15000
+servicio de lavanderia;habitacion;lunes-domingo_8:00-16:00;no imediato;true;25000
+alquiler de bicicletas;recepcion;lunes-domingo_7:00-18:00;imediato;false;10000/hora
+servicio de taxi;recepcion;lunes-domingo_6:00-24:00;imediato;false;25000/trayecto
+servicio de traslado aeropuerto;recepcion;lunes-domingo_6:00-24:00;no imediato;false;40000/trayecto
+servicio de canguro;habitacion;lunes-domingo_10:00-22:00;no imediato;true;30000/hora
+servicio de limpieza en seco;recepcion;lunes-domingo_8:00-16:00;no imediato;true;20000/prenda
+servicio de catering;salon de eventos;lunes-domingo_10:00-22:00;no imediato;true;150000
+servicio de fotografia;exterior;lunes-domingo_8:00-20:00;no imediato;false;50000/hora
+servicio de floristeria;recepcion;lunes-domingo_8:00-16:00;no imediato;true;35000
+servicio de almuerzo empacado;recepcion;lunes-domingo_8:00-12:00;no imediato;true;10000
+servicio de cenas romanticas;habitacion;lunes-domingo_19:00-22:00;no imediato;true;80000
+servicio de cuidado dental;spa;lunes-domingo_9:00-21:00;no imediato;false;40000
+servicio de manicura y pedicura;spa;lunes-domingo_9:00-21:00;no imediato;true;25000
