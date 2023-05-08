@@ -3,3 +3,16 @@ suite;1
 estandar;2
 ejecutiva;3
 economica;4
+nombre,relleno
+presidencial;5
+deluxe;6
+familiar;7
+sencilla;8
+matrimonial;9
+penthouse;10
+temática;11
+suite junior;12
+suites con vista al mar;13
+habitaciones accesibles;14
+suite nupcial;15
+suite de lujo;16
