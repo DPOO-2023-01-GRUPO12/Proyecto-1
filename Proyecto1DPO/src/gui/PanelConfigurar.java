@@ -129,15 +129,21 @@ public class PanelConfigurar extends JPanel implements ActionListener {
 
         fieldsProducto.add(cas6);
 
-        cardPanel.add(fieldsProducto);
+        cardPanel.add(fieldsProducto, "menu");
 
         // derecha.add(fieldsProducto, BorderLayout.CENTER);
         // add(derecha);
+        GridBagConstraints gbc = new GridBagConstraints();
+        tarifaServicio = new JPanel(new GridBagLayout());
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
 
-        tarifaServicio = new JPanel(new GridLayout(2, 1, 10, 10));
+        tarifaServicio.setBackground(Color.WHITE);
         tarifaServicio.setVisible(false);
         JLabel tituloTarifa = new JLabel("Ingrese nueva tarifa:");
-        tarifaServicio.add(tituloTarifa);
+        tarifaServicio.add(tituloTarifa, gbc);
+
         campoTarifaServicio = new Campo(15, "Tarifa Nueva");
         campoTarifaServicio.addMouseListener(new MouseAdapter() {
             @Override
@@ -147,8 +153,9 @@ public class PanelConfigurar extends JPanel implements ActionListener {
                 }
             };
         });
-        tarifaServicio.add(campoTarifaServicio);
-        cardPanel.add(tarifaServicio);
+        gbc.gridy = 1;
+        tarifaServicio.add(campoTarifaServicio, gbc);
+        cardPanel.add(tarifaServicio, "servicio");
         derecha.add(cardPanel, BorderLayout.CENTER);
 
         botonCambiar = new NormalButton("CAMBIAR");
@@ -217,12 +224,17 @@ public class PanelConfigurar extends JPanel implements ActionListener {
                     }
                 }
 
+                CardLayout layout = (CardLayout) cardPanel.getLayout();
+                layout.show(cardPanel, "menu");
+
             } else if (plato.isSelected()) {
                 for (Plato pl : sistema.getMenuPlatos().values()) {
                     if (pl.getNombre().equals(campo.getText())) {
                         infoProducto.setText(pl.toString());
                     }
                 }
+                CardLayout layout = (CardLayout) cardPanel.getLayout();
+                layout.show(cardPanel, "menu");
 
             } else if (servicio.isSelected()) {
                 for (Servicio ser : sistema.getServicios().values()) {
@@ -231,7 +243,7 @@ public class PanelConfigurar extends JPanel implements ActionListener {
                     }
                 }
                 CardLayout layout = (CardLayout) cardPanel.getLayout();
-                layout.next(cardPanel);
+                layout.show(cardPanel, "servicio");
             }
 
         } else if (e.getSource() == botonCambiar) {

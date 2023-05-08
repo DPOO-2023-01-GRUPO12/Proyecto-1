@@ -88,11 +88,11 @@ public class PanelOpcionesRecep extends JPanel implements ActionListener {
         } else if (e.getSource() == btnRegistro) {
             frameRecep.hacerRegistro();
         } else if (e.getSource() == btnCancelar) {
-            // frameRecep.cancelarReserva();
+            frameRecep.cancelarReserva();
         } else if (e.getSource() == btnCheckOut) {
-            // frameRecep.hacerCheckout();
+            frameRecep.hacerCheckout();
         } else if (e.getSource() == btnLog) {
-            // frameRecep.generarLog();
+            frameRecep.generarLog();
         }
 
     }

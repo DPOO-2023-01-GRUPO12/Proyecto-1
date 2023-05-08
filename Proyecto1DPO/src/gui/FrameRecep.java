@@ -18,7 +18,10 @@ public class FrameRecep extends JFrame {
     private PanelConsulta panelConsulta;
     private PanelReserva panelReserva;
     private PanelRegistro panelRegistro;
-    private ArrayList<Huesped> listaHuespedes;
+    private PanelCancelar panelCancelar;
+    private PanelCheck panelCheck;
+
+    private PanelLog panelLog;
 
     public FrameRecep(PMS pms) {
 
@@ -114,6 +117,51 @@ public class FrameRecep extends JFrame {
         add(panelRegistro, BorderLayout.CENTER);
     }
 
+    public void cancelarReserva() {
+        panelCancelar = new PanelCancelar(menuRecep);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelRegistro != null) {
+            panelRegistro.setVisible(false);
+        }
+        if (panelReserva != null) {
+            panelReserva.setVisible(false);
+        }
+        panelCancelar.setVisible(true);
+        add(panelCancelar, BorderLayout.CENTER);
+    }
+
+    public void hacerCheckout() {
+        panelCheck = new PanelCheck(menuRecep);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelRegistro != null) {
+            panelRegistro.setVisible(false);
+        }
+        if (panelReserva != null) {
+            panelReserva.setVisible(false);
+        }
+        panelCheck.setVisible(true);
+        add(panelCheck, BorderLayout.CENTER);
+    }
+
+    public void generarLog() {
+        panelLog = new PanelLog(menuRecep);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelRegistro != null) {
+            panelRegistro.setVisible(false);
+        }
+        if (panelReserva != null) {
+            panelReserva.setVisible(false);
+        }
+        panelLog.setVisible(true);
+        add(panelLog, BorderLayout.CENTER);
+    }
+
     public void cerrar() {
         dispose();
     }
@@ -129,10 +177,9 @@ public class FrameRecep extends JFrame {
 
     }
 
-    public void registroHuespedReserva(String nombre, String documento,String celular,String Correo, String edad){
+    public void registroHuespedReserva(String nombre, String documento, String celular, String Correo, String edad) {
         Integer edadint = Integer.parseInt(edad);
-         menuRecep.realizarRegistro(nombre, documento, celular, Correo, edadint);
-
+        menuRecep.realizarRegistro(nombre, documento, celular, Correo, edadint);
 
     }
 

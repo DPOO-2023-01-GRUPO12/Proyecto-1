@@ -16,6 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.Border;
 
 import console.MenuRecepcionista;
+import model.Huesped;
 
 public class PanelRegistro extends JPanel implements ActionListener {
 
@@ -111,7 +112,7 @@ public class PanelRegistro extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonRegistrar) {
-            menuRep.realizarRegistro(campoNombre.getText(), campoDoc.getText(), campoCel.getText(),
+            Huesped registrado = menuRep.realizarRegistro(campoNombre.getText(), campoDoc.getText(), campoCel.getText(),
                     campoCorr.getText(), Integer.parseInt(campoEdad.getText()));
         }
     }

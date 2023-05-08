@@ -215,6 +215,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         DefaultListModel<String> lm = new DefaultListModel<>();
         listaTipoHabs = new JList<>(lm);
+        listaTipoHabs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         for (TipoHabitacion tipo : pms.getTipoHabitaciones().values()) {
             lm.addElement(tipo.getNombreTipo());
         }
@@ -240,7 +241,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         // JPanel panelLista = new JPanel();
         DefaultListModel<String> lmC = new DefaultListModel<>();
-        listaCamas = new JList<>(lm);
+        listaCamas = new JList<>(lmC);
         for (Cama cama : pms.getCamas()) {
             lmC.addElement(cama.toString());
         }
@@ -259,15 +260,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         add(general, BorderLayout.CENTER);
 
         botonCrear = new NormalButton("CREAR");
-        botonCrear.setEnabled(false);
-        botonCrear.setFocusable(false);
-        if (bgCocina.getSelection() != null || bgBalcon.getSelection() != null || bgVista.getSelection() != null
-                || listaTipoHabs.getSelectedValue() != null || listaCamas.getSelectedIndex() > -1) {
-            botonCrear.setEnabled(true);
-            botonCrear.setFocusable(true);
-            botonCrear.addActionListener(this);
-        }
-
+        botonCrear.addActionListener(this);
         add(botonCrear, BorderLayout.SOUTH);
 
         setVisible(true);
