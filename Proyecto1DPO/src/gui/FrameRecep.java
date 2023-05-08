@@ -9,6 +9,7 @@ import console.MenuAdministrador;
 import console.MenuRecepcionista;
 import model.Huesped;
 import model.PMS;
+import persistencia.GuardadorInformacion;
 
 public class FrameRecep extends JFrame {
     private PanelInfo panelInfo;
@@ -191,13 +192,22 @@ public class FrameRecep extends JFrame {
     }
 
     public void cerrar() {
+        GuardadorInformacion g = sistema.getGuardador();
+        g.guardarCamas();
+        g.guardarConsumos();
+        g.guardarHabitaciones();
+        g.guardarHuespedes();
+        g.guardarMenuBebidas();
+        g.guardarMenuPlatos();
+        g.guardarReservas();
+        g.guardarServicios();
+        g.guardarTarifasCuarto();
+        g.guardarTipoHabitacones();
+        g.guardarUsusariosHotel();    
         dispose();
     }
 
-    public static void main(String[] args) {
-        new FrameRecep(new PMS());
-
-    }
+    
 
     public void realizarReserva(String nombre, String cantidadPersonas, String fechain, String fechaout) {
         int cantidad = Integer.parseInt(cantidadPersonas);

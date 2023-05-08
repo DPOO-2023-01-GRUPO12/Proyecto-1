@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import console.MenuEmpleado;
 import model.PMS;
+import persistencia.GuardadorInformacion;
 
 public class FrameEmple extends JFrame {
 
@@ -56,6 +57,18 @@ public class FrameEmple extends JFrame {
     }
 
     public void cerrar() {
+        GuardadorInformacion g = pms.getGuardador();
+        g.guardarCamas();
+        g.guardarConsumos();
+        g.guardarHabitaciones();
+        g.guardarHuespedes();
+        g.guardarMenuBebidas();
+        g.guardarMenuPlatos();
+        g.guardarReservas();
+        g.guardarServicios();
+        g.guardarTarifasCuarto();
+        g.guardarTipoHabitacones();
+        g.guardarUsusariosHotel();    
         dispose();
     }
 

@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import console.MenuAdministrador;
 import model.PMS;
+import persistencia.GuardadorInformacion;
 
 public class FrameAdmin extends JFrame {
     private PanelInfo panelInfo;
@@ -60,7 +61,20 @@ public class FrameAdmin extends JFrame {
     }
 
     public void cerrar() {
-        dispose();
+        GuardadorInformacion g = sistema.getGuardador();
+        g.guardarCamas();
+        g.guardarConsumos();
+        g.guardarHabitaciones();
+        g.guardarHuespedes();
+        g.guardarMenuBebidas();
+        g.guardarMenuPlatos();
+        g.guardarReservas();
+        g.guardarServicios();
+        g.guardarTarifasCuarto();
+        g.guardarTipoHabitacones();
+        g.guardarUsusariosHotel();       
+         dispose();
+        
     }
 
     public void mostrarArchivos() {
@@ -75,6 +89,9 @@ public class FrameAdmin extends JFrame {
         }
         if (panelConfigurar != null) {
             panelConfigurar.setVisible(false);
+        }
+        if (panelConcurr != null) {
+            panelConcurr.setVisible(false);
         }
         panelArchivos.setVisible(true);
         add(panelArchivos, BorderLayout.CENTER);
@@ -95,6 +112,9 @@ public class FrameAdmin extends JFrame {
         if (panelConfigurar != null) {
             panelConfigurar.setVisible(false);
         }
+        if (panelConcurr != null) {
+            panelConcurr.setVisible(false);
+        }
         panelHabitacion.setVisible(true);
         add(panelHabitacion, BorderLayout.CENTER);
 
@@ -114,6 +134,9 @@ public class FrameAdmin extends JFrame {
         if (panelConfigurar != null) {
             panelConfigurar.setVisible(false);
         }
+        if (panelConcurr != null) {
+            panelConcurr.setVisible(false);
+        }
         panelTipoHabitacion.setVisible(true);
         add(panelTipoHabitacion, BorderLayout.CENTER);
 
@@ -132,6 +155,9 @@ public class FrameAdmin extends JFrame {
         }
         if (panelTipoHabitacion != null) {
             panelTipoHabitacion.setVisible(false);
+        }
+        if (panelConcurr != null) {
+            panelConcurr.setVisible(false);
         }
         panelConfigurar.setVisible(true);
         add(panelConfigurar, BorderLayout.CENTER);
