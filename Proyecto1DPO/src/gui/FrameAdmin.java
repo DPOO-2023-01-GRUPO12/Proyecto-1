@@ -29,12 +29,7 @@ public class FrameAdmin extends JFrame {
         PanelOpciones panelOpciones = new PanelOpciones(this);
 
         panelInfo = new PanelInfo(this);
-        panelArchivos = new PanelArchivos(this);
-        panelHabitacion = new PanelCrearHabitacion(menuAdmin, sistema.getTipoHabitaciones().values(),
-                sistema.getCamas());
-        panelTipoHabitacion = new PanelTipoHabitacion(menuAdmin);
-        panelConfigurar = new PanelConfigurar(menuAdmin, sistema.getMenuBebidas().values(),
-                sistema.getMenuPlatos().values(), sistema.getServicios().values());
+        panelArchivos = new PanelArchivos(this, sistema);
 
         add(arriba, BorderLayout.NORTH);
         add(panelOpciones, BorderLayout.WEST);
@@ -45,8 +40,18 @@ public class FrameAdmin extends JFrame {
     }
 
     public void mostrarUsuario() {
-        panelHabitacion.setVisible(false);
-        panelArchivos.setVisible(false);
+        if (panelTipoHabitacion != null) {
+            panelTipoHabitacion.setVisible(false);
+        }
+        if (panelArchivos != null) {
+            panelArchivos.setVisible(false);
+        }
+        if (panelHabitacion != null) {
+            panelHabitacion.setVisible(false);
+        }
+        if (panelConfigurar != null) {
+            panelConfigurar.setVisible(false);
+        }
         panelInfo.setVisible(true);
         add(panelInfo, BorderLayout.CENTER);
 
@@ -57,40 +62,75 @@ public class FrameAdmin extends JFrame {
     }
 
     public void mostrarArchivos() {
-        panelInfo.setVisible(false);
-        panelHabitacion.setVisible(false);
-        panelTipoHabitacion.setVisible(false);
-        panelConfigurar.setVisible(false);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelTipoHabitacion != null) {
+            panelTipoHabitacion.setVisible(false);
+        }
+        if (panelHabitacion != null) {
+            panelHabitacion.setVisible(false);
+        }
+        if (panelConfigurar != null) {
+            panelConfigurar.setVisible(false);
+        }
         panelArchivos.setVisible(true);
         add(panelArchivos, BorderLayout.CENTER);
 
     }
 
     public void crearHabitacion() {
-        panelInfo.setVisible(false);
-        panelArchivos.setVisible(false);
-        panelTipoHabitacion.setVisible(false);
-        panelConfigurar.setVisible(false);
+        panelHabitacion = new PanelCrearHabitacion(menuAdmin, sistema);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelArchivos != null) {
+            panelArchivos.setVisible(false);
+        }
+        if (panelTipoHabitacion != null) {
+            panelTipoHabitacion.setVisible(false);
+        }
+        if (panelConfigurar != null) {
+            panelConfigurar.setVisible(false);
+        }
         panelHabitacion.setVisible(true);
         add(panelHabitacion, BorderLayout.CENTER);
 
     }
 
     public void crearTipoHabitacion() {
-        panelInfo.setVisible(false);
-        panelArchivos.setVisible(false);
-        panelHabitacion.setVisible(false);
-        panelConfigurar.setVisible(false);
+        panelTipoHabitacion = new PanelTipoHabitacion(menuAdmin);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelArchivos != null) {
+            panelArchivos.setVisible(false);
+        }
+        if (panelHabitacion != null) {
+            panelHabitacion.setVisible(false);
+        }
+        if (panelConfigurar != null) {
+            panelConfigurar.setVisible(false);
+        }
         panelTipoHabitacion.setVisible(true);
         add(panelTipoHabitacion, BorderLayout.CENTER);
 
     }
 
     public void mostrarConfigurar() {
-        panelInfo.setVisible(false);
-        panelArchivos.setVisible(false);
-        panelHabitacion.setVisible(false);
-        panelTipoHabitacion.setVisible(false);
+        panelConfigurar = new PanelConfigurar(menuAdmin, sistema);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelArchivos != null) {
+            panelArchivos.setVisible(false);
+        }
+        if (panelHabitacion != null) {
+            panelHabitacion.setVisible(false);
+        }
+        if (panelTipoHabitacion != null) {
+            panelTipoHabitacion.setVisible(false);
+        }
         panelConfigurar.setVisible(true);
         add(panelConfigurar, BorderLayout.CENTER);
     }
