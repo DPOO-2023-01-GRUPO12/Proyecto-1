@@ -23,6 +23,7 @@ public class PanelOpciones extends JPanel implements ActionListener {
     private CustomButton btnHabitacion;
     private CustomButton btnTipoHabitacion;
     private CustomButton btnConfigurar;
+    private CustomButton btnConcurr;
     private FrameAdmin frameAdmin;
 
     public PanelOpciones(FrameAdmin frameAdmin) {
@@ -50,17 +51,22 @@ public class PanelOpciones extends JPanel implements ActionListener {
         btnConfigurar = new CustomButton(path + "configurar.png", bg);
         btnConfigurar.addActionListener(this);
 
+        btnConcurr = new CustomButton(path + "concurrencia.png", bg);
+        btnConcurr.addActionListener(this);
+
         bg.add(userIcon);
         bg.add(btnArchivos);
         bg.add(btnHabitacion);
         bg.add(btnTipoHabitacion);
         bg.add(btnConfigurar);
+        bg.add(btnConcurr);
 
         add(userIcon);
         add(btnArchivos);
         add(btnHabitacion);
         add(btnTipoHabitacion);
         add(btnConfigurar);
+        add(btnConcurr);
 
         setVisible(true);
     }
@@ -77,7 +83,8 @@ public class PanelOpciones extends JPanel implements ActionListener {
             frameAdmin.crearTipoHabitacion();
         } else if (e.getSource() == btnConfigurar) {
             frameAdmin.mostrarConfigurar();
-
+        } else if (e.getSource() == btnConcurr) {
+            frameAdmin.mostrarConcurrencia();
         }
 
     }

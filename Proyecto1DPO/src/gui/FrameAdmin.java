@@ -15,6 +15,7 @@ public class FrameAdmin extends JFrame {
     private MenuAdministrador menuAdmin;
     private PanelTipoHabitacion panelTipoHabitacion;
     private PanelConfigurar panelConfigurar;
+    private PanelConcurrencia panelConcurr;
 
     public FrameAdmin(PMS pms) {
 
@@ -134,6 +135,27 @@ public class FrameAdmin extends JFrame {
         }
         panelConfigurar.setVisible(true);
         add(panelConfigurar, BorderLayout.CENTER);
+    }
+
+    public void mostrarConcurrencia() {
+        panelConcurr = new PanelConcurrencia(menuAdmin, sistema);
+        if (panelInfo != null) {
+            panelInfo.setVisible(false);
+        }
+        if (panelArchivos != null) {
+            panelArchivos.setVisible(false);
+        }
+        if (panelHabitacion != null) {
+            panelHabitacion.setVisible(false);
+        }
+        if (panelTipoHabitacion != null) {
+            panelTipoHabitacion.setVisible(false);
+        }
+        if (panelConfigurar != null) {
+            panelConfigurar.setVisible(false);
+        }
+        panelConcurr.setVisible(true);
+        add(panelConcurr, BorderLayout.CENTER);
     }
 
 }
