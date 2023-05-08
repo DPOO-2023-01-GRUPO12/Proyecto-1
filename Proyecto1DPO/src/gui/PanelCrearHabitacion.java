@@ -43,8 +43,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
     private MenuAdministrador menuAdmin;
 
-    public PanelCrearHabitacion(MenuAdministrador menuAdministrador, Collection<TipoHabitacion> coleccionTipoHabs,
-            ArrayList<Cama> lstCams) {
+    public PanelCrearHabitacion(MenuAdministrador menuAdministrador, PMS pms) {
         menuAdmin = menuAdministrador;
 
         setLayout(new BorderLayout());
@@ -216,7 +215,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         DefaultListModel<String> lm = new DefaultListModel<>();
         listaTipoHabs = new JList<>(lm);
-        for (TipoHabitacion tipo : coleccionTipoHabs) {
+        for (TipoHabitacion tipo : pms.getTipoHabitaciones().values()) {
             lm.addElement(tipo.getNombreTipo());
         }
 
@@ -242,7 +241,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         // JPanel panelLista = new JPanel();
         DefaultListModel<String> lmC = new DefaultListModel<>();
         listaCamas = new JList<>(lm);
-        for (Cama cama : lstCams) {
+        for (Cama cama : pms.getCamas()) {
             lmC.addElement(cama.toString());
         }
 

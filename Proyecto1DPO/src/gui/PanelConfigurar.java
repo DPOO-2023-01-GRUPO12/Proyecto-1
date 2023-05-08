@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import console.MenuAdministrador;
 import model.Bebida;
+import model.PMS;
 import model.Plato;
 import model.Servicio;
 
@@ -53,11 +54,8 @@ public class PanelConfigurar extends JPanel implements ActionListener {
     private JPanel tarifaServicio;
     private JPanel derecha;
 
-    public PanelConfigurar(MenuAdministrador menuAdministrador, Collection<Bebida> colBebidas,
-            Collection<Plato> colPlatos, Collection<Servicio> colServicios) {
+    public PanelConfigurar(MenuAdministrador menuAdministrador, PMS pms) {
         menuAdmin = menuAdministrador;
-        this.colBebidas = colBebidas;
-        this.colPlatos = colPlatos;
 
         setLayout(new GridLayout(1, 2, 20, 20));
 
@@ -68,9 +66,9 @@ public class PanelConfigurar extends JPanel implements ActionListener {
         cambiarBebida = new JLabel("Modificar Bebida");
         cambiarSevicio = new JLabel("Modificar Bebida");
 
-        // cardPanel = new JPanel();
-        // cl = new CardLayout();
-        // cardPanel.setLayout(cl);
+        cardPanel = new JPanel();
+        cl = new CardLayout();
+        cardPanel.setLayout(cl);
 
         fieldsProducto = new JPanel(new GridLayout(3, 2));
         fieldsProducto.setVisible(false);
@@ -129,8 +127,10 @@ public class PanelConfigurar extends JPanel implements ActionListener {
 
         fieldsProducto.add(cas6);
 
-        derecha.add(fieldsProducto, BorderLayout.CENTER);
-        add(derecha);
+        cardPanel.add(fieldsProducto);
+
+        // derecha.add(fieldsProducto, BorderLayout.CENTER);
+        // add(derecha);
 
         tarifaServicio = new JPanel(new GridLayout(2, 1, 10, 10));
         tarifaServicio.setVisible(false);
@@ -146,8 +146,8 @@ public class PanelConfigurar extends JPanel implements ActionListener {
             };
         });
         tarifaServicio.add(campoTarifaServicio);
-
-        derecha.add(tarifaServicio, BorderLayout.CENTER);
+        cardPanel.add(tarifaServicio);
+        derecha.add(cardPanel, BorderLayout.CENTER);
 
         botonCambiar = new NormalButton("CAMBIAR");
         botonCambiar.addActionListener(this);
@@ -215,16 +215,12 @@ public class PanelConfigurar extends JPanel implements ActionListener {
                     }
                 }
 
-                fieldsProducto.setVisible(true);
             } else if (plato.isSelected()) {
                 for (Plato pl : colPlatos) {
                     if (pl.getNombre().equals(campo.getText())) {
                         infoProducto.setText(pl.toString());
                     }
                 }
-                fieldsProducto.setVisible(true);
-                derecha.add(fieldsProducto, BorderLayout.CENTER);
-                add(derecha);
 
             } else if (servicio.isSelected()) {
                 for (Servicio ser : colServicios) {
@@ -232,11 +228,8 @@ public class PanelConfigurar extends JPanel implements ActionListener {
                         infoProducto.setText(ser.toString());
                     }
                 }
-
-                tarifaServicio.setVisible(true);
-                derecha.add(tarifaServicio, BorderLayout.CENTER);
-                add(derecha);
-
+                CardLayout layout = (CardLayout) cardPanel.getLayout();
+                layout.next(cardPanel);
             }
 
         } else if (e.getSource() == botonCambiar) {
