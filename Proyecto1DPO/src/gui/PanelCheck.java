@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import console.MenuRecepcionista;
@@ -53,7 +54,9 @@ public class PanelCheck extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn) {
-            menuRecep.realizarCheckOut(numeroDocRes.getText());
+            String factura = menuRecep.realizarCheckOut(numeroDocRes.getText());
+
+            JOptionPane.showMessageDialog(null,factura);
         }
     }
 }

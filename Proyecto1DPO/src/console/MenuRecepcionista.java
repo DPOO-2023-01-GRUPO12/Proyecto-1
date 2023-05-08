@@ -288,10 +288,13 @@ public class MenuRecepcionista {
         }
     }
 
-    public void realizarCheckOut(String documentoHuesped) {
+    public String realizarCheckOut(String documentoHuesped) {
+        String facturacheckOut ="No se encontro la reserva";
         for (Map.Entry<String, Reserva> entry : pms.getReservas().entrySet()) {
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
+            
+
             if (huesped.getDocumento().equals(documentoHuesped)) {
                 res.setCheckin(false);
 
@@ -301,16 +304,15 @@ public class MenuRecepcionista {
                     res.agregarFacturaHabitacion(factHab);
                 }
 
-                String facturacheckOut = res.mostrarFacturaCheckout();
+                facturacheckOut = res.mostrarFacturaCheckout();
                 pms.agregarReserva(res);
-                System.out.println(facturacheckOut);
+                
 
-            } else {
-                System.out.println("No se encontro la reserva");
             }
-        }
+        
 
-    }
+    }return facturacheckOut;
+}
 
     public void generarLogGrupo(String documentoHuesped) {
         for (Map.Entry<String, Reserva> entry : pms.getReservas().entrySet()) {
