@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
 
+import console.MenuRecepcionista;
+
 public class PanelReserva extends JPanel implements ActionListener {
 
     private Campo campoNom;
@@ -24,8 +26,10 @@ public class PanelReserva extends JPanel implements ActionListener {
         this.frameRecep = frameRecep;
         setLayout(new BorderLayout());
         JPanel izq = new JPanel();
-        izq.setPreferredSize(new Dimension(800, getHeight()));
-        izq.setBackground(Color.black);
+        izq.setPreferredSize(new Dimension(700, getHeight()));
+
+        PanelRegistroReserva panelRegistro = new PanelRegistroReserva(frameRecep);
+        izq.add(panelRegistro);
         add(izq, BorderLayout.WEST);
 
         JPanel der = new JPanel();
@@ -82,7 +86,8 @@ public class PanelReserva extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonReservar) {
             for (int i = 0; i < Integer.valueOf(campoCantPer.getText()); i++) {
-                frameRecep.hacerRegistro();
+                frameRecep.realizarReserva(campoNom.getText(),campoCantPer.getText(),campoFechaIn.getText(),campoFechaOut.getText());
+                
 
             }
         }

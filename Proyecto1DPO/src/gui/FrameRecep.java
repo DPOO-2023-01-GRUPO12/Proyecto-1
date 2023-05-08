@@ -1,11 +1,13 @@
 package gui;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import console.MenuAdministrador;
 import console.MenuRecepcionista;
+import model.Huesped;
 import model.PMS;
 
 public class FrameRecep extends JFrame {
@@ -16,6 +18,7 @@ public class FrameRecep extends JFrame {
     private PanelConsulta panelConsulta;
     private PanelReserva panelReserva;
     private PanelRegistro panelRegistro;
+    private ArrayList<Huesped> listaHuespedes;
 
     public FrameRecep(PMS pms) {
 
@@ -120,7 +123,16 @@ public class FrameRecep extends JFrame {
 
     }
 
-    public void realizarRegistro() {
+    public void realizarReserva(String nombre, String cantidadPersonas, String fechain, String fechaout) {
+        int cantidad = Integer.parseInt(cantidadPersonas);
+        menuRecep.RealizarReservaHuesped(nombre, cantidad, fechain, fechaout);
+
+    }
+
+    public void registroHuespedReserva(String nombre, String documento,String celular,String Correo, String edad){
+        Integer edadint = Integer.parseInt(edad);
+         menuRecep.realizarRegistro(nombre, documento, celular, Correo, edadint);
+
 
     }
 
