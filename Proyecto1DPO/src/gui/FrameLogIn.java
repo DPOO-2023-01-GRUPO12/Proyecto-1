@@ -25,6 +25,7 @@ public class FrameLogIn extends JFrame {
     private JPanel panelBack;
     private PMS sistema;
     private FrameAdmin frameAdmin;
+    private FrameEmple frameEmple;
 
     public FrameLogIn() {
         sistema = new PMS();
@@ -85,7 +86,7 @@ public class FrameLogIn extends JFrame {
             // frameRecep = new FrameRecep();
 
         } else if (tipo.equals("empleado")) {
-            // frameEmple = new FrameEmple();
+            frameEmple = new FrameEmple(sistema);
 
         }
 
