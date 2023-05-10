@@ -50,9 +50,4 @@ public class Campo extends JTextField {
         g2.dispose();
     }
 
-    @Override
-    public Dimension preferredSize() {
-        return new Dimension(300, 20);
-    }
-
 }

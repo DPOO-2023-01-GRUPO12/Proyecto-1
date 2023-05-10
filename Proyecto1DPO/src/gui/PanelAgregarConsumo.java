@@ -45,7 +45,7 @@ public class PanelAgregarConsumo extends JPanel implements ActionListener {
        
         setLayout(new BorderLayout());
         setBackground(new Color(117, 149, 114));
-        setPreferredSize(new Dimension(300, 700));
+        //setPreferredSize(new Dimension(300, 700));
 
 
 

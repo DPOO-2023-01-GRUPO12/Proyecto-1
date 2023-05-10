@@ -46,7 +46,7 @@ public class PanelConsulta extends JPanel implements ActionListener {
         add(panelTitulo, BorderLayout.NORTH);
         //////////////////////////////////////////
         JPanel panelCentral = new JPanel();
-        panelCentral.setPreferredSize(new Dimension(500, 500));
+        //panelCentral.setPreferredSize(new Dimension(500, 500));
         lm = new DefaultListModel<>();
         listaHabs = new JList<>(lm);
         listaHabs.setVisible(false);

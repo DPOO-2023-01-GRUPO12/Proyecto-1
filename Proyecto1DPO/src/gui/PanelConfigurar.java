@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import console.MenuAdministrador;
 import model.Bebida;
@@ -58,10 +59,24 @@ public class PanelConfigurar extends JPanel implements ActionListener {
     public PanelConfigurar(MenuAdministrador menuAdministrador, PMS pms) {
         sistema = pms;
         menuAdmin = menuAdministrador;
+        setLayout(new BorderLayout());
 
-        setLayout(new GridLayout(1, 2, 20, 20));
 
         /////
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.setOpaque(true);
+        Border whiteLine = BorderFactory.createLineBorder(Color.WHITE);
+        panelTitulo.setBorder(whiteLine);
+        panelTitulo.setBackground(new Color(6, 57, 112));
+        JLabel titulo = new JLabel("Cargar Archivos", SwingConstants.CENTER);
+        titulo.setFont(new Font("Roboto", Font.BOLD, 30));
+        titulo.setForeground(Color.WHITE);
+        panelTitulo.add(titulo);
+
+        add(panelTitulo,BorderLayout.NORTH);
+        
+        ////
+        JPanel todo =  new JPanel(new GridLayout(2, 2, 20, 20));
         derecha = new JPanel(new BorderLayout());
 
         cambiarPlato = new JLabel("Modificar Plato");
@@ -161,7 +176,7 @@ public class PanelConfigurar extends JPanel implements ActionListener {
         botonCambiar = new NormalButton("CAMBIAR");
         botonCambiar.addActionListener(this);
         derecha.add(botonCambiar, BorderLayout.SOUTH);
-        add(derecha);
+        todo.add(derecha);
         //////
         JPanel panelSeleccionar = new JPanel(new BorderLayout());
 
@@ -170,7 +185,6 @@ public class PanelConfigurar extends JPanel implements ActionListener {
 
         ButtonGroup bg = new ButtonGroup();
         bebida = new JRadioButton("Bebida");
-        bebida.addActionListener(null);
         plato = new JRadioButton("Plato");
         servicio = new JRadioButton("Servicio");
 
@@ -210,7 +224,8 @@ public class PanelConfigurar extends JPanel implements ActionListener {
 
         panelSeleccionar.add(infoProducto);
 
-        add(panelSeleccionar);
+        todo.add(panelSeleccionar);
+        add(todo,BorderLayout.CENTER);
         setVisible(true);
     }
 
@@ -218,6 +233,7 @@ public class PanelConfigurar extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonBuscar) {
             if (bebida.isSelected()) {
+        	System.out.println(sistema.getMenuBebidas());
                 for (Bebida beb : sistema.getMenuBebidas().values()) {
                     if (beb.getNombre().equals(campo.getText())) {
                         infoProducto.setText(beb.toString());

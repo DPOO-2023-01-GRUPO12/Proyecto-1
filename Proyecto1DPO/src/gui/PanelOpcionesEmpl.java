@@ -26,7 +26,7 @@ public class PanelOpcionesEmpl extends JPanel implements ActionListener{
         setBackground(new Color(23, 35, 31));
 
         setLayout(new GridLayout(12, 1));
-        String[] pathNames = { "Proyecto1DPO", "Icons", "" };
+        String[] pathNames = { ".", "Icons", "" };
         String path = String.join(File.separator, pathNames);
 
         bg = new GrupoBotones();

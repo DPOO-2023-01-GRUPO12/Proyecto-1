@@ -29,7 +29,7 @@ public class PanelCancelar extends JPanel implements ActionListener {
 
         setLayout(new BorderLayout());
 
-        JPanel central = new JPanel(new GridLayout(4, 1, 110, 200));
+        JPanel central = new JPanel(new GridLayout(4, 1));
 
         JPanel titulo = new JPanel();
         titulo.setBackground(new Color(23, 35, 31));

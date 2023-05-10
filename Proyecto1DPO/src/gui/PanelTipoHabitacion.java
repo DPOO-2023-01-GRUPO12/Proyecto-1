@@ -64,7 +64,7 @@ public class PanelTipoHabitacion extends JPanel implements ActionListener {
         inputTipo.setLayout(layout);
 
         inputTipo.setBackground(new Color(6, 57, 112));
-        inputTipo.setPreferredSize(new Dimension(500, 600));
+        //inputTipo.setPreferredSize(new Dimension(500, 600));
         inputTipo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         inputTipo.setBackground(new Color(6, 57, 112));
 

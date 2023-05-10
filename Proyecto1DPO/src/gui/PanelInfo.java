@@ -48,7 +48,7 @@ public class PanelInfo extends JPanel implements ActionListener {
         panelAbajo.setPreferredSize(new Dimension(100, 100));
         panelAbajo.setBackground(new Color(6, 57, 112));
 
-        String[] pathNames = { "Proyecto1DPO", "Icons", "" };
+        String[] pathNames = { ".", "Icons", "" };
         String path = String.join(File.separator, pathNames);
 
         try {
@@ -94,7 +94,7 @@ public class PanelInfo extends JPanel implements ActionListener {
         panelAbajo.setPreferredSize(new Dimension(100, 100));
         panelAbajo.setBackground(new Color(6, 57, 112));
 
-        String[] pathNames = { "Proyecto1DPO", "Icons", "" };
+        String[] pathNames = { ".", "Icons", "" };
         String path = String.join(File.separator, pathNames);
 
         try {

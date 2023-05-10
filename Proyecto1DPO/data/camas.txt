@@ -1,6 +1,7 @@
-tamaño;cantidad;ninios
-king;2;false
-queen;5;true
-doble;3;false
-individual;6;true
-cuna;1;true
+tamanio;cantidad;ninios
+king;5;flase
+queen;3;false
+sencilla;1;true
+doble;2;false
+doble;2;true
+king;4;false

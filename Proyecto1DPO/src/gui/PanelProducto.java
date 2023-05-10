@@ -7,7 +7,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class PanelProducto extends JPanel implements{
+public class PanelProducto extends JPanel{
     private JRadioButton nombre;
     private Campo campoNom;
     private JRadioButton tarifa;

@@ -28,7 +28,9 @@ public class GuardadorInformacion {
     public void guardarHabitaciones() {
         
         try{
-            File file = new File("data/habitaciones.txt");
+            String[] pathNames = { ".", "data", "habitaciones.txt" };
+            String pathHab = String.join(File.separator, pathNames);
+            File file = new File(pathHab);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -68,7 +70,9 @@ public class GuardadorInformacion {
 
     public void guardarTipoHabitacones() {
         try{
-            File file = new File("data/Tipohabitaciones.txt");
+            String[] pathNames = { ".", "data", "tipohabitaciones.txt" };
+            String pathTipo= String.join(File.separator, pathNames);
+            File file = new File(pathTipo);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -108,7 +112,9 @@ public class GuardadorInformacion {
 
     public void guardarTarifasCuarto() {
         try{
-            File file = new File("data/TarifasCuarto.txt");
+            String[] pathNames = { ".", "data", "tarifas.txt" };
+            String pathTarifas = String.join(File.separator, pathNames);
+            File file = new File(pathTarifas);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -146,7 +152,9 @@ public class GuardadorInformacion {
 
     public void guardarReservas() {
         try{
-            File file = new File("data/Reservas.txt");
+            String[] pathNames = { ".", "data", "reservas.txt" };
+            String pathReservas = String.join(File.separator, pathNames);
+            File file = new File(pathReservas);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -186,7 +194,9 @@ public class GuardadorInformacion {
 
     public void guardarMenuBebidas() {
         try{
-            File file = new File("data/MenuBebidas.txt");
+            String[] pathNames = { ".", "data", "menubebidas.txt" };
+            String pathBebidas = String.join(File.separator, pathNames);
+            File file = new File(pathBebidas);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -226,7 +236,9 @@ public class GuardadorInformacion {
 
     public void guardarMenuPlatos() {
         try{
-            File file = new File("data/MenuPlatos.txt");
+            String[] pathNames = { ".", "data", "menuplatos.txt" };
+            String pathPlatos = String.join(File.separator, pathNames);
+            File file = new File(pathPlatos);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -266,7 +278,9 @@ public class GuardadorInformacion {
 
     public void guardarHuespedes() {
         try{
-            File file = new File("data/Huespedes.txt");
+            String[] pathNames = { ".", "data", "huespedes.txt" };
+            String pathHuespedes = String.join(File.separator, pathNames);
+            File file = new File(pathHuespedes);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -306,7 +320,9 @@ public class GuardadorInformacion {
 
     public void guardarUsusariosHotel() {
         try{
-            File file = new File("data/Usuarios.txt");
+            String[] pathNames = { ".", "data", "usuarios.txt" };
+            String pathUsuarios = String.join(File.separator, pathNames);
+            File file = new File(pathUsuarios);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -355,7 +371,9 @@ public class GuardadorInformacion {
 
     public void guardarServicios() {
         try{
-            File file = new File("data/Servicios.txt");
+            String[] pathNames = { ".", "data", "servicios.txt" };
+            String pathServicios = String.join(File.separator, pathNames);
+            File file = new File(pathServicios);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -395,7 +413,9 @@ public class GuardadorInformacion {
 
     public void guardarConsumos() {
         try{
-            File file = new File("data/Consumos.txt");
+            String[] pathNames = { ".", "data", "consumos.txt" };
+            String pathConsumos = String.join(File.separator, pathNames);
+            File file = new File(pathConsumos);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);
@@ -435,7 +455,9 @@ public class GuardadorInformacion {
 
     public void guardarCamas() {
         try{
-            File file = new File("data/Camas.txt");
+            String[] pathNames = { ".", "data", "camas.txt" };
+            String pathCamas = String.join(File.separator, pathNames);
+            File file = new File(pathCamas);
             if (file.createNewFile()){
                 System.out.println("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file);

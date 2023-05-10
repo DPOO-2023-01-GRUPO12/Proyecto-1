@@ -47,7 +47,7 @@ public class PanelRegistro extends JPanel implements ActionListener {
         //////////////////////////////////////////
         setLayout(new BorderLayout());
         JPanel der = new JPanel();
-        der.setPreferredSize(new Dimension(800, getHeight()));
+        //der.setPreferredSize(new Dimension(800, getHeight()));
         der.setBackground(Color.black);
         add(der, BorderLayout.EAST);
 

@@ -255,16 +255,17 @@ public class Cargador {
     }// funcion
 
     public void cargarMenuBebidas(File file) throws IOException, FileNotFoundException {
-
-        if (file.exists()) {
-
+        if (file.getCanonicalFile().exists()) {
+            
             try {
 
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 String linea = br.readLine();
-
+                
                 linea = br.readLine();
+                
                 while (linea != null) {
+                    
                     String[] partes = linea.split(";");
 
                     String nombre = partes[0];
@@ -276,7 +277,7 @@ public class Cargador {
 
                     Bebida bebida = new Bebida(nombre, precio, rangoHoras, comidaDispon, lugarDispon);
                     bebida.setServicioCuarto(servicioCuarto);
-
+                 
                     pms.agregarBebida(bebida);
 
                     linea = br.readLine();
@@ -456,8 +457,9 @@ public class Cargador {
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(FileInformacionHotel));
-                String linea = br.readLine();
 
+                
+                String linea = br.readLine();
                 linea = br.readLine();
                 while (linea != null) {
 
@@ -471,12 +473,12 @@ public class Cargador {
                     String pathMenuBebidas = partes[5];
                     String pathMenuPlatos = partes[6];
 
-                    String[] pathNames = { "Proyecto1DPO", "data","" };
+                    String[] pathNames = { ".", "data","" };
                     String path = String.join(File.separator, pathNames);
 
                     
 
-                    File fileTarifas = new File(path + pathTarifas);
+                    File fileTarifas = new File(path + pathTarifas);     
                     File fileTipohabitaciones = new File(path + pathTipoHabitaciones);
                     File fileHabitaciones = new File(path + pathHabitaciones);
                     File fileServicios = new File(path + pathServicios);

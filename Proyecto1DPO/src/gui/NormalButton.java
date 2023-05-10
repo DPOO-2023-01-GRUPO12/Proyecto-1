@@ -62,10 +62,7 @@ public class NormalButton extends JButton implements MouseListener
 
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(80, 80);
-    }
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {

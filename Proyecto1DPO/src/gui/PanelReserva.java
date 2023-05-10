@@ -26,7 +26,6 @@ public class PanelReserva extends JPanel implements ActionListener {
         this.frameRecep = frameRecep;
         setLayout(new BorderLayout());
         JPanel izq = new JPanel();
-        izq.setPreferredSize(new Dimension(700, getHeight()));
 
         PanelRegistroReserva panelRegistro = new PanelRegistroReserva(frameRecep);
         izq.add(panelRegistro);
@@ -43,16 +42,16 @@ public class PanelReserva extends JPanel implements ActionListener {
         layout.setAutoCreateContainerGaps(true);
 
         JLabel nombre = new JLabel("Ingrese su documento:");
-        campoNom = new Campo(15, "Documento");
+        campoNom = new Campo(10, "Documento");
 
         JLabel cantidadPer = new JLabel("Ingrese la cantidad de personas en la reserva:");
-        campoCantPer = new Campo(15, "Cantidad de personas");
+        campoCantPer = new Campo(10, "Cantidad de personas");
 
         JLabel fechaIn = new JLabel("Ingrese la fecha de ingreso:");
-        campoFechaIn = new Campo(15, "Fecha de ingreso");
+        campoFechaIn = new Campo(10, "Fecha de ingreso");
 
         JLabel fechaOut = new JLabel("Ingrese la fecha de salida:");
-        campoFechaOut = new Campo(15, "Fecha de salida");
+        campoFechaOut = new Campo(10, "Fecha de salida");
 
         GroupLayout.SequentialGroup h = layout.createSequentialGroup();
 

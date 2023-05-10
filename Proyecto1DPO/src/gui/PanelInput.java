@@ -121,7 +121,7 @@ class PanelInput extends JPanel implements ActionListener {
         add(general, BorderLayout.CENTER);
         botonLogin = new JButton("Log in");
         botonLogin.setBackground(new Color(25, 25, 112));
-        botonLogin.setForeground(Color.WHITE);
+        //botonLogin.setForeground(Color.WHITE);
         botonLogin.addActionListener(this);
         add(botonLogin, BorderLayout.SOUTH);
 

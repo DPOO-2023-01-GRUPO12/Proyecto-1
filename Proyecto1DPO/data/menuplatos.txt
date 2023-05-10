@@ -2,12 +2,3 @@ nombre,rangohoras,comidadispon,lugardispon,serviciocuarto,precio
 hamburguesa;18:00-23:00;cena;restaurante;false;12000
 arepa;10:00-16:00;almuerzo;restaurante;true;2000
 caldo de costilla;8:00-12:00;desayuno;restaurante;true;10000
-pizza;12:00-23:00;almuerzo,cena,snack;restaurante;true;15000
-spaghetti;12:00-23:00;almuerzo,cena;restaurante;true;12000
-pollo a la brasa;12:00-23:00;almuerzo,cena;restaurante;true;18000
-ceviche;12:00-23:00;almuerzo,cena;restaurante;true;22000
-sopa de lentejas;8:00-12:00;desayuno;restaurante;true;8000
-empanadas;10:00-16:00;almuerzo;restaurante;true;5000
-taco bowl;12:00-23:00;almuerzo,cena;restaurante;true;14000
-sushi;12:00-23:00;almuerzo,cena;restaurante;true;25000
-hummus;10:00-16:00;almuerzo;restaurante;true;6000

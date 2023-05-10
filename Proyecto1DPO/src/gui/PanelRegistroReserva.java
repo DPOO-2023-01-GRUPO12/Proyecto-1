@@ -93,11 +93,11 @@ public class PanelRegistroReserva extends JPanel implements ActionListener{
         add(central, BorderLayout.CENTER);
 
         botonRegistrar = new NormalButton("AGREGAR HUESPED");
-        botonRegistrar.setPreferredSize(new Dimension(100, 70));
+        //botonRegistrar.setPreferredSize(new Dimension(100, 70));
         botonRegistrar.addActionListener(this);
 
         add(botonRegistrar, BorderLayout.SOUTH);
-        setPreferredSize(new Dimension(700, 750));
+        //setPreferredSize(new Dimension(700, 750));
         setVisible(true);
         
 

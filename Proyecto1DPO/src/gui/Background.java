@@ -8,10 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.text.StyleConstants;
 
-/**
- *
- * @author Juanca
- */
 class Background extends JPanel {
 
     private ImageIcon myPicture;
@@ -23,8 +19,9 @@ class Background extends JPanel {
         // Imagen de fondo
 
         setSize(frameLogIn.getWidth(), frameLogIn.getHeight());
-        String[] pathNames = { "Proyecto1DPO", "Icons", "fondo.jpg" };
+        String[] pathNames = {".","Icons", "fondo.jpg" };
         String pathUsers = String.join(File.separator, pathNames);
+        
 
         myPicture = new ImageIcon(pathUsers);
         add(new JLabel(myPicture));

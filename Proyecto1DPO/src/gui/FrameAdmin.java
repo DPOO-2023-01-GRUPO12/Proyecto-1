@@ -17,171 +17,107 @@ public class FrameAdmin extends JFrame {
     private PanelTipoHabitacion panelTipoHabitacion;
     private PanelConfigurar panelConfigurar;
     private PanelConcurrencia panelConcurr;
+    private CardLayout cardPane;
+    private JPanel paneles;
 
     public FrameAdmin(PMS pms) {
 
         sistema = pms;
         menuAdmin = new MenuAdministrador(pms.getCargador(), pms);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1500, 900);
-
+        if(this.getDefaultCloseOperation()==JFrame.EXIT_ON_CLOSE) {
+            cerrar();
+        }
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        int newWidth = (int) (1500 * 0.7);
+        int newHeight = (int) (900 * 0.7);
+        
+        setSize(newWidth, newHeight);
+        
         setLayout(new BorderLayout());
         JPanel arriba = new JPanel();
         arriba.setBackground(new Color(23, 35, 31));
-
-        PanelOpciones panelOpciones = new PanelOpciones(this);
-
-        panelInfo = new PanelInfo(this);
-        panelArchivos = new PanelArchivos(this, sistema);
-
+   
         add(arriba, BorderLayout.NORTH);
+        PanelOpciones panelOpciones = new PanelOpciones(this);
         add(panelOpciones, BorderLayout.WEST);
-        add(panelInfo, BorderLayout.CENTER);
+        
+        cardPane =  new CardLayout();
+        paneles = new JPanel();
+        paneles.setVisible(true);
+        paneles.setLayout(cardPane);
+        
+        
+        panelInfo = new PanelInfo(this);
+        paneles.add(panelInfo, "Info");
+        panelArchivos = new PanelArchivos(this, sistema);
+        paneles.add(panelArchivos, "Archivos");
+
+        
+
+        add(paneles, BorderLayout.CENTER);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
     }
 
     public void mostrarUsuario() {
-        if (panelTipoHabitacion != null) {
-            panelTipoHabitacion.setVisible(false);
-        }
-        if (panelArchivos != null) {
-            panelArchivos.setVisible(false);
-        }
-        if (panelHabitacion != null) {
-            panelHabitacion.setVisible(false);
-        }
-        if (panelConfigurar != null) {
-            panelConfigurar.setVisible(false);
-        }
-        panelInfo.setVisible(true);
-        add(panelInfo, BorderLayout.CENTER);
+	cardPane.show(paneles,"Info");
 
     }
 
     public void cerrar() {
         GuardadorInformacion g = sistema.getGuardador();
-        g.guardarCamas();
-        g.guardarConsumos();
-        g.guardarHabitaciones();
-        g.guardarHuespedes();
-        g.guardarMenuBebidas();
-        g.guardarMenuPlatos();
-        g.guardarReservas();
-        g.guardarServicios();
-        g.guardarTarifasCuarto();
-        g.guardarTipoHabitacones();
-        g.guardarUsusariosHotel();       
+        if(sistema.getCamas().size()>0 && sistema.getMenuBebidas().size()>0 && sistema.getMenuPlatos().size()>0) {
+            g.guardarCamas();
+            g.guardarConsumos();
+            g.guardarHabitaciones();
+            g.guardarHuespedes();
+            g.guardarMenuBebidas();
+            g.guardarMenuPlatos();
+            g.guardarReservas();
+            g.guardarServicios();
+            g.guardarTarifasCuarto();
+            g.guardarTipoHabitacones();
+            g.guardarUsusariosHotel();  
+            
+        }
+             
          dispose();
         
     }
 
     public void mostrarArchivos() {
-        if (panelInfo != null) {
-            panelInfo.setVisible(false);
-        }
-        if (panelTipoHabitacion != null) {
-            panelTipoHabitacion.setVisible(false);
-        }
-        if (panelHabitacion != null) {
-            panelHabitacion.setVisible(false);
-        }
-        if (panelConfigurar != null) {
-            panelConfigurar.setVisible(false);
-        }
-        if (panelConcurr != null) {
-            panelConcurr.setVisible(false);
-        }
-        panelArchivos.setVisible(true);
-        add(panelArchivos, BorderLayout.CENTER);
+    
+	cardPane.show(paneles,"Archivos");
 
     }
 
     public void crearHabitacion() {
         panelHabitacion = new PanelCrearHabitacion(menuAdmin, sistema);
-        if (panelInfo != null) {
-            panelInfo.setVisible(false);
-        }
-        if (panelArchivos != null) {
-            panelArchivos.setVisible(false);
-        }
-        if (panelTipoHabitacion != null) {
-            panelTipoHabitacion.setVisible(false);
-        }
-        if (panelConfigurar != null) {
-            panelConfigurar.setVisible(false);
-        }
-        if (panelConcurr != null) {
-            panelConcurr.setVisible(false);
-        }
-        panelHabitacion.setVisible(true);
-        add(panelHabitacion, BorderLayout.CENTER);
+        paneles.add(panelHabitacion, "Habitacion");
+        cardPane.show(paneles,"Habitacion");
 
     }
 
     public void crearTipoHabitacion() {
         panelTipoHabitacion = new PanelTipoHabitacion(menuAdmin);
-        if (panelInfo != null) {
-            panelInfo.setVisible(false);
-        }
-        if (panelArchivos != null) {
-            panelArchivos.setVisible(false);
-        }
-        if (panelHabitacion != null) {
-            panelHabitacion.setVisible(false);
-        }
-        if (panelConfigurar != null) {
-            panelConfigurar.setVisible(false);
-        }
-        if (panelConcurr != null) {
-            panelConcurr.setVisible(false);
-        }
-        panelTipoHabitacion.setVisible(true);
-        add(panelTipoHabitacion, BorderLayout.CENTER);
+        paneles.add(panelTipoHabitacion, "Tipo");
+        cardPane.show(paneles,"Tipo");
 
     }
 
     public void mostrarConfigurar() {
         panelConfigurar = new PanelConfigurar(menuAdmin, sistema);
-        if (panelInfo != null) {
-            panelInfo.setVisible(false);
-        }
-        if (panelArchivos != null) {
-            panelArchivos.setVisible(false);
-        }
-        if (panelHabitacion != null) {
-            panelHabitacion.setVisible(false);
-        }
-        if (panelTipoHabitacion != null) {
-            panelTipoHabitacion.setVisible(false);
-        }
-        if (panelConcurr != null) {
-            panelConcurr.setVisible(false);
-        }
-        panelConfigurar.setVisible(true);
-        add(panelConfigurar, BorderLayout.CENTER);
+        paneles.add(panelConfigurar, "Configurar");
+        cardPane.show(paneles,"Configurar");
     }
 
     public void mostrarConcurrencia() {
         panelConcurr = new PanelConcurrencia(menuAdmin, sistema);
-        if (panelInfo != null) {
-            panelInfo.setVisible(false);
-        }
-        if (panelArchivos != null) {
-            panelArchivos.setVisible(false);
-        }
-        if (panelHabitacion != null) {
-            panelHabitacion.setVisible(false);
-        }
-        if (panelTipoHabitacion != null) {
-            panelTipoHabitacion.setVisible(false);
-        }
-        if (panelConfigurar != null) {
-            panelConfigurar.setVisible(false);
-        }
-        panelConcurr.setVisible(true);
-        add(panelConcurr, BorderLayout.CENTER);
+        paneles.add(panelConcurr, "Concurr");
+        cardPane.show(paneles,"Concurr");
     }
 
 }

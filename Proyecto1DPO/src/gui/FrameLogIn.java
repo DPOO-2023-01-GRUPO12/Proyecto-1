@@ -31,7 +31,7 @@ public class FrameLogIn extends JFrame {
     public FrameLogIn() {
         sistema = new PMS();
         Cargador cargador = sistema.getCargador();
-        String[] pathNames = { "Proyecto1DPO", "data", "usuarios.txt" };
+        String[] pathNames = { ".", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);
 
@@ -46,7 +46,13 @@ public class FrameLogIn extends JFrame {
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1500, 900);
+        
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        int newWidth = (int) (1500 * 0.7);
+        int newHeight = (int) (900 * 0.7);
+        
+        setSize(newWidth, newHeight);
         JLayeredPane pane = new JLayeredPane();
 
         Background background = new Background(this);

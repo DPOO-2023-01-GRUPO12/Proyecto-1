@@ -1,21 +1,7 @@
 identificador;ubicacion;balcon;vista;cocina;descripcion;camas;tipo
-1;primer piso;false;false;true;Habitación estándar con vista al jardín;queen-1-false;estándar
-2;primer piso;false;true;false;Habitación con balcón y vista al mar;doble-2-false;ejecutiva
-3;primer piso;true;false;false;Habitación con balcón y vista al jardín;king-1-false;doble
-4;primer piso;false;true;true;Habitación familiar con cocina y vista al mar;doble-1-false,sencilla-2-true;familiar
-5;primer piso;true;false;false;Habitación con balcón y vista al mar;sencilla-1-false;individual
-6;segundo piso;false;false;false;Habitación doble con vista al jardín;doble-2-false;doble
-7;segundo piso;true;true;false;Suite junior con balcón y vista al mar;doble-1-false,king-1-false;suite
-8;segundo piso;false;false;true;Habitación con cocina y vista al jardín;doble-1-false,sencilla-1-true;doble
-9;segundo piso;false;true;false;Habitación con vista al mar;doble-2-false;doble
-10;segundo piso;true;false;false;Habitación con balcón y vista al jardín;doble-1-false,sencilla-1-true;doble
-11;tercer piso;true;true;false;Habitación con balcón y vista al mar;queen-1-false;doble
-12;tercer piso;true;true;true;Suite con cocina y vista al mar;king-1-false,queen-1-false;suite
-13;tercer piso;false;false;false;Habitación doble con vista al jardín;doble-2-false;doble
-14;tercer piso;false;true;true;Habitación familiar con cocina y vista al mar;doble-1-false,sencilla-2-true;familiar
-15;cuarto piso;true;true;true;Gran suite con balcón y vista panorámica;king-2-false,queen-2-false;suite
-16;cuarto piso;false;false;false;Habitación doble con vista al jardín;doble-2-false;doble
-17;cuarto piso;true;false;false;Habitación con balcón y vista al jardín;king-1-false;doble
-18;cuarto piso;false;true;false;Habitación con vista al mar;sencilla-1-false;individual
-19;quinto piso;true;true;false;Habitación con balcón y vista al mar;queen-1-false;doble
-20;quinto piso;false;false;true;Habitación con cocina y vista al jardín;king-1-false,queen-1-false;doble
+1;primer piso;false;false;true;una bonita pero pequeña habitación;king-4-false;estandar
+2;primer piso;false;true;true;pequeña habitación familiar con linda vista al mar;doble-2-false,sencilla-1-false,sencilla-1-true;ejecutiva
+3;segundo piso;true;false;true;pequeña habitación personal con un balcon;sencilla-2-false;economica
+4;segundo piso;true;true;true;linda habitación para pareja con vistas fantasticas;doble-2-false,sencilla-1-true;ejecutiva
+5;tercer piso;true;true;true;fenomenal suite para tomar fotos;queen-3-false,king-4-false,sencilla-1-true;suite
+6;tercer piso;true;true;true;suite economica pero elegante;doble-2-false;suite

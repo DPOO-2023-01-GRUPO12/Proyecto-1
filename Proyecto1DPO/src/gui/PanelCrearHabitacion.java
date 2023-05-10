@@ -63,11 +63,11 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         add(panelTitulo, BorderLayout.NORTH);
         //////////////////////////////////////////
 
-        JPanel general = new JPanel(new GridLayout(1, 2, 20, 10));
+        JPanel general = new JPanel(new GridLayout(1, 2, 10, 10));
 
         ////////////////////////////////// Miramos los campos de habitacion
         JPanel campos = new JPanel(new BorderLayout());
-        campos.setPreferredSize(new Dimension(800, 900));
+        //campos.setPreferredSize(new Dimension(800, 900));
         //////////// Titulo Habitacion
         JLabel titleHab = new JLabel("Habitacion", SwingConstants.CENTER);
         titleHab.setFont(new Font("Roboto", Font.BOLD, 30));
@@ -75,8 +75,8 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         campos.add(titleHab, BorderLayout.NORTH);
         /////////////////
         ///////////////////////////// Panel campos
-        JPanel divisionesCampos = new JPanel(new GridLayout(6, 1, 20, 40));
-        divisionesCampos.setPreferredSize(new Dimension(800, 900));
+        JPanel divisionesCampos = new JPanel(new GridLayout(6, 1, 10, 10));
+        //divisionesCampos.setPreferredSize(new Dimension(800, 900));
 
         //////////////// Fields
         campoId = new Campo(15, "Identificador");
@@ -128,7 +128,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         tiene = new JRadioButton("Si");
         noTiene = new JRadioButton("No");
         tiene.setBackground(Color.white);
-        tiene.setPreferredSize(new Dimension(100, 10));
+        //tiene.setPreferredSize(new Dimension(100, 10));
         noTiene.setBackground(Color.white);
 
         bgCocina.add(tiene);
@@ -156,7 +156,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         tiene1 = new JRadioButton("Si");
         noTiene1 = new JRadioButton("No");
         tiene1.setBackground(Color.WHITE);
-        tiene1.setPreferredSize(new Dimension(100, 10));
+        //tiene1.setPreferredSize(new Dimension(100, 10));
         noTiene1.setBackground(Color.WHITE);
 
         bgBalcon.add(tiene1);
@@ -183,7 +183,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         tiene2 = new JRadioButton("Si");
         noTiene2 = new JRadioButton("No");
         tiene2.setBackground(Color.WHITE);
-        tiene2.setPreferredSize(new Dimension(100, 10));
+        //tiene2.setPreferredSize(new Dimension(100, 10));
         noTiene2.setBackground(Color.WHITE);
 
         bgVista.add(tiene2);

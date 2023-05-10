@@ -134,6 +134,7 @@ public class PMS {
 
     public void agregarBebida(Bebida bebida) {
         getMenuBebidas().put(bebida.getNombre(), bebida);
+        
     }
 
     public void agregarPlato(Plato plato) {
@@ -166,6 +167,7 @@ public class PMS {
 
     public void agregarReserva(Reserva reserva) {
         getReservas().put(reserva.getHuespedEncargado().getDocumento(), reserva);
+        agregarFechas(reserva);
     }
 
     public void agregarHuesped(Huesped Huesped) {

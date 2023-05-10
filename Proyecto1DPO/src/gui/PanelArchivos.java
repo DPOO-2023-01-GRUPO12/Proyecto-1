@@ -23,6 +23,7 @@ public class PanelArchivos extends JPanel implements ActionListener {
     private FrameAdmin frameAdmin;
     private PMS sistema;
     private JFileChooser fc;
+    private NormalButton btnCargar;
 
     public PanelArchivos(FrameAdmin frameAdmin, PMS pms) {
         this.sistema = pms;
@@ -42,59 +43,72 @@ public class PanelArchivos extends JPanel implements ActionListener {
         panelTitulo.add(titulo);
 
         add(panelTitulo, BorderLayout.NORTH);
-
-        String[] pathNames = { "Proyecto1DPO", "data" };
-        String path = String.join(File.separator, pathNames);
-        fc = new JFileChooser(path);
-
-        FileFilter filtroTXT = new FileFilter() {
-
-            public boolean accept(File file) {
-
-                if (file.getName().endsWith(".txt")) {
-                    return true;
-                }
-
-                return false;
-            }
-
-            public String getDescription() {
-                return "Archivos de texto TXT (*.txt)";
-            }
-        };
-
-        fc.setFileFilter(filtroTXT);
-        fc.setMultiSelectionEnabled(false);
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fc.setDialogTitle("Seleccione los archivos a cargar");
-        fc.setApproveButtonText("Cargar");
-        fc.setApproveButtonToolTipText("Cargar los archivos seleccionados");
-        fc.setFileHidingEnabled(true);
-
-        fc.addActionListener(this);
-        add(fc, BorderLayout.CENTER);
+        
+        btnCargar = new NormalButton("CARGAR");
+        btnCargar.addActionListener(this);
+        add(btnCargar,BorderLayout.CENTER);
+        
+        
 
         setVisible(true);
 
     }
 
     public void actionPerformed(ActionEvent e) {
+	if(e.getSource()==btnCargar) {
+	    String[] pathNames = { ".", "data"};
+	        String path = String.join(File.separator, pathNames);
+	        JFileChooser fc = new JFileChooser(path);
+	        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	        fc.setDialogTitle("Seleccione los archivos a cargar");
+	        fc.setApproveButtonText("Cargar");
+	        fc.setApproveButtonToolTipText("Cargar los archivos seleccionados");
+	        
 
-        if ((fc.showOpenDialog(this)) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fc.getSelectedFile();
-            try {
-                sistema.getCargador().cargarInformacionHotel(selectedFile);
-            } catch (FileNotFoundException e1) {
+	        
+	        FileFilter filtroTXT = new FileFilter() {
 
-                e1.printStackTrace();
-            } catch (IOException e1) {
+	            public boolean accept(File file) {
 
-                e1.printStackTrace();
-            }
+	                if (file.getName().endsWith(".txt")) {
+	                    return true;
+	                }
 
-        } else if ((fc.showOpenDialog(this)) == JFileChooser.CANCEL_OPTION) {
+	                return false;
+	            }
 
-        }
+	            public String getDescription() {
+	                return "Archivos de texto TXT (*.txt)";
+	            }
+	        };
+	        fc.setFileFilter(filtroTXT);
+	        
+
+
+	        //fc.setMultiSelectionEnabled(true);
+	        
+	        fc.setFileHidingEnabled(true);
+	        /// fc.setFileFilter(new FiltroArchivos());
+	        /// fc.setAcceptAllFileFilterUsed(false);
+	        /// fc.setAccessory(new PanelVistaPrevia(fc));
+	        int resultado = fc.showOpenDialog(this);
+	        if (resultado == JFileChooser.APPROVE_OPTION) {
+	            File archivoHotel = fc.getSelectedFile();
+		    try
+		    {
+			File canonicalFile = archivoHotel.getCanonicalFile();
+			sistema.getCargador().cargarInformacionHotel(archivoHotel);
+			System.out.println(sistema.getMenuBebidas());
+		    } catch (IOException e1)
+		    {
+			System.out.println("No se cargó el archivo");
+		    }
+	        }
+	    
+	}
+        
+
+        
 
     }
 
