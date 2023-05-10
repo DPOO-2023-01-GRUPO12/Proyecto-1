@@ -11,39 +11,54 @@ import javax.swing.*;
 import model.PMS;
 
 public class Concurrencia extends JPanel {
-    PMS sistema;
-    public Concurrencia(PMS pms){
-        sistema=pms;
+    private PMS pms;
+    public Concurrencia(PMS sistema){
+        pms=sistema;
+        //System.out.println(pms.getFechas());
         setVisible(true);
 
 
     }
-        @Override
-        public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    @Override
+    public void paint(Graphics g) {
+        //super.paint(g);
+        int widthCas = getWidth()/ 31;
+        int heightCas = getHeight() / 12;
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
+        int columna;
+        int fila;
+        int posx = 30;
+        int posy = 30;
+        for (String fecha : pms.getFechas().keySet()) {
+            System.out.println(fecha);
+            posx = 30;
+            posy = 30;
+            String[] fechas = fecha.strip().split("/");
+            columna = Integer.parseInt(fechas[0]);
+            fila = Integer.parseInt(fechas[1]);
+            Color color = getDarkeningGreen(pms.getFechas().get(fecha));
+            posx = (columna * widthCas);
+            posy = (fila * heightCas);
 
-        Map<String,Integer> mapaFechas = sistema.getFechas();
-
-        // Dibujar las casillas de la concurrencia 
-
-
-        for (Map.Entry<String, Integer> entry : mapaFechas.entrySet()){
-
-            if(entry.getValue() ==  0){
-                g2d.setColor(Color.white);
-            }
-            else if(entry.getValue() >0){
-
-                g2d.setColor(Color.green);
-
-             }
+            g2d.setColor(Color.black);
+            g2d.drawRect(posx, posy, widthCas, widthCas);
+            g2d.setColor(color);
+            g2d.fillRect(posx, posy, widthCas, widthCas);
+            g2d.setColor(Color.LIGHT_GRAY);
         }
+
+    }
+
+    public Color getDarkeningGreen(int value) {
+        float hue = 120f / 360f; // green hue
+        float saturation = 1.0f;
+        float brightness = (float) (1.0 - value / 200.0); // linear scaling
+        return Color.getHSBColor(hue, saturation, brightness);
+    }
     
     
 
 
    
-    
-}
 }

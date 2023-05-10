@@ -1,3 +1,4 @@
-empleado1;1234
-recepcionista1;1234
+Usuario;Password
 admin1;1234
+recepcionista1;1234
+empleado1;1234

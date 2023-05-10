@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class FrameLogIn extends JFrame {
 
-    private Background background;
     private PanelIconoLogIn panelIzq;
     private PanelUsuario panelDer;
     private BufferedImage myPicture;

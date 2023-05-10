@@ -105,7 +105,9 @@ public class FrameRecep extends JFrame {
     }
 
     public void cerrar() {
+	/*
         GuardadorInformacion g = sistema.getGuardador();
+        
         if(sistema.getCamas().size()>0 && sistema.getMenuBebidas().size()>0 && sistema.getMenuPlatos().size()>0) {
             g.guardarCamas();
             g.guardarConsumos();
@@ -117,9 +119,9 @@ public class FrameRecep extends JFrame {
             g.guardarServicios();
             g.guardarTarifasCuarto();
             g.guardarTipoHabitacones();
-            g.guardarUsusariosHotel();  
+            //g.guardarUsusariosHotel();  
             
-        }
+        }*/
         dispose();
     }
 

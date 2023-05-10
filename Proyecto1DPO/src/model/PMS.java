@@ -167,7 +167,7 @@ public class PMS {
 
     public void agregarReserva(Reserva reserva) {
         getReservas().put(reserva.getHuespedEncargado().getDocumento(), reserva);
-        agregarFechas(reserva);
+  
     }
 
     public void agregarHuesped(Huesped Huesped) {
@@ -186,18 +186,20 @@ public class PMS {
     public void agregarFechas(Reserva reserva){
 
         String fechaInicial = reserva.getFechaIn();
+
         String fechaFinal = reserva.getFechaOut();
+   
         int cantidad = reserva.getHabitacionesReservadas().size();
 
-        String[] listInicial = fechaInicial.split(",");
-        String[] listFinal = fechaFinal.split(",");
+        String[] listInicial = fechaInicial.split("/");
+        String[] listFinal = fechaFinal.split("/");
         Integer diainicial = Integer.parseInt(listInicial[0]) ;
         Integer diafinal = Integer.parseInt(listFinal[0]);
 
         // condicion para ver si la reserva se hizo en el mismo mes
         if(listInicial[1] == listFinal[1]){
             for(int i = diainicial; i<diafinal;i++){
-                String fechaNueva = String.valueOf(i ) + "," + listInicial[1] + "," + listInicial[2] ;
+                String fechaNueva = String.valueOf(i ) + "/" + listInicial[1] + "/" + listInicial[2] ;
                 if(fechas.containsKey(fechaNueva)){
                     fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
                 }
@@ -209,7 +211,7 @@ public class PMS {
         else {
             for(int i = diainicial ; i<31 ; i++){
 
-                String fechaNueva = String.valueOf(i ) + "," + listInicial[1] + "," + listInicial[2] ;
+                String fechaNueva = String.valueOf(i ) + "/" + listInicial[1] + "/" + listInicial[2] ;
                 if(fechas.containsKey(fechaNueva)){
                     fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
                 }
@@ -219,7 +221,7 @@ public class PMS {
             }
             for(int i = 1 ; i<=diafinal ; i++){
 
-                String fechaNueva = String.valueOf(i ) + "," + listFinal[1] + "," + listInicial[2] ;
+                String fechaNueva = String.valueOf(i ) + "/" + listFinal[1] + "/" + listInicial[2] ;
                 if(fechas.containsKey(fechaNueva)){
                     fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
                 }

@@ -221,7 +221,7 @@ public class Cargador {
                     String diasSemana = partes[2];
                     double valor = Double.parseDouble(partes[3]);
 
-                    ArrayList<String> diasSemanaLista = new ArrayList<String>(Arrays.asList(diasSemana.split(","))); // Obtiene
+                    ArrayList<String> diasSemanaLista = new ArrayList<String>(Arrays.asList(diasSemana.split("/"))); // Obtiene
                                                                                                                      // los
                                                                                                                      // días
                                                                                                                      // de
