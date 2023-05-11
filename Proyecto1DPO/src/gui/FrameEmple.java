@@ -76,8 +76,10 @@ public class FrameEmple extends JFrame {
     }
 
     public void cerrar() {
-        GuardadorInformacion g = pms.getGuardador();
-        if(pms.getCamas().size()>0 && pms.getMenuBebidas().size()>0 && pms.getMenuPlatos().size()>0) {
+	/*
+        GuardadorInformacion g = sistema.getGuardador();
+        
+        if(sistema.getCamas().size()>0 && sistema.getMenuBebidas().size()>0 && sistema.getMenuPlatos().size()>0) {
             g.guardarCamas();
             g.guardarConsumos();
             g.guardarHabitaciones();
@@ -88,9 +90,9 @@ public class FrameEmple extends JFrame {
             g.guardarServicios();
             g.guardarTarifasCuarto();
             g.guardarTipoHabitacones();
-            g.guardarUsusariosHotel();  
+            //g.guardarUsusariosHotel();  
             
-        }   
+        }*/ 
         dispose();
     }
 
