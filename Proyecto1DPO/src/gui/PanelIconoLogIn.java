@@ -31,7 +31,7 @@ class PanelIconoLogIn extends JPanel {
 
         BufferedImage img;
         try {
-            String[] pathNames = { ".", "Icons", "loginIcon.jpg" };
+            String[] pathNames = { "Proyecto1DPO", "Icons", "loginIcon.jpg" };
             String pathImg = String.join(File.separator, pathNames);
             img = ImageIO.read(new File(pathImg));
 

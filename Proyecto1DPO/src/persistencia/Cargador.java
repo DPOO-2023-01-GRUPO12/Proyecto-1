@@ -473,7 +473,7 @@ public class Cargador {
                     String pathMenuBebidas = partes[5];
                     String pathMenuPlatos = partes[6];
 
-                    String[] pathNames = { ".", "data","" };
+                    String[] pathNames = { "Proyecto1DPO", "data","" };
                     String path = String.join(File.separator, pathNames);
 
                     

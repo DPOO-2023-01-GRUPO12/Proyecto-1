@@ -49,7 +49,7 @@ public class PanelArchivos extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 	if(e.getSource()==btnCargar) {
-	    String[] pathNames = { ".", "data"};
+	    String[] pathNames = { "Proyecto1DPO", "data"};
 	        String path = String.join(File.separator, pathNames);
 	        JFileChooser fc = new JFileChooser(path);
 	        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);

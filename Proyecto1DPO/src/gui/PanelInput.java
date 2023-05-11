@@ -23,8 +23,8 @@ import java.awt.event.MouseEvent;
  */
 class PanelInput extends JPanel implements ActionListener {
 
-    private JTextField input;
-    private JTextField pass;
+    private Campo input;
+    private Campo pass;
     private JButton botonLogin;
     private JLabel ingresado;
     private Autenticador authenticator;
