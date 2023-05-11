@@ -26,6 +26,7 @@ public class FrameLogIn extends JFrame {
         String[] pathNames = { "Proyecto1DPO", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);
+        
 
         try {
             cargador.cargarUsuarios(fileUsers);
@@ -69,7 +70,7 @@ public class FrameLogIn extends JFrame {
         setResizable(false);
         setVisible(true);
     }
-
+    
     public void iniciarSesion(String tipo) {
 
         if (tipo.equals("administrador")) {
