@@ -1,15 +1,12 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
+
+
 import javax.swing.*;
 
 public class NormalButton extends JButton implements MouseListener
@@ -19,16 +16,11 @@ public class NormalButton extends JButton implements MouseListener
 
     private Color unselected = new Color(200, 71, 0);
     private Color selected = new Color(75, 0, 130);
-    private BufferedImage img;
-    private boolean pressed;
-    private JLabel title;
-    private String path;
-    private GrupoBotones group;
+
 
     public NormalButton(String name) {
 
         super(name);
-        pressed = false;
         setBackground(unselected);
         setOpaque(true);
         setFocusPainted(false);

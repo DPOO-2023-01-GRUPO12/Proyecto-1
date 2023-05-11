@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import console.MenuAdministrador;
 import model.PMS;
-import persistencia.GuardadorInformacion;
 
 public class FrameAdmin extends JFrame {
     private PanelInfo panelInfo;
@@ -28,7 +27,6 @@ public class FrameAdmin extends JFrame {
         if(this.getDefaultCloseOperation()==JFrame.EXIT_ON_CLOSE) {
             cerrar();
         }
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
         int newWidth = (int) (1500 * 0.7);
         int newHeight = (int) (900 * 0.7);

@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.*;
@@ -151,7 +149,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         JPanel radiobuttons1 = new JPanel(new FlowLayout());
         radiobuttons1.setBackground(Color.WHITE);
-        ButtonGroup bgBalcon = new ButtonGroup();
+        bgBalcon = new ButtonGroup();
 
         tiene1 = new JRadioButton("Si");
         noTiene1 = new JRadioButton("No");
@@ -178,7 +176,7 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         JPanel radiobuttons2 = new JPanel(new FlowLayout());
 
         radiobuttons2.setBackground(Color.WHITE);
-        ButtonGroup bgVista = new ButtonGroup();
+        bgVista = new ButtonGroup();
 
         tiene2 = new JRadioButton("Si");
         noTiene2 = new JRadioButton("No");

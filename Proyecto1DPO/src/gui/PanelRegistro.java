@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.Border;
 
 import console.MenuRecepcionista;
-import model.Huesped;
 
 public class PanelRegistro extends JPanel implements ActionListener {
 
@@ -112,7 +110,7 @@ public class PanelRegistro extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonRegistrar) {
-            Huesped registrado = menuRep.realizarRegistro(campoNombre.getText(), campoDoc.getText(), campoCel.getText(),
+            menuRep.realizarRegistro(campoNombre.getText(), campoDoc.getText(), campoCel.getText(),
                     campoCorr.getText(), Integer.parseInt(campoEdad.getText()));
         }
     }

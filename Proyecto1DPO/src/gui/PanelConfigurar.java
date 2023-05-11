@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
+//import java.util.Collection;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,20 +19,14 @@ import model.Servicio;
 public class PanelConfigurar extends JPanel implements ActionListener {
 
     private MenuAdministrador menuAdmin;
-    private JList<String> listaBebidas;
-    private JList<String> listaPlatos;
+
     private JTextArea infoProducto;
     private JRadioButton bebida;
     private JRadioButton plato;
     private JRadioButton servicio;
     private Campo campo;
     private NormalButton botonBuscar;
-    private Collection<Bebida> colBebidas;
-    private Collection<Plato> colPlatos;
-    private Collection<Servicio> colServicios;
-    private JLabel cambiarPlato;
-    private JLabel cambiarBebida;
-    private JLabel cambiarSevicio;
+
     private JPanel cardPanel;
     private CardLayout cl;
     private Campo campoTarifaServicio;
@@ -79,9 +73,9 @@ public class PanelConfigurar extends JPanel implements ActionListener {
         JPanel todo =  new JPanel(new GridLayout(2, 2, 20, 20));
         derecha = new JPanel(new BorderLayout());
 
-        cambiarPlato = new JLabel("Modificar Plato");
-        cambiarBebida = new JLabel("Modificar Bebida");
-        cambiarSevicio = new JLabel("Modificar Bebida");
+        //cambiarPlato = new JLabel("Modificar Plato");
+        //cambiarBebida = new JLabel("Modificar Bebida");
+        //cambiarSevicio = new JLabel("Modificar Bebida");
 
         cardPanel = new JPanel();
         cl = new CardLayout();

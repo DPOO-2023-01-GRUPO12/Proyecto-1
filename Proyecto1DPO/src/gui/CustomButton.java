@@ -1,8 +1,7 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -20,16 +19,12 @@ public class CustomButton extends JRadioButton implements MouseListener
     private Color unselected = new Color(23, 35, 31);
     private Color selected = new Color(75, 0, 130);
     private BufferedImage img;
-    private boolean pressed;
-    private JLabel title;
-    private String path;
+
     private GrupoBotones group;
 
     public CustomButton(String path, GrupoBotones group) {
 
-        this.path = path;
         this.group = group;
-        pressed = false;
         setBackground(unselected);
         setOpaque(true);
         addMouseListener(this);

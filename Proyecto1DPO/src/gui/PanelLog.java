@@ -20,7 +20,7 @@ public class PanelLog extends JPanel implements ActionListener {
     private MenuRecepcionista menuRecep;
 
     public PanelLog(MenuRecepcionista menuRecep) {
-        menuRecep = menuRecep;
+        this.menuRecep = menuRecep;
 
         setLayout(new BorderLayout());
 

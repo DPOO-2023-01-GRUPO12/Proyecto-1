@@ -4,14 +4,12 @@
  */
 package gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import model.PMS;
 import persistencia.Cargador;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,13 +18,8 @@ public class FrameLogIn extends JFrame {
 
     private PanelIconoLogIn panelIzq;
     private PanelUsuario panelDer;
-    private BufferedImage myPicture;
-    private JPanel panelBack;
-    private PMS sistema;
-    private FrameAdmin frameAdmin;
-    private FrameEmple frameEmple;
-    private FrameRecep frameRecep;
 
+    private PMS sistema;
     public FrameLogIn() {
         sistema = new PMS();
         Cargador cargador = sistema.getCargador();
@@ -37,16 +30,13 @@ public class FrameLogIn extends JFrame {
         try {
             cargador.cargarUsuarios(fileUsers);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
         int newWidth = (int) (1500 * 0.7);
         int newHeight = (int) (900 * 0.7);
@@ -83,13 +73,13 @@ public class FrameLogIn extends JFrame {
     public void iniciarSesion(String tipo) {
 
         if (tipo.equals("administrador")) {
-            frameAdmin = new FrameAdmin(sistema);
+            new FrameAdmin(sistema);
 
         } else if (tipo.equals("recepcionista")) {
-            frameRecep = new FrameRecep(sistema);
+            new FrameRecep(sistema);
 
         } else if (tipo.equals("empleado")) {
-            frameEmple = new FrameEmple(sistema);
+            new FrameEmple(sistema);
 
         }
 

@@ -1,19 +1,10 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.text.StyleConstants;
-
 class Background extends JPanel {
 
     private ImageIcon myPicture;
-    private BufferedImage image;
-    private BufferedImage imgOut;
-
     public Background(FrameLogIn frameLogIn) {
 
         // Imagen de fondo
@@ -22,7 +13,9 @@ class Background extends JPanel {
         String[] pathNames = {".","Icons", "fondo.jpg" };
         String pathUsers = String.join(File.separator, pathNames);
         
-
+        System.out.println(pathUsers);
+        File f = new File(pathUsers);
+        System.out.println(f.getAbsolutePath());
         myPicture = new ImageIcon(pathUsers);
         add(new JLabel(myPicture));
         setVisible(true);

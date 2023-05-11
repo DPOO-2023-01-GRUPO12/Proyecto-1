@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.Border;
 
-import console.MenuRecepcionista;
 
 public class PanelRegistroReserva extends JPanel implements ActionListener{
 

@@ -4,35 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.RoundRectangle2D;
-
-import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class Campo extends JTextField {
-    private Color background = Color.WHITE;
     private Color foreground = Color.BLACK;
     private Color placeholderForeground = Color.GRAY;
-    private boolean placeholderVisible;
 
-
-    private Shape shape;
     private String placeholderText;
-    private String title;
     
 
     public Campo(int size, String text) {
         super(text, size);
-        title = text;
         setOpaque(false);
         setPreferredSize(new Dimension(200, 30));
         
@@ -61,11 +46,9 @@ public class Campo extends JTextField {
     private void updateText() {
 	    String text = getText();
 	    if (text.isEmpty()) {
-	        placeholderVisible = true;
 	        setForeground(placeholderForeground);
 	        setText(placeholderText);
 	    } else {
-	        placeholderVisible = false;
 	        setForeground(foreground);
 	    }
 	}

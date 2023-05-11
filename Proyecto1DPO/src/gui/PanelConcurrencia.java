@@ -1,24 +1,17 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import console.MenuAdministrador;
-import model.Huesped;
 import model.PMS;
-import model.Reserva;
 
 public class PanelConcurrencia extends JPanel implements ActionListener{
 
-    private ArrayList<String> dias;
     private PMS pms;
     private Concurrencia tabla;
     private NormalButton btnActualizar;
@@ -27,6 +20,15 @@ public class PanelConcurrencia extends JPanel implements ActionListener{
         pms = sistema;
         setLayout(new BorderLayout());
         tabla = new Concurrencia(pms);
+        
+        
+        int newWidth = (int) (getWidth() * 0.7);
+        int newHeight = (int) (getHeight() * 0.7);
+        
+        setSize(newWidth, newHeight);
+        setLayout(new BorderLayout());
+        
+        tabla.setSize(newWidth,newHeight);
         add(tabla,BorderLayout.CENTER);
         
         btnActualizar = new NormalButton("ACTUALIZAR");

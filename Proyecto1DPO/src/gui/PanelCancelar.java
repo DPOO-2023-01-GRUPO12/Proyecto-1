@@ -8,17 +8,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.DocumentEvent;
+
 
 import console.MenuRecepcionista;
-import model.PMS;
 
 public class PanelCancelar extends JPanel implements ActionListener {
 
-    private PMS sistema;
 
     private Campo numeroDocRes;
     private NormalButton btn;

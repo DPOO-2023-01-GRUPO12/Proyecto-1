@@ -21,7 +21,7 @@ public class PanelCheck extends JPanel implements ActionListener {
     private MenuRecepcionista menuRecep;
 
     public PanelCheck(MenuRecepcionista menuRecep) {
-        menuRecep = menuRecep;
+        this.menuRecep = menuRecep;
 
         setLayout(new BorderLayout());
 

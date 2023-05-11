@@ -13,8 +13,7 @@ import model.PMS;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -24,7 +23,6 @@ import java.awt.event.MouseEvent;
  */
 class PanelInput extends JPanel implements ActionListener {
 
-    private PanelUsuario pUsu;
     private JTextField input;
     private JTextField pass;
     private JButton botonLogin;
@@ -33,7 +31,6 @@ class PanelInput extends JPanel implements ActionListener {
     private FrameLogIn ventanaLogin;
 
     public PanelInput(FrameLogIn ventanaLogin, PanelUsuario pUsu, PMS pms) {
-        this.pUsu = pUsu;
         this.ventanaLogin = ventanaLogin;
         authenticator = new Autenticador(pms);
         setOpaque(true);

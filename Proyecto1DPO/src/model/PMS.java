@@ -42,7 +42,7 @@ public class PMS {
         consumos = new HashMap<String, Consumo>();
         cargador = new Cargador(this);
         guardador = new GuardadorInformacion(this);
-        fechas  =crearMapaFechas();
+        fechas  = crearMapaFechas();
 
     }
 
@@ -52,7 +52,7 @@ public class PMS {
         HashMap<String, Integer> mapa = new HashMap<String, Integer>();
         for(int mes = 1; mes<=12; mes++){
             for(int dia = 1; dia <=31; dia++){
-                String fecha = String.valueOf(dia) + "," + String.valueOf(mes) + "," + "2024";
+                String fecha = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + "2024";
                 mapa.put(fecha, 0);
 
             }
@@ -200,6 +200,7 @@ public class PMS {
         if(listInicial[1] == listFinal[1]){
             for(int i = diainicial; i<diafinal;i++){
                 String fechaNueva = String.valueOf(i ) + "/" + listInicial[1] + "/" + listInicial[2] ;
+                System.out.println(fechaNueva);
                 if(fechas.containsKey(fechaNueva)){
                     fechas.put(fechaNueva,(fechas.get(fechaNueva) + cantidad));
                 }

@@ -5,13 +5,11 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 
 import model.PMS;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 /**
  *

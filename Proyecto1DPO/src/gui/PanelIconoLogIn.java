@@ -17,7 +17,6 @@ import java.io.IOException;
  */
 class PanelIconoLogIn extends JPanel {
 
-    private ImageIcon myPicture;
 
     public PanelIconoLogIn(FrameLogIn ventanaLogin) {
 

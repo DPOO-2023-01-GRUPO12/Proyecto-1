@@ -1,7 +1,6 @@
 package console;
 
-import java.awt.geom.Arc2D.Double;
-import java.util.Scanner;
+
 
 import persistencia.Cargador;
 import model.Consumo;
@@ -12,11 +11,9 @@ import model.PMS;
 
 public class MenuEmpleado {
 
-    private Cargador cargador;
     private PMS pms;
 
     public MenuEmpleado(Cargador car, PMS pms){
-        cargador = car;
         this.pms = pms;
     }
 

@@ -1,10 +1,8 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Map;
 
 import javax.swing.*;
 
@@ -14,16 +12,15 @@ public class Concurrencia extends JPanel {
     private PMS pms;
     public Concurrencia(PMS sistema){
         pms=sistema;
-        //System.out.println(pms.getFechas());
         setVisible(true);
 
 
     }
     @Override
     public void paint(Graphics g) {
-        //super.paint(g);
-        int widthCas = getWidth()/ 31;
-        int heightCas = getHeight() / 12;
+        super.paint(g);
+        int widthCas = 25;
+        int heightCas = 25;
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.BLACK);
         int columna;
@@ -31,7 +28,6 @@ public class Concurrencia extends JPanel {
         int posx = 30;
         int posy = 30;
         for (String fecha : pms.getFechas().keySet()) {
-            System.out.println(fecha);
             posx = 30;
             posy = 30;
             String[] fechas = fecha.strip().split("/");

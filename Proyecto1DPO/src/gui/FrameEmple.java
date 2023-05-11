@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import console.MenuEmpleado;
 import model.PMS;
-import persistencia.GuardadorInformacion;
 
 public class FrameEmple extends JFrame {
 
@@ -15,20 +14,17 @@ public class FrameEmple extends JFrame {
     private PanelAgregarConsumo agregarConsumo;
     private PanelInfoEmple info;
     private JPanel panelCentro;
-    private PMS pms;
+
     private JPanel paneles;
     private CardLayout cardPane;
 
     public FrameEmple(PMS sistema) {
-
-        pms = sistema;
         menu = new MenuEmpleado(sistema.getCargador(), sistema);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if(this.getDefaultCloseOperation()==JFrame.EXIT_ON_CLOSE) {
             cerrar();
         }
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
         int newWidth = (int) (1500 * 0.7);
         int newHeight = (int) (900 * 0.7);

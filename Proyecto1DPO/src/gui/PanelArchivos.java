@@ -3,32 +3,25 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.*;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.PMS;
 
 public class PanelArchivos extends JPanel implements ActionListener {
-    private FrameAdmin frameAdmin;
     private PMS sistema;
-    private JFileChooser fc;
     private NormalButton btnCargar;
 
     public PanelArchivos(FrameAdmin frameAdmin, PMS pms) {
         this.sistema = pms;
-        this.frameAdmin = frameAdmin;
-
         setLayout(new BorderLayout());
         setForeground(Color.WHITE);
 
@@ -96,9 +89,7 @@ public class PanelArchivos extends JPanel implements ActionListener {
 	            File archivoHotel = fc.getSelectedFile();
 		    try
 		    {
-			File canonicalFile = archivoHotel.getCanonicalFile();
 			sistema.getCargador().cargarInformacionHotel(archivoHotel);
-			System.out.println(sistema.getMenuBebidas());
 		    } catch (IOException e1)
 		    {
 			System.out.println("No se cargó el archivo");

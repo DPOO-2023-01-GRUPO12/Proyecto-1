@@ -1,15 +1,11 @@
 package gui;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
-import console.MenuAdministrador;
 import console.MenuRecepcionista;
-import model.Huesped;
 import model.PMS;
-import persistencia.GuardadorInformacion;
 
 public class FrameRecep extends JFrame {
     private PanelInfo panelInfo;
@@ -33,7 +29,6 @@ public class FrameRecep extends JFrame {
         if(this.getDefaultCloseOperation()==JFrame.EXIT_ON_CLOSE) {
             cerrar();
         }
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
         int newWidth = (int) (1500 * 0.7);
         int newHeight = (int) (900 * 0.7);

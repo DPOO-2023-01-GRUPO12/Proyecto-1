@@ -24,11 +24,9 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 public class MenuRecepcionista {
-    private Cargador cargador;
     private PMS pms;
 
     public MenuRecepcionista(Cargador car, PMS pms) {
-        cargador = car;
         this.pms = pms;
     }
 
