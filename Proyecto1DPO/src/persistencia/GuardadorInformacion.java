@@ -40,7 +40,35 @@ public class GuardadorInformacion {
 
                 for (Map.Entry<String,Habitacion> entry: habitaciones.entrySet()){
                     Habitacion habitacion=(entry.getValue());
-                    buff.write(habitacion.toString());
+                    
+                    buff.write(habitacion.getIdentificador());
+                    buff.write(";");
+                    buff.write(habitacion.getUbicacion());
+                    buff.write(";");
+                    Boolean vista= habitacion.hasVista();
+                    buff.write(Boolean.toString(vista));
+                    buff.write(";");
+                    Boolean cocina= habitacion.hasCocina();
+                    buff.write(Boolean.toString(cocina));
+                    buff.write(";");
+                    Boolean balcon= habitacion.hasBalcon();
+                    buff.write(Boolean.toString(balcon));
+                    buff.write(";");
+                    buff.write(habitacion.getDescripcion());
+                    buff.write(";");
+
+                    ArrayList<Cama> camas= habitacion.getCamas();
+                    
+                    for (Cama cama:camas){
+                        buff.write(cama.getTamanio());
+                        buff.write("-");
+                        buff.write(String.valueOf(cama.getCantidadPersonas()));
+                        buff.write("-");
+                        buff.write(Boolean.toString(cama.isNinios()));
+                    }
+
+                    buff.write(habitacion.getTipoHabitacion().getNombreTipo());
+
                     buff.newLine();
                 }
                 buff.close();
@@ -54,7 +82,29 @@ public class GuardadorInformacion {
 
                     for (Map.Entry<String,Habitacion> entry: habitaciones.entrySet()){
                         Habitacion habitacion=(entry.getValue());
-                        buff.write(habitacion.toString());
+                        
+                        buff.write(habitacion.getIdentificador());
+                        buff.write(habitacion.getUbicacion());
+                        Boolean vista= habitacion.hasVista();
+                        buff.write(Boolean.toString(vista));
+                        Boolean cocina= habitacion.hasCocina();
+                        buff.write(Boolean.toString(cocina));
+                        Boolean balcon= habitacion.hasBalcon();
+                        buff.write(Boolean.toString(balcon));
+                        buff.write(habitacion.getDescripcion());
+    
+                        ArrayList<Cama> camas= habitacion.getCamas();
+                        
+                        for (Cama cama:camas){
+                            buff.write(cama.getTamanio());
+                            buff.write("-");
+                            buff.write(String.valueOf(cama.getCantidadPersonas()));
+                            buff.write("-");
+                            buff.write(Boolean.toString(cama.isNinios()));
+                        }
+
+                        buff.write(habitacion.getTipoHabitacion().getNombreTipo());
+    
                         buff.newLine();
                     }
                     buff.close();
@@ -123,9 +173,23 @@ public class GuardadorInformacion {
                 ArrayList<TarifaCuarto> tarifas= pms.getTarifasCuartos();
 
                 for (TarifaCuarto tarifa: tarifas){
-                    buff.write(tarifa.toString());
+
+                    buff.write(tarifa.getTipoCuarto());
+                    buff.write(";");
+                    buff.write(tarifa.getRangoFechas());
+                    buff.write(";");
+
+                    ArrayList<String> dias= tarifa.getDiasSemana();
+                    for (String dia:dias){
+                        buff.write(dia);
+                        buff.write(",");
+                    }
+                    buff.write(";");
+
+                    buff.write(String.valueOf(tarifa.getValor()));
                     buff.newLine();
                 }
+
                 buff.close();
 
             }else{
@@ -135,12 +199,25 @@ public class GuardadorInformacion {
                 
                     ArrayList<TarifaCuarto> tarifas= pms.getTarifasCuartos();
 
-                for (TarifaCuarto tarifa: tarifas){
-                    buff.write(tarifa.toString());
-                    buff.newLine();
-                }
-                buff.close();
+                    for (TarifaCuarto tarifa: tarifas){
 
+                        buff.write(tarifa.getTipoCuarto());
+                        buff.write(";");
+                        buff.write(tarifa.getRangoFechas());
+                        buff.write(";");
+    
+                        ArrayList<String> dias= tarifa.getDiasSemana();
+                        for (String dia:dias){
+                            buff.write(dia);
+                            buff.write(",");
+                        }
+                        buff.write(";");
+    
+                        buff.write(String.valueOf(tarifa.getValor()));
+                        buff.newLine();
+                    }
+
+                    buff.close();
                 } catch (Exception e) {
                     System.out.println("No se pudo guardar el archivo de TarifasCuarto. ");
                 }
@@ -206,9 +283,22 @@ public class GuardadorInformacion {
 
                 for (Map.Entry<String,Bebida> entry: menu.entrySet()){
                     Bebida bebida=(entry.getValue());
-                    buff.write(bebida.toString());
+
+                    buff.write(bebida.getNombre());
+                    buff.write(";");
+                    buff.write(bebida.getRangoHoras());
+                    buff.write(";");
+                    buff.write(bebida.getComidaDispon());
+                    buff.write(";");
+                    buff.write(bebida.getLugarDispon());
+                    buff.write(";");
+                    buff.write(Boolean.toString(bebida.hasServicioCuarto()));
+                    buff.write(";");
+                    buff.write(String.valueOf(bebida.getTarifa()));
+
                     buff.newLine();
                 }
+
                 buff.close();
 
             }else{
@@ -217,13 +307,26 @@ public class GuardadorInformacion {
                     BufferedWriter buff= new BufferedWriter(writer);
                 
                     Map<String,Bebida> menu= pms.getMenuBebidas();
-
+                    
                     for (Map.Entry<String,Bebida> entry: menu.entrySet()){
                         Bebida bebida=(entry.getValue());
-                        buff.write(bebida.toString());
+                        
+                        buff.write(bebida.getNombre());
+                        buff.write(";");
+                        buff.write(bebida.getRangoHoras());
+                        buff.write(";");
+                        buff.write(bebida.getComidaDispon());
+                        buff.write(";");
+                        buff.write(bebida.getLugarDispon());
+                        buff.write(";");
+                        buff.write(Boolean.toString(bebida.hasServicioCuarto()));
+                        buff.write(";");
+                        buff.write(String.valueOf(bebida.getTarifa()));
+
                         buff.newLine();
-                    }
-                    buff.close();
+                }
+
+                buff.close();
 
                 } catch (Exception e) {
                     System.out.println("No se pudo guardar el archivo de MenuBebidas. ");
@@ -248,7 +351,19 @@ public class GuardadorInformacion {
 
                 for (Map.Entry<String,Plato> entry: menu.entrySet()){
                     Plato plato=(entry.getValue());
-                    buff.write(plato.toString());
+                    
+                    buff.write(plato.getNombre());
+                    buff.write(";");
+                    buff.write(plato.getRangoHoras());
+                    buff.write(";");
+                    buff.write(plato.getComidaDispon());
+                    buff.write(";");
+                    buff.write(plato.getLugarDispon());
+                    buff.write(";");
+                    buff.write(Boolean.toString(plato.hasServicioCuarto()));
+                    buff.write(";");
+                    buff.write(String.valueOf(plato.getTarifa()));
+
                     buff.newLine();
                 }
                 buff.close();
@@ -262,10 +377,22 @@ public class GuardadorInformacion {
 
                     for (Map.Entry<String,Plato> entry: menu.entrySet()){
                         Plato plato=(entry.getValue());
-                        buff.write(plato.toString());
+                        buff.write(plato.getNombre());
+                        buff.write(";");
+                        buff.write(plato.getRangoHoras());
+                        buff.write(";");
+                        buff.write(plato.getComidaDispon());
+                        buff.write(";");
+                        buff.write(plato.getLugarDispon());
+                        buff.write(";");
+                        buff.write(Boolean.toString(plato.hasServicioCuarto()));
+                        buff.write(";");
+                        buff.write(String.valueOf(plato.getTarifa()));
+
                         buff.newLine();
-                    }
-                    buff.close();
+                }
+                buff.close();
+
 
                 } catch (Exception e) {
                     System.out.println("No se pudo guardar el archivo de MenuPlatos. ");
@@ -333,13 +460,13 @@ public class GuardadorInformacion {
                 for (Map.Entry<String,ArrayList<String>> entry: usuarios.entrySet()){
                     buff.write(entry.getKey());
                     buff.write(";");
-                    ArrayList<String> usuario=(entry.getValue());
-                    for ( String usu:usuario){
-                        buff.write(usu);
-                        buff.write(",");
-                    }
-                    buff.close();
+                    
+                    ArrayList<String> info = entry.getValue();
+                    buff.write(info.get(0));
+                    buff.newLine();
+                    
                 }
+                buff.close();
 
             }else{
                 try {
@@ -351,11 +478,11 @@ public class GuardadorInformacion {
                     for (Map.Entry<String,ArrayList<String>> entry: usuarios.entrySet()){
                         buff.write(entry.getKey());
                         buff.write(";");
-                        ArrayList<String> usuario=(entry.getValue());
-                        for ( String usu:usuario){
-                            buff.write(usu);
-                            buff.write(",");
-                        }
+                        
+                        ArrayList<String> info = entry.getValue();
+                        buff.write(info.get(0));
+                        buff.newLine();
+                        
                     }
                     buff.close();
                 
@@ -383,7 +510,30 @@ public class GuardadorInformacion {
 
                 for (Map.Entry<String,Servicio> entry: servicios.entrySet()){
                     Servicio servicio=(entry.getValue());
-                    buff.write(servicio.toString());
+                    buff.write(servicio.getNombreTipo());
+                    buff.write(";");
+                    buff.write(servicio.getUbicacion());
+                    buff.write(";");
+                    
+                    Map<String, ArrayList<String>> mapaDispo= servicio.getDisponibilidad();
+                    for (Map.Entry<String,ArrayList<String>> entry2: mapaDispo.entrySet()){
+                        String dia= entry2.getKey();
+                        buff.write(dia);
+                        buff.write("_");
+
+                        ArrayList<String>horarios=entry2.getValue();
+                        for(String hora:horarios){
+                            buff.write(hora);
+                            buff.write("-");
+                        }
+                        buff.write(",");
+                    }
+                    buff.write(";");
+
+                    buff.write(servicio.getTipoCobro());
+                    buff.write(";");
+                    buff.write(String.valueOf(servicio.getTarifa()));
+
                     buff.newLine();
                 }
                 buff.close();
@@ -397,7 +547,30 @@ public class GuardadorInformacion {
 
                 for (Map.Entry<String,Servicio> entry: servicios.entrySet()){
                     Servicio servicio=(entry.getValue());
-                    buff.write(servicio.toString());
+                    buff.write(servicio.getNombreTipo());
+                    buff.write(";");
+                    buff.write(servicio.getUbicacion());
+                    buff.write(";");
+                    
+                    Map<String, ArrayList<String>> mapaDispo= servicio.getDisponibilidad();
+                    for (Map.Entry<String,ArrayList<String>> entry2: mapaDispo.entrySet()){
+                        String dia= entry2.getKey();
+                        buff.write(dia);
+                        buff.write("_");
+
+                        ArrayList<String>horarios=entry2.getValue();
+                        for(String hora:horarios){
+                            buff.write(hora);
+                            buff.write("-");
+                        }
+                        buff.write(",");
+                    }
+                    buff.write(";");
+
+                    buff.write(servicio.getTipoCobro());
+                    buff.write(";");
+                    buff.write(String.valueOf(servicio.getTarifa()));
+
                     buff.newLine();
                 }
                 buff.close();
@@ -466,7 +639,12 @@ public class GuardadorInformacion {
                 ArrayList<Cama> camas= pms.getCamas();
 
                 for (Cama cama: camas){
-                    buff.write(cama.toString());
+                    buff.write(cama.getTamanio());
+                    buff.write(";");
+                    buff.write(String.valueOf(cama.getCantidadPersonas()));
+                    buff.write(";");
+                    buff.write(Boolean.toString(cama.isNinios()));
+
                     buff.newLine();
                 }
                 buff.close();
@@ -479,10 +657,15 @@ public class GuardadorInformacion {
                     ArrayList<Cama> camas= pms.getCamas();
 
                     for (Cama cama: camas){
-                        buff.write(cama.toString());
+                        buff.write(cama.getTamanio());
+                        buff.write(";");
+                        buff.write(String.valueOf(cama.getCantidadPersonas()));
+                        buff.write(";");
+                        buff.write(Boolean.toString(cama.isNinios()));
+                    
                         buff.newLine();
-                    }
-                    buff.close();
+                }
+                buff.close();
 
                 } catch (Exception e) {
                     System.out.println("No se pudo guardar el archivo de Camas. ");
@@ -492,4 +675,5 @@ public class GuardadorInformacion {
             System.out.println("No se pudo guardar el archivo de Camas.");
         }
     }
+
 }
