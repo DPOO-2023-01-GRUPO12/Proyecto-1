@@ -28,7 +28,7 @@ public class GuardadorInformacion {
     public void guardarHabitaciones() {
         
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "habitaciones.txt" };
+            String[] pathNames = { ".", "data", "habitaciones.txt" };
             String pathHab = String.join(File.separator, pathNames);
             File file = new File(pathHab);
             if (file.createNewFile()){
@@ -120,7 +120,7 @@ public class GuardadorInformacion {
 
     public void guardarTipoHabitacones() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "tipohabitaciones.txt" };
+            String[] pathNames = { ".", "data", "tipohabitaciones.txt" };
             String pathTipo= String.join(File.separator, pathNames);
             File file = new File(pathTipo);
             if (file.createNewFile()){
@@ -162,7 +162,7 @@ public class GuardadorInformacion {
 
     public void guardarTarifasCuarto() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "tarifas.txt" };
+            String[] pathNames = { ".", "data", "tarifas.txt" };
             String pathTarifas = String.join(File.separator, pathNames);
             File file = new File(pathTarifas);
             if (file.createNewFile()){
@@ -229,7 +229,7 @@ public class GuardadorInformacion {
 
     public void guardarReservas() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "reservas.txt" };
+            String[] pathNames = { ".", "data", "reservas.txt" };
             String pathReservas = String.join(File.separator, pathNames);
             File file = new File(pathReservas);
             if (file.createNewFile()){
@@ -271,7 +271,7 @@ public class GuardadorInformacion {
 
     public void guardarMenuBebidas() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "menubebidas.txt" };
+            String[] pathNames = { ".", "data", "menubebidas.txt" };
             String pathBebidas = String.join(File.separator, pathNames);
             File file = new File(pathBebidas);
             if (file.createNewFile()){
@@ -339,7 +339,7 @@ public class GuardadorInformacion {
 
     public void guardarMenuPlatos() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "menuplatos.txt" };
+            String[] pathNames = { ".", "data", "menuplatos.txt" };
             String pathPlatos = String.join(File.separator, pathNames);
             File file = new File(pathPlatos);
             if (file.createNewFile()){
@@ -405,7 +405,7 @@ public class GuardadorInformacion {
 
     public void guardarHuespedes() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "huespedes.txt" };
+            String[] pathNames = { ".", "data", "huespedes.txt" };
             String pathHuespedes = String.join(File.separator, pathNames);
             File file = new File(pathHuespedes);
             if (file.createNewFile()){
@@ -447,7 +447,7 @@ public class GuardadorInformacion {
 
     public void guardarUsusariosHotel() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "usuarios.txt" };
+            String[] pathNames = { ".", "data", "usuarios.txt" };
             String pathUsuarios = String.join(File.separator, pathNames);
             File file = new File(pathUsuarios);
             if (file.createNewFile()){
@@ -498,7 +498,7 @@ public class GuardadorInformacion {
 
     public void guardarServicios() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "servicios.txt" };
+            String[] pathNames = { ".", "data", "servicios.txt" };
             String pathServicios = String.join(File.separator, pathNames);
             File file = new File(pathServicios);
             if (file.createNewFile()){
@@ -586,7 +586,7 @@ public class GuardadorInformacion {
 
     public void guardarConsumos() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "consumos.txt" };
+            String[] pathNames = { ".", "data", "consumos.txt" };
             String pathConsumos = String.join(File.separator, pathNames);
             File file = new File(pathConsumos);
             if (file.createNewFile()){
@@ -628,7 +628,7 @@ public class GuardadorInformacion {
 
     public void guardarCamas() {
         try{
-            String[] pathNames = { "Proyecto1DPO", "data", "camas.txt" };
+            String[] pathNames = { ".", "data", "camas.txt" };
             String pathCamas = String.join(File.separator, pathNames);
             File file = new File(pathCamas);
             if (file.createNewFile()){

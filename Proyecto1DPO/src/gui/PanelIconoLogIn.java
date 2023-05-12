@@ -11,10 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- *
- * @author Juanca
- */
+@SuppressWarnings("serial")
 class PanelIconoLogIn extends JPanel {
 
 
@@ -31,7 +28,7 @@ class PanelIconoLogIn extends JPanel {
 
         BufferedImage img;
         try {
-            String[] pathNames = { "Proyecto1DPO", "Icons", "loginIcon.jpg" };
+            String[] pathNames = { ".", "Icons", "loginIcon.jpg" };
             String pathImg = String.join(File.separator, pathNames);
             img = ImageIO.read(new File(pathImg));
 

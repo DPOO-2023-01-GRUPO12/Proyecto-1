@@ -9,6 +9,7 @@ import javax.swing.*;
 import model.PMS;
 
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 
 
 /**
@@ -29,11 +30,13 @@ class PanelUsuario extends JPanel {
         gbc.gridy = 2;
 
         JPanel panelI = new PanelInput(ventanaLogin, this, pms);
+        panelI.setVisible(true);
 
         add(panelI, gbc);
 
         setVisible(true);
 
     }
-
+    
+    
 }

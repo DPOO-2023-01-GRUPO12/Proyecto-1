@@ -23,10 +23,12 @@ public class FrameLogIn extends JFrame {
     public FrameLogIn() {
         sistema = new PMS();
         Cargador cargador = sistema.getCargador();
-        String[] pathNames = { "Proyecto1DPO", "data", "usuarios.txt" };
+        String[] pathNames = { ".", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);
         
+        
+
 
         try {
             cargador.cargarUsuarios(fileUsers);
@@ -46,18 +48,19 @@ public class FrameLogIn extends JFrame {
         JLayeredPane pane = new JLayeredPane();
 
         Background background = new Background(this);
+        background.setVisible(true);
         background.setBounds(getX(), getY(), getWidth(), getHeight());
-
+        //add(background);
         pane.add(background, Integer.valueOf(0));
 
         JPanel paneles = new JPanel();
-        paneles.setLayout(new GridLayout(1, 2));
+        paneles.setLayout(new GridLayout(1, 1));
         paneles.setOpaque(false);
         paneles.setBounds(getX(), getY(), getWidth(), getHeight());
 
-        // Panel izquierda donde se mueestra icono
-        panelIzq = new PanelIconoLogIn(this);
-        paneles.add(panelIzq);
+        //Panel izquierda donde se mueestra icono
+        //panelIzq = new PanelIconoLogIn(this);
+        //paneles.add(panelIzq);
 
         // Panel derecha donde habra un panel para el input del usuario
         panelDer = new PanelUsuario(this, sistema);
