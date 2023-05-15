@@ -51,12 +51,14 @@ public class PMS {
 
         HashMap<String, Integer> mapa = new HashMap<String, Integer>();
         for(int mes = 1; mes<=12; mes++){
-            for(int dia = 1; dia <=31; dia++){
+            for(int dia = 1; dia <=30; dia++){
                 String fecha = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + "2024";
                 mapa.put(fecha, 0);
 
             }
         }
+        mapa.put("30/10/2024", 1);
+        
         return mapa;
     }
 

@@ -28,20 +28,22 @@ public class Concurrencia extends JPanel {
         int posx = 30;
         int posy = 30;
         for (String fecha : pms.getFechas().keySet()) {
-            posx = 30;
-            posy = 30;
+           
             String[] fechas = fecha.strip().split("/");
             columna = Integer.parseInt(fechas[0]);
             fila = Integer.parseInt(fechas[1]);
             Color color = getDarkeningGreen(pms.getFechas().get(fecha));
-            posx = (columna * widthCas);
-            posy = (fila * heightCas);
-
-            g2d.setColor(Color.black);
-            g2d.drawRect(posx, posy, widthCas, widthCas);
+            posx = (columna * heightCas);
+            posy = (fila * widthCas);
+            System.out.println(pms.getFechas().get(fecha));
+            
+            
+            
             g2d.setColor(color);
-            g2d.fillRect(posx, posy, widthCas, widthCas);
-            g2d.setColor(Color.LIGHT_GRAY);
+            g2d.fillRoundRect(posx, posy, widthCas, widthCas,10,10);
+            g2d.setColor(Color.black);
+            g2d.drawRoundRect(posx, posy, widthCas, widthCas,10,10);
+            
         }
 
     }
@@ -50,6 +52,9 @@ public class Concurrencia extends JPanel {
         float hue = 120f / 360f; // green hue
         float saturation = 1.0f;
         float brightness = (float) (1.0 - value / 200.0); // linear scaling
+        if(value == 0){
+            return Color.white;
+        }
         return Color.getHSBColor(hue, saturation, brightness);
     }
     
