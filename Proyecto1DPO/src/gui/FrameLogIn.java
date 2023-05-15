@@ -26,6 +26,9 @@ public class FrameLogIn extends JFrame {
         String[] pathNames = { ".", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);
+        System.out.println(pathUsers);
+        File f = new File(pathUsers);
+        System.out.println(f.getAbsolutePath());
         
         
 
