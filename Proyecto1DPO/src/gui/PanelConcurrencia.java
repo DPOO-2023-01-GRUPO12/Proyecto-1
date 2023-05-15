@@ -40,7 +40,7 @@ public class PanelConcurrencia extends JPanel{
 
        
 
-        
+    
         
         int newWidth = (int) (getWidth() * 0.7);
         int newHeight = (int) (getHeight() * 0.7);

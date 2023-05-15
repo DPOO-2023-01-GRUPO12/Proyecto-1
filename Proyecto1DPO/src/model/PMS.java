@@ -57,7 +57,12 @@ public class PMS {
 
             }
         }
-        mapa.put("30/10/2024", 1);
+
+        // pruebas para evidenciar la concurrencia
+        mapa.put("30/10/2024", 6);
+        mapa.put("20/10/2024", 20);
+        mapa.put("2/7/2024", 100);
+        mapa.put("4/5/2024", 1);
         
         return mapa;
     }

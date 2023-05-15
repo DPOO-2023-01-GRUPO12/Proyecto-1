@@ -53,8 +53,16 @@ public class Concurrencia extends JPanel {
         float saturation = 1.0f;
         float brightness = (float) (1.0 - value / 200.0); // linear scaling
         if(value == 0){
-            return Color.white;
+            return new Color(245,245,245);
         }
+        if(value >= 0) {
+            if(value<5){brightness = (float) 0.8;}
+            else if(value<10){brightness = (float) 0.6;}
+            else if(value<30){brightness = (float) 0.4;}
+            else if(value<60){brightness = (float) 0.2;}
+            else {brightness = (float) 0.1;}
+        }
+        
         return Color.getHSBColor(hue, saturation, brightness);
     }
     
