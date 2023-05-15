@@ -23,7 +23,7 @@ public class FrameLogIn extends JFrame {
     public FrameLogIn() {
         sistema = new PMS();
         Cargador cargador = sistema.getCargador();
-        String[] pathNames = { ".", "data", "usuarios.txt" };
+        String[] pathNames = { "Proyecto1DPO", "data", "usuarios.txt" };
         String pathUsers = String.join(File.separator, pathNames);
         File fileUsers = new File(pathUsers);
         System.out.println(pathUsers);
