@@ -24,10 +24,10 @@ public class PanelSignUp extends JPanel implements ActionListener
     private CampoHues user;
     private CampoHues password;
     private RoundedButtonHues signup;
-    private FrameHuesped frameHues;
+    private FrameHuesLogin frameHues;
     private AutenticadorHuesped authenticator;
     
-    public PanelSignUp(FrameHuesped frameHuesped, PMS pms)
+    public PanelSignUp(FrameHuesLogin frameHuesped, PMS pms)
     {
 	authenticator = new AutenticadorHuesped(pms);
 	
