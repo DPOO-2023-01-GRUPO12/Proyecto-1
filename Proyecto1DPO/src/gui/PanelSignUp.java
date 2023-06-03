@@ -1,8 +1,12 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,18 +14,28 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class PanelSignUp extends JPanel
+import model.Autenticador;
+import model.AutenticadorHuesped;
+import model.PMS;
+
+public class PanelSignUp extends JPanel implements ActionListener
 {
     private JPanel contentPanel;
+    private CampoHues user;
+    private CampoHues password;
+    private RoundedButtonHues signup;
+    private FrameHuesped frameHues;
+    private AutenticadorHuesped authenticator;
     
-    public PanelSignUp(FrameHuesped frameHuesped)
+    public PanelSignUp(FrameHuesped frameHuesped, PMS pms)
     {
+	authenticator = new AutenticadorHuesped(pms);
 	
-
+	
         setOpaque(false);
         setLayout(new GridLayout(3,1));
         
-        
+        frameHues = frameHuesped;
         //Panel titulo
         JPanel panelTitulo = new JPanel();
         panelTitulo.setOpaque(false);
@@ -46,7 +60,7 @@ public class PanelSignUp extends JPanel
         	panelTitulo.add(temp2);
         	
         	//Title
-        	JLabel titulo = new JLabel("Sign up", SwingConstants.CENTER);
+        	JLabel titulo = new JLabel("Sign un", SwingConstants.CENTER);
         	titulo.setForeground(Color.white);
         	titulo.setFont(new Font("Courier Bold", Font.BOLD, 33));
         	panelTitulo.add(titulo);
@@ -68,38 +82,42 @@ public class PanelSignUp extends JPanel
         	gbc.gridx = 1;
         	gbc.gridy = 1;
         	
-        	CampoHues user = new CampoHues(20,"   User");
+        	///////////////CAMPO USER
+        	user = new CampoHues(20,"   User"); 
         	campoUser.add(user,gbc);
-        	
         	inputs.add(campoUser);
-        	
+        	///////////////
         	
         	
         	//Password
-        	JPanel campoPass = new JPanel();
+        	JPanel campoPass = new JPanel(); 
         	campoPass.setOpaque(false);
         	campoPass.setLayout(layout);
         	
-        	CampoHues password = new CampoHues(20,"   Password");
+        	//////////////CAMPO PASS
+        	password = new CampoHues(20,"   Password"); //tiene listener
         	campoPass.add(password,gbc);
-        	
         	inputs.add(campoPass);
+        	//////////////
         	
-        	//Sign up
+        	//Sign in
         	JPanel panelBotonIn = new JPanel();
         	
         	panelBotonIn.setOpaque(false);
         	panelBotonIn.setLayout(layout);
         	
-        	RoundedButtonHues signin = new RoundedButtonHues("SIGN UP");
-        	signin.setBackground(new Color(255,255,255));
-        	signin.setFocusPainted(false);
-        	
-        	signin.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        	//////////////BOTON LOGIN
+        	signup = new RoundedButtonHues("SIGN UP"); //tiene listener
+        	signup.setFont(new Font("Roboto",getFont().BOLD,14));
+        	signup.setBackground(new Color(255,255,255));
+        	signup.setFocusPainted(false);
+        	signup.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        	signup.addActionListener(this);
+        	//////////////
         	
         	JPanel signinWrapper = new JPanel(new BorderLayout());
         	signinWrapper.setOpaque(false);
-                signinWrapper.add(signin,BorderLayout.CENTER);
+                signinWrapper.add(signup,BorderLayout.CENTER);
                 signinWrapper.setPreferredSize(new Dimension(130, 38)); // Set the preferred size of the wrapper panel
 
                 panelBotonIn.add(signinWrapper);
@@ -176,6 +194,49 @@ public class PanelSignUp extends JPanel
         //add(panelIn, Border);
 
 	setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+	if(e.getSource()==signup) {
+	    boolean existenciaUsuario = authenticator.revisarExistencia(user.getText().strip());
+	    if (existenciaUsuario) {
+		setEnabled(false);
+		setFocusable(false);
+		signup.setEnabled(false);
+		signup.setFocusable(false);
+		   
+		CustomDialog dialog = new CustomDialog(this, "Ya existe el usuario");
+		dialog.addWindowListener(new WindowAdapter() {
+		    @Override
+            	    public void windowClosing(WindowEvent e) {
+            		setEnabled(true);
+            		setFocusable(true);
+            		signup.setEnabled(true);
+            		signup.setFocusable(true);
+            	    }
+		    });
+		dialog.setVisible(true);
+		
+	    } else {
+		CustomDialog dialog = new CustomDialog(this, "Usuario creado correctamente");
+		dialog.addWindowListener(new WindowAdapter() {
+		    @Override
+            	    public void windowClosing(WindowEvent e) {
+            		setEnabled(true);
+            		setFocusable(true);
+            		signup.setEnabled(true);
+            		signup.setFocusable(true);
+            	    }
+		    });
+		dialog.setVisible(true);
+		frameHues.crearUsuario(user.getText().strip(),password.getText().strip());
+		frameHues.mostrarSignIn();
+	    }
+	    
+	}
+	
     }
 
 

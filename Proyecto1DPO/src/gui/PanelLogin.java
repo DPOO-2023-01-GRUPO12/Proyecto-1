@@ -14,6 +14,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import model.Autenticador;
+import model.AutenticadorHuesped;
+import model.PMS;
+
 public class PanelLogin extends JPanel implements ActionListener
 {
     private JPanel contentPanel;
@@ -21,9 +25,11 @@ public class PanelLogin extends JPanel implements ActionListener
     private CampoHues password;
     private RoundedButtonHues signin;
     private FrameHuesped frameHues;
+    private AutenticadorHuesped authenticator;
     
-    public PanelLogin(FrameHuesped frameHuesped)
+    public PanelLogin(FrameHuesped frameHuesped, PMS pms)
     {
+	authenticator = new AutenticadorHuesped(pms);
 	
 	
         setOpaque(false);
@@ -194,28 +200,43 @@ public class PanelLogin extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
 	if(e.getSource()==signin) {
-	    boolean existenciaUsuario = frameHues.revisarExistencia(user.getText().strip());
+	    boolean existenciaUsuario = authenticator.revisarExistencia(user.getText().strip());
 	    if (existenciaUsuario) {
-		boolean contrasenaCorrecta = frameHues.revisarPassword(user.getText(), password.getText());
+		
+		boolean contrasenaCorrecta = authenticator.revisarPassword(user.getText().strip(), password.getText().strip());
 		if (contrasenaCorrecta) {
 		    frameHues.iniciarSesion();
 		} else {
 		    setEnabled(false);
+		    setFocusable(false);
+		    signin.setEnabled(false);
+		    signin.setFocusable(false);
+		   
 		    CustomDialog dialog = new CustomDialog(this, "Contrasena incorrecta");
 		    dialog.addWindowListener(new WindowAdapter() {
                 	    @Override
                 	    public void windowClosing(WindowEvent e) {
                 		setEnabled(true);
+                		setFocusable(true);
+                		signin.setEnabled(true);
+            		    	signin.setFocusable(true);
                 	    }
 		    });
 		    dialog.setVisible(true);
 		}
+	    } else {
 		setEnabled(false);
+		setFocusable(false);
+		signin.setEnabled(false);
+		signin.setFocusable(false);
 		CustomDialog dialog = new CustomDialog(this, "No existe el usuario");
         	dialog.addWindowListener(new WindowAdapter() {
         	    @Override
         	    public void windowClosing(WindowEvent e) {
         		setEnabled(true);
+        		setFocusable(true);
+        		signin.setEnabled(true);
+    		    	signin.setFocusable(true);
         	    }
         	});
         	dialog.setVisible(true);

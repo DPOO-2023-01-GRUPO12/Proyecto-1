@@ -15,6 +15,9 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import model.PMS;
+import persistencia.Cargador;
+
 
 
 public class FrameHuesped extends JFrame
@@ -23,9 +26,29 @@ public class FrameHuesped extends JFrame
     private PanelSignUp panelSignup;
     private CardLayout cardlayout;
     private JPanel ambos;
+    private PMS sistema;
     
     public FrameHuesped() {
-   	
+	sistema = new PMS();
+	Cargador cargador = sistema.getCargador();
+	
+	String[] pathNames = {".", "data", "usuariosHues.txt" };
+        String pathUsers = String.join(File.separator, pathNames);
+       
+        File f = new File(pathUsers);
+        
+        try {
+            File fileUsers = f.getCanonicalFile();
+            cargador.cargarUsuariosHuespedes(fileUsers);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        
+	
+	
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	int newWidth = (int) (1500 * 0.7);
         int newHeight = (int) (900 * 0.7);
@@ -60,10 +83,10 @@ public class FrameHuesped extends JFrame
         ambos.setLayout(cardlayout);
         
         
-        panelLogin = new PanelLogin(this);
+        panelLogin = new PanelLogin(this,sistema);
         ambos.add(panelLogin, "login");
         
-        panelSignup = new PanelSignUp(this);
+        panelSignup = new PanelSignUp(this,sistema);
         ambos.add(panelSignup,"signup");
         
         cardlayout.show(ambos, "login");
@@ -99,21 +122,15 @@ public class FrameHuesped extends JFrame
 	
     }
 
-    public boolean revisarExistencia(String strip)
-    {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
-    public boolean revisarPassword(String text, String text2)
-    {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
     public void iniciarSesion()
     {
-	// TODO Auto-generated method stub
+	System.out.println("inicio de sesion");
+	
+    }
+
+    public void crearUsuario(String login, String pass)
+    {
+	sistema.agregarUsuarioHuesped(login, pass);
 	
     }
 }

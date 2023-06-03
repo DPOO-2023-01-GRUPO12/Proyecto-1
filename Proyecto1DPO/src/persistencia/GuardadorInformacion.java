@@ -495,6 +495,57 @@ public class GuardadorInformacion {
             System.out.println("No se pudo guardar el archivo de Usuarios.");
         }
     }
+    
+    public void guardarUsusariosHuespedesHotel() {
+        try{
+            String[] pathNames = { ".", "data", "usuariosHues.txt" };
+            String pathUsuarios = String.join(File.separator, pathNames);
+            File file = new File(pathUsuarios);
+            if (file.createNewFile()){
+                System.out.println("File created: " + file.getName());
+                FileWriter writer = new FileWriter(file);
+                BufferedWriter buff= new BufferedWriter(writer);
+                
+                Map<String,String> usuarios= pms.getUsuariosHuespedes();
+
+                for (Map.Entry<String,String> entry: usuarios.entrySet()){
+                    buff.write(entry.getKey());
+                    buff.write(";");
+                    
+                    String pass = entry.getValue();
+                    buff.write(pass);
+                    buff.newLine();
+                    
+                }
+                buff.close();
+
+            }else{
+                try {
+                    FileWriter writer = new FileWriter(file);
+                    BufferedWriter buff= new BufferedWriter(writer);
+                
+                    Map<String,String> usuarios= pms.getUsuariosHuespedes();
+
+                    for (Map.Entry<String,String> entry: usuarios.entrySet()){
+                        buff.write(entry.getKey());
+                        buff.write(";");
+                        
+                        String pass = entry.getValue();
+                        buff.write(pass);
+                        buff.newLine();
+                        
+                    }
+                    buff.close();
+                
+
+                } catch (Exception e) {
+                    System.out.println("No se pudo guardar el archivo de Usuarios Huespedes. ");
+                }
+            }
+        } catch (Exception e){
+            System.out.println("No se pudo guardar el archivo de Usuarios Huespedes.");
+        }
+    }
 
     public void guardarServicios() {
         try{
