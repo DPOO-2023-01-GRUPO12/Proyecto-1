@@ -24,10 +24,10 @@ public class PanelLogin extends JPanel implements ActionListener
     private CampoHues user;
     private CampoHues password;
     private RoundedButtonHues signin;
-    private FrameHuesped frameHues;
+    private FrameHuesLogin frameHues;
     private AutenticadorHuesped authenticator;
     
-    public PanelLogin(FrameHuesped frameHuesped, PMS pms)
+    public PanelLogin(FrameHuesLogin frameHuesped, PMS pms)
     {
 	authenticator = new AutenticadorHuesped(pms);
 	
@@ -205,7 +205,7 @@ public class PanelLogin extends JPanel implements ActionListener
 		
 		boolean contrasenaCorrecta = authenticator.revisarPassword(user.getText().strip(), password.getText().strip());
 		if (contrasenaCorrecta) {
-		    frameHues.iniciarSesion();
+		    frameHues.iniciarSesion(user.getText().strip());
 		} else {
 		    setEnabled(false);
 		    setFocusable(false);

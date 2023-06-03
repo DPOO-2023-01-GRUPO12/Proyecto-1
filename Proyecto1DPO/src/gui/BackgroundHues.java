@@ -20,7 +20,7 @@ class BackgroundHues extends JComponent {
     private Icon img;
     private BufferedImage bufferedImage;
     
-    public BackgroundHues(FrameHuesped frameHues) {
+    public BackgroundHues(FrameHuesLogin frameHues) {
 
         // Imagen de fondo
 	setPreferredSize(new Dimension(frameHues.getWidth(), frameHues.getHeight()));

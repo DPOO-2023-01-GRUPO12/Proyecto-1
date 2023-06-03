@@ -8,10 +8,22 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Shape;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -20,15 +32,17 @@ import persistencia.Cargador;
 
 
 
-public class FrameHuesped extends JFrame
+public class FrameHuesLogin extends JFrame
 {
     private PanelLogin panelLogin;
     private PanelSignUp panelSignup;
     private CardLayout cardlayout;
     private JPanel ambos;
     private PMS sistema;
+    private VentanaHuesped ventanaHues;
     
-    public FrameHuesped() {
+    
+    public FrameHuesLogin() {
 	sistema = new PMS();
 	Cargador cargador = sistema.getCargador();
 	
@@ -47,7 +61,22 @@ public class FrameHuesped extends JFrame
         }
         
         
-	
+        
+        
+        ///Cargar datos
+        
+        String[] paths = {".", "data", "nombresarchivos.txt" };
+        String realpath = String.join(File.separator, paths);
+        
+        File archivoHotel = new File(realpath);
+	    try
+	    {
+		sistema.getCargador().cargarInformacionHotel(archivoHotel);
+	    } catch (IOException e1)
+	    {
+		System.out.println("No se cargó el archivo");
+	    }
+        ////
 	
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	int newWidth = (int) (1500 * 0.7);
@@ -98,13 +127,16 @@ public class FrameHuesped extends JFrame
         
         background.add(p2);
         setLocationRelativeTo(null);
-
         setResizable(false);
         setVisible(true);
     }
     
+    private Shape createRoundRectangle(int width, int height) {
+        return new RoundRectangle2D.Double(0, 0, width, height, 25, 25);
+    }
+    
     public static void main(String[] args) {
-        new FrameHuesped();
+        new FrameHuesLogin();
         
 
     }
@@ -122,10 +154,10 @@ public class FrameHuesped extends JFrame
 	
     }
 
-    public void iniciarSesion()
+    public void iniciarSesion(String username)
     {
-	System.out.println("inicio de sesion");
-	
+	setVisible(false);
+	ventanaHues = new VentanaHuesped(this, username,sistema);
     }
 
     public void crearUsuario(String login, String pass)

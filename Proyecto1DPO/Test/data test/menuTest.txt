@@ -1,0 +1,15 @@
+nombre;rangohoras;comidadispon;lugardispon;serviciocuarto;precio
+hamburguesa;12:00-14:30;almuerzo;restaurante;true;12000
+sopa del día;11:30-15:00;almuerzo;restaurante;true;8000
+pollo asado;18:00-20:30;cena;restaurante;false;15000
+ensalada césar;13:00-15:30;almuerzo;restaurante;true;10000
+pizza margherita;17:00-21:00;cena;restaurante;false;14000
+pasta al pesto;19:00-22:00;cena;restaurante;false;16000
+sándwich de pollo;12:00-16:00;almuerzo;restaurante;true;9000
+sushi variado;18:00-21:30;cena;restaurante;false;18000
+filete de salmón;19:30-21:00;cena;restaurante;false;20000
+tacos mexicanos;12:30-15:30;almuerzo;restaurante;true;11000
+panqueques;8:00-11:00;desayuno;restaurante;true;8500
+tostadas francesas;7:30-10:30;desayuno;restaurante;true;7500
+omelette de vegetales;7:00-11:00;desayuno;restaurante;true;9500
+cereal con frutas;6:30-10:30;desayuno;restaurante;true;6500
