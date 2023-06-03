@@ -205,7 +205,7 @@ public class PanelLogin extends JPanel implements ActionListener
 		
 		boolean contrasenaCorrecta = authenticator.revisarPassword(user.getText().strip(), password.getText().strip());
 		if (contrasenaCorrecta) {
-		    frameHues.iniciarSesion();
+		    frameHues.iniciarSesion(user.getText().strip());
 		} else {
 		    setEnabled(false);
 		    setFocusable(false);

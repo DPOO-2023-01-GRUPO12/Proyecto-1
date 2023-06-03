@@ -39,6 +39,8 @@ public class FrameHuesLogin extends JFrame
     private CardLayout cardlayout;
     private JPanel ambos;
     private PMS sistema;
+    private VentanaHuesped ventanaHues;
+    
     
     public FrameHuesLogin() {
 	sistema = new PMS();
@@ -60,83 +62,21 @@ public class FrameHuesLogin extends JFrame
         
         
         
-        String[] names = { ".", "Icons", "close.png" };
-        String path = String.join(File.separator, names);
         
-        try {
-            BufferedImage img = ImageIO.read(new File(path));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ///Cargar datos
         
+        String[] paths = {".", "data", "nombresarchivos.txt" };
+        String realpath = String.join(File.separator, paths);
         
-        
-        JPanel titleBar = new JPanel(new BorderLayout());
-        titleBar.setBackground(new Color(220,220,220));
-        titleBar.setPreferredSize(new Dimension(getWidth(), 33));
-        
-        JButton closeButton = new JButton("");
-        try {
-            BufferedImage img = ImageIO.read(new File(path));
-            Image image = img.getScaledInstance(15, 15,Image.SCALE_SMOOTH);
-
-            closeButton.setIcon(new ImageIcon(image));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        closeButton.setFont(new Font("Roboto", Font.BOLD,15));
-        closeButton.setFocusPainted(false);
-        closeButton.setContentAreaFilled(false);
-        closeButton.setBorderPainted(false);
-        closeButton.setForeground(Color.BLACK);
-       
-        
-        closeButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                BufferedImage img = null;
-                try {
-                    img = ImageIO.read(new File(path));
-                    Image image = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
-                    
-                    // Apply color filter to the image
-                    ImageFilter filter = new RGBImageFilter() {
-                        public int filterRGB(int x, int y, int rgb) {
-                            // Change color to red
-                            return (rgb & 0xFF00FFFF) | (0xFF << 16);
-                        }
-                    };
-                    
-                    ImageProducer producer = new FilteredImageSource(image.getSource(), filter);
-                    Image redImage = Toolkit.getDefaultToolkit().createImage(producer);
-                    
-                    closeButton.setIcon(new ImageIcon(redImage));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    BufferedImage img = ImageIO.read(new File(path));
-                    Image image = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
-                    closeButton.setIcon(new ImageIcon(image));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        closeButton.addActionListener(e -> System.exit(0));
-
-        titleBar.add(closeButton, BorderLayout.EAST);
-        add(titleBar, BorderLayout.NORTH);
-        
-	
+        File archivoHotel = new File(realpath);
+	    try
+	    {
+		sistema.getCargador().cargarInformacionHotel(archivoHotel);
+	    } catch (IOException e1)
+	    {
+		System.out.println("No se cargó el archivo");
+	    }
+        ////
 	
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	int newWidth = (int) (1500 * 0.7);
@@ -187,8 +127,6 @@ public class FrameHuesLogin extends JFrame
         
         background.add(p2);
         setLocationRelativeTo(null);
-        setUndecorated(true);
-        setShape(createRoundRectangle(getWidth(), getHeight()));
         setResizable(false);
         setVisible(true);
     }
@@ -216,10 +154,10 @@ public class FrameHuesLogin extends JFrame
 	
     }
 
-    public void iniciarSesion()
+    public void iniciarSesion(String username)
     {
-	System.out.println("inicio de sesion");
-	
+	setVisible(false);
+	ventanaHues = new VentanaHuesped(this, username,sistema);
     }
 
     public void crearUsuario(String login, String pass)
