@@ -35,7 +35,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import model.Habitacion;
+import model.Huesped;
 import model.PMS;
+import model.Reserva;
 
 //import model.PMS;
 
@@ -116,11 +118,33 @@ public class VentanaHuesped extends JFrame implements ActionListener
 	
     }
 
-    public void mostrarPanelReserva(Habitacion habitacion)
+    public void mostrarPanelReserva(Habitacion habitacion, String rango)
     {
-	PanelReservaHuesped panelReserva = new PanelReservaHuesped(this,sistema,habitacion);
+	PanelReservaHuesped panelReserva = new PanelReservaHuesped(this,sistema,habitacion,rango);
 	todos.add(panelReserva,"res");
 	cl.show(todos,"res");
+	
+    }
+
+    public void realizarReserva(String nombre, String cantidadPersonas, String fechain, String fechaout)
+    {
+	int cantidad = Integer.parseInt(cantidadPersonas);
+	Huesped huesped = sistema.getHuespedes().get(nombre);
+        Reserva reserva = new Reserva(huesped, cantidad, fechain, fechaout);
+        sistema.agregarReserva(reserva);
+        sistema.agregarFechas(reserva);
+        PanelPagoReserva panelPagoReserva = new PanelPagoReserva(this,sistema,huesped,reserva);
+        todos.add(panelPagoReserva,"pago");
+	cl.show(todos,"pago");
+       
+	
+    }
+
+    public void registroHuespedReserva(String nombre, String documento, String celular, String Correo, String edad)
+    {
+        Integer edadint = Integer.parseInt(edad);
+        Huesped huesped = new Huesped(nombre, documento, celular, Correo, edadint);
+        sistema.agregarHuesped(huesped);
 	
     }
 

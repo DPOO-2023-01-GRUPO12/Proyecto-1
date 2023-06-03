@@ -169,7 +169,7 @@ public class PanelDisponibilidad extends JPanel implements ActionListener, ListS
 	    
 	} else if(e.getSource()==btnSelect) {
 	    Habitacion habitacion = lm.getElementAt(listaHabs.getSelectedIndex());
-	    ventanaHuesped.mostrarPanelReserva(habitacion);
+	    ventanaHuesped.mostrarPanelReserva(habitacion ,fechas.getText().strip());
 	}
 	
     }
