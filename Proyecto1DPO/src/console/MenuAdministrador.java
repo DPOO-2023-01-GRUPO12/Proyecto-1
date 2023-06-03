@@ -31,6 +31,7 @@ public class MenuAdministrador {
     public MenuAdministrador(Cargador car, PMS pms) {
         cargador = car;
         this.pms = pms;
+        
     }
 
     public void informarFechasSinTarifa() throws ParseException {

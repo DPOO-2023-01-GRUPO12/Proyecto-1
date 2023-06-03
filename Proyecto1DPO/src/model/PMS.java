@@ -18,6 +18,7 @@ public class PMS {
     private Map<String, Bebida> menuBebidas;
     private Map<String, Plato> menuPlatos;
     private Map<String, ArrayList<String>> usuarios;
+    private Map<String, String> usuariosHuespedes;
     private Map<String, Servicio> servicios;
     private Map<String, Reserva> reservas;
     private Map<String, Huesped> huespedes;
@@ -35,6 +36,7 @@ public class PMS {
         menuBebidas = new HashMap<String, Bebida>();
         menuPlatos = new HashMap<String, Plato>();
         usuarios = new HashMap<String, ArrayList<String>>();
+        usuariosHuespedes = new HashMap<String, String>();
         servicios = new HashMap<String, Servicio>();
         reservas = new HashMap<String, Reserva>();
         huespedes = new HashMap<String, Huesped>();
@@ -101,6 +103,10 @@ public class PMS {
 
     public Map<String, ArrayList<String>> getUsuarios() {
         return usuarios;
+    }
+    
+    public Map<String, String> getUsuariosHuespedes() {
+        return usuariosHuespedes;
     }
 
     public Map<String, Servicio> getServicios() {
@@ -274,6 +280,13 @@ public class PMS {
 
     public GuardadorInformacion getGuardador() {
         return guardador;
+    }
+
+
+    public void agregarUsuarioHuesped(String login, String password)
+    {
+        getUsuariosHuespedes().put(login, password);
+	
     }
 
 }
