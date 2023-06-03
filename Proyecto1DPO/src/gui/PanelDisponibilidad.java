@@ -33,9 +33,13 @@ public class PanelDisponibilidad extends JPanel implements ActionListener, ListS
     private RoundedButton btnSelect;
     private JList<Habitacion> listaHabs;
     private DefaultListModel<Habitacion> lm;
+    private VentanaHuesped ventanaHuesped;
+    private ArrayList<Habitacion> allHabs; 
+
     
-    public PanelDisponibilidad(PMS pms)
+    public PanelDisponibilidad(VentanaHuesped ventanaHuesped, PMS pms)
     {
+	this.ventanaHuesped = ventanaHuesped;
 	this.pms = pms;
 	
 	setLayout(new BorderLayout());
@@ -68,11 +72,9 @@ public class PanelDisponibilidad extends JPanel implements ActionListener, ListS
         listaHabs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaHabs.addListSelectionListener(this);
         //listaHabs.setVisible(false);
-        
-        
-        for (Habitacion hab : pms.getInventarioHabitaciones().values()) {
-            lm.addElement(hab);
-        }
+                
+        allHabs = new ArrayList<>();
+        //reDoList();
 
         JScrollPane scroll = new JScrollPane(listaHabs);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -100,10 +102,21 @@ public class PanelDisponibilidad extends JPanel implements ActionListener, ListS
 	
 	setVisible(true);
     }
+    
+    private void reDoList() {
+	lm.clear();
+	for (Habitacion hab : pms.getInventarioHabitaciones().values()) {
+            allHabs.add(hab);
+            lm.addElement(hab);
+   
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e)
     {
 	if(e.getSource()==btnBuscar) {
+	    
+	    reDoList();
 	    
 	    String[] dias = (fechas.getText().strip()).split("-");
 	    String fechaIn = dias[0];
@@ -138,21 +151,25 @@ public class PanelDisponibilidad extends JPanel implements ActionListener, ListS
 		        
 		    }
 		    if(!funciona) {
+			listaHabs.removeSelectionInterval(i, i);
 			lm.removeElementAt(i);
 		    }
 		    
 		}
 		
 	    }
-	    
+	    listaHabs.setVisibleRowCount(0); // Hide the hidden elements
+            listaHabs.clearSelection(); // Clear the selection
 	    
 	    
 	    
 	    listaHabs.setVisible(true);
 	    
+	    
+	    
 	} else if(e.getSource()==btnSelect) {
 	    Habitacion habitacion = lm.getElementAt(listaHabs.getSelectedIndex());
-	    
+	    ventanaHuesped.mostrarPanelReserva(habitacion);
 	}
 	
     }

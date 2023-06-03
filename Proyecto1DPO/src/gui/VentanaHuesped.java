@@ -34,6 +34,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import model.Habitacion;
 import model.PMS;
 
 //import model.PMS;
@@ -41,11 +42,14 @@ import model.PMS;
 public class VentanaHuesped extends JFrame implements ActionListener
 {
     private JMenu menu;  
-    private JMenuItem salir;
+    private JMenuItem salir, dispo;
     private FrameHuesLogin frame;
     private CardLayout cl;
+    private PMS sistema;
+    private JPanel todos;
     public VentanaHuesped(FrameHuesLogin frame, String username,PMS pms)
     {
+	sistema = pms;
 	this.frame= frame;
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	int newWidth = (int) (1500 * 0.7);
@@ -53,6 +57,7 @@ public class VentanaHuesped extends JFrame implements ActionListener
 	setSize(newWidth, newHeight);
 	
 	
+        
 	// Customize the menu bar appearance
         UIManager.put("MenuBar.background", new Color(40, 40, 43));
         UIManager.put("MenuBar.border", BorderFactory.createEmptyBorder());
@@ -66,27 +71,34 @@ public class VentanaHuesped extends JFrame implements ActionListener
         //Menu bar
         JMenuBar mb=new JMenuBar();
 	menu=new JMenu(username);  
-	
-	salir = new JMenuItem("Salir");
+	dispo = new JMenuItem("Disponibilidad");
+	dispo.addActionListener(this);
+	menu.add(dispo);
+	salir = new JMenuItem("Salir");	
 	salir.addActionListener(this);
 	menu.add(salir);
+	
 	mb.add(menu);
 	setJMenuBar(mb);
 	
-	JPanel todos = new JPanel();
+	todos = new JPanel();
 	cl = new CardLayout();
 	todos.setLayout(cl);
 	todos.setOpaque(false);
 	
 	//Disponibilidad
           
-        PanelDisponibilidad panelDisponibilidad = new PanelDisponibilidad(pms);
+        PanelDisponibilidad panelDisponibilidad = new PanelDisponibilidad(this,pms);
         
         todos.add(panelDisponibilidad,"dispo");
         cl.show(todos, "dispo");
+        
+        
         //Reservas
         
         add(todos);
+	
+	
 	setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
@@ -98,7 +110,17 @@ public class VentanaHuesped extends JFrame implements ActionListener
 	if(e.getSource()==salir) {
 	    setVisible(false);
 	    frame.setVisible(true);
+	} else if(e.getSource()==dispo) {
+	    cl.show(todos, "dispo");
 	}
+	
+    }
+
+    public void mostrarPanelReserva(Habitacion habitacion)
+    {
+	PanelReservaHuesped panelReserva = new PanelReservaHuesped(this,sistema,habitacion);
+	todos.add(panelReserva,"res");
+	cl.show(todos,"res");
 	
     }
 
