@@ -1,0 +1,11 @@
+Identificador;Ubicación;Balcon;Vista;Cocina;Descripción;Camas;Tipo
+1;Primer piso; False; True; False; Cozy room with a king-size bed;King-3-True,Doble-2-True;Suite
+2;Segundo piso; True; False; True; Spacious room with a work desk;Sencilla-1-False;Estandar
+3;Tercer piso; False; True; True; Modern room with a minibar;Queen-3-False;Ejecutiva
+4;Cuarto piso; True; False; False; Comfortable room with a jacuzzi;Sencilla-1-False;Suite
+5;Quinto piso; False; True; False; Stylish room with a lounge area;Doble-2-False;Estandar
+6;Segundo piso; True; False; True; Elegant room with a private balcony;King-3-True,Doble-2-True;Ejecutiva
+7;Tercer piso; False; True; False; Quaint room with a cozy fireplace;Queen-3-False;Suite
+8;Cuarto piso; False; False; True; Contemporary room with a smart TV;Sencilla-1-False;Estandar
+9;Primer piso; True; False; False; Serene room with a spa bathtub;King-3-True,Doble-2-True;Ejecutiva
+10;Quinto piso; False; True; True; Charming room with a coffee maker;Doble-2-True;Suite

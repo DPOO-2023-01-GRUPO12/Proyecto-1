@@ -1,0 +1,1 @@
+Identificador;Ubicación;Balcon;Vista;Cocina;Descripción;Camas;Tipo
