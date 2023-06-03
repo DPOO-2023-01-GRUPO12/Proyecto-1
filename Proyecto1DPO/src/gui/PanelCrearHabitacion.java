@@ -23,6 +23,10 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
     private Campo campoId;
     private Campo ubicacion;
     private Campo descripcion;
+    private Campo tamañoMetros;
+    private Campo tamañoCama;
+    private Campo voltajeAC;
+    
 
     private ButtonGroup bgCocina;
     private JRadioButton tiene;
@@ -111,88 +115,47 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
         divisionesCampos.add(descripcion);
 
         ///////////////////
+        
+        
+        tamañoMetros = new Campo(15, "Tamaño en metrocuadrados");
+        tamañoMetros.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (tamañoMetros.getText().equals("Tamaño en metrocuadrados")) {
+                	tamañoMetros.setText("");
+                }
+            };
+        });
+        divisionesCampos.add(tamañoMetros);
+        
+        
+        
+        tamañoCama = new Campo(15, "Tamaño Cama");
+        tamañoCama.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (tamañoCama.getText().equals("Tamaño Cama")) {
+                	tamañoCama.setText("");
+                }
+            };
+        });
+        divisionesCampos.add(tamañoCama);
+        
+        
+        
+        voltajeAC = new Campo(15, "Voltaje AC");
+        voltajeAC.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (voltajeAC.getText().equals("Voltaje AC")) {
+                	voltajeAC.setText("");
+                }
+            };
+        });
+        divisionesCampos.add(voltajeAC);
+        
+        
 
-        //////////////// Buttons Cocina
-        JPanel cocina = new JPanel(new BorderLayout());
-        cocina.setBackground(Color.white);
-        JLabel tituloCocina = new JLabel("Tiene Cocina", SwingConstants.CENTER);
-        tituloCocina.setFont(new Font("Roboto", Font.BOLD, 15));
-        cocina.add(tituloCocina, BorderLayout.NORTH);
-
-        JPanel radiobuttons = new JPanel(new FlowLayout());
-        radiobuttons.setBackground(Color.white);
-        bgCocina = new ButtonGroup();
-
-        tiene = new JRadioButton("Si");
-        noTiene = new JRadioButton("No");
-        tiene.setBackground(Color.white);
-        //tiene.setPreferredSize(new Dimension(100, 10));
-        noTiene.setBackground(Color.white);
-
-        bgCocina.add(tiene);
-        bgCocina.add(noTiene);
-        radiobuttons.add(tiene);
-        radiobuttons.add(noTiene);
-
-        cocina.add(radiobuttons, BorderLayout.CENTER);
-
-        divisionesCampos.add(cocina);
-        //////////////////////
-
-        ////////////////////// Buttons Balcon
-
-        JPanel balcon = new JPanel(new BorderLayout());
-        balcon.setBackground(Color.WHITE);
-        JLabel tituloBalcon = new JLabel("Tiene Balcon", SwingConstants.CENTER);
-        tituloBalcon.setFont(new Font("Roboto", Font.BOLD, 15));
-        balcon.add(tituloBalcon, BorderLayout.NORTH);
-
-        JPanel radiobuttons1 = new JPanel(new FlowLayout());
-        radiobuttons1.setBackground(Color.WHITE);
-        bgBalcon = new ButtonGroup();
-
-        tiene1 = new JRadioButton("Si");
-        noTiene1 = new JRadioButton("No");
-        tiene1.setBackground(Color.WHITE);
-        //tiene1.setPreferredSize(new Dimension(100, 10));
-        noTiene1.setBackground(Color.WHITE);
-
-        bgBalcon.add(tiene1);
-        bgBalcon.add(noTiene1);
-        radiobuttons1.add(tiene1);
-        radiobuttons1.add(noTiene1);
-
-        balcon.add(radiobuttons1, BorderLayout.CENTER);
-        divisionesCampos.add(balcon);
-        //////////////////////////////
-
-        ////////////////////////////// Buttons Vista
-        JPanel vista = new JPanel(new BorderLayout());
-        vista.setBackground(Color.WHITE);
-        JLabel tituloVista = new JLabel("Tiene Vista", SwingConstants.CENTER);
-        tituloVista.setFont(new Font("Roboto", Font.BOLD, 15));
-        vista.add(tituloVista, BorderLayout.NORTH);
-
-        JPanel radiobuttons2 = new JPanel(new FlowLayout());
-
-        radiobuttons2.setBackground(Color.WHITE);
-        bgVista = new ButtonGroup();
-
-        tiene2 = new JRadioButton("Si");
-        noTiene2 = new JRadioButton("No");
-        tiene2.setBackground(Color.WHITE);
-        //tiene2.setPreferredSize(new Dimension(100, 10));
-        noTiene2.setBackground(Color.WHITE);
-
-        bgVista.add(tiene2);
-        bgVista.add(noTiene2);
-        radiobuttons2.add(tiene2);
-        radiobuttons2.add(noTiene2);
-
-        vista.add(radiobuttons2, BorderLayout.CENTER);
-        /////////////////////////////////
-
-        divisionesCampos.add(vista);
         ///////////////////////
         campos.add(divisionesCampos, BorderLayout.CENTER);
         //////////////////////////
@@ -263,30 +226,15 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
 
         setVisible(true);
     }
-
+    
+    
+    
+    
+   
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonCrear) {
-            String tipoSeleccionado = listaTipoHabs.getSelectedValue();
-            boolean tieneCocina = false;
-            boolean tieneBalcon = false;
-            boolean tieneVista = false;
-
-            if (tiene.isSelected()) {
-                tieneCocina = true;
-            }
-
-            if (tiene1.isSelected()) {
-                tieneBalcon = true;
-            }
-
-            if (tiene2.isSelected()) {
-                tieneVista = true;
-            }
-
-            menuAdmin.crearHabitacion(campoId.getText(), ubicacion.getText(), descripcion.getText(), tieneCocina,
-                    tieneBalcon, tieneVista, tipoSeleccionado, listaCamas.getSelectedIndices());
-
+            DialogOpcHabitacion n = new DialogOpcHabitacion(menuAdmin);
         }
 
     }

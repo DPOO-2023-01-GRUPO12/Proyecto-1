@@ -16,6 +16,7 @@ public class PanelOpciones extends JPanel implements ActionListener {
     private CustomButton btnTipoHabitacion;
     private CustomButton btnConfigurar;
     private CustomButton btnConcurr;
+    private CustomButton btnGraficas;
     private FrameAdmin frameAdmin;
 
     public PanelOpciones(FrameAdmin frameAdmin) {
@@ -24,12 +25,17 @@ public class PanelOpciones extends JPanel implements ActionListener {
         setBackground(new Color(23, 35, 31));
 
         setLayout(new GridLayout(10, 1));
-        String[] pathNames = { "Proyecto1DPO", "Icons", "" };
+        String[] pathNames = { ".", "Icons", "" };
         String path = String.join(File.separator, pathNames);
 
         bg = new GrupoBotones();
         userIcon = new CustomButton(path + "user.png", bg);
         userIcon.addActionListener(this);
+        
+        
+        
+        btnGraficas = new CustomButton(path + "graphics.png" ,bg);
+        btnGraficas.addActionListener(this);
 
         btnArchivos = new CustomButton(path + "file.png", bg);
         btnArchivos.addActionListener(this);
@@ -52,6 +58,7 @@ public class PanelOpciones extends JPanel implements ActionListener {
         bg.add(btnTipoHabitacion);
         bg.add(btnConfigurar);
         bg.add(btnConcurr);
+        bg.add(btnGraficas);
 
         add(userIcon);
         add(btnArchivos);
@@ -59,6 +66,7 @@ public class PanelOpciones extends JPanel implements ActionListener {
         add(btnTipoHabitacion);
         add(btnConfigurar);
         add(btnConcurr);
+        add(btnGraficas);
 
         setVisible(true);
     }
@@ -78,6 +86,10 @@ public class PanelOpciones extends JPanel implements ActionListener {
         } else if (e.getSource() == btnConcurr) {
             frameAdmin.mostrarConcurrencia();
         }
+        else if (e.getSource() == btnGraficas) {
+            frameAdmin.mostrarGraficas();
+        }
+    
 
     }
 

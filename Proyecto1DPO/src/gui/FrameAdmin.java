@@ -15,6 +15,7 @@ public class FrameAdmin extends JFrame {
     private MenuAdministrador menuAdmin;
     private PanelTipoHabitacion panelTipoHabitacion;
     private PanelConfigurar panelConfigurar;
+    private PanelGraficas panelGraficas;
     private PanelConcurrencia panelConcurr;
     private CardLayout cardPane;
     private JPanel paneles;
@@ -119,5 +120,13 @@ public class FrameAdmin extends JFrame {
         paneles.add(panelConcurr, "Concurr");
         cardPane.show(paneles,"Concurr");
     }
-
+    
+    
+    
+    public void mostrarGraficas() {
+    	panelGraficas = new PanelGraficas(sistema);
+    	paneles.add(panelGraficas,"Graphics");
+    	cardPane.show(paneles,"Graphics");
+    	
+    }
 }

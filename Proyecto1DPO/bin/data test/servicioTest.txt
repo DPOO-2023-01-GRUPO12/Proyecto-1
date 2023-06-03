@@ -1,0 +1,11 @@
+nombre;ubicacion;disponibilidad;tipocobro;serviciocuarto;precio
+guia turistico;exterior;martes_7:00-9:00-13:00-22:00,jueves_7:00-9:00-13:00-22:00,sabado_7:00-9:00-13:00-22:00;imediato;false;20000
+clase zumba;gimnasio;lunes_8:00-9:00,martes_8:00-9:00,miercoles_8:00-9:00;imediato;false;1000
+desayuno sorpresa;habitacion;lunes_6:00-8:00-10:00,domingo_6:00-8:00-10:00;noimediato;true;35000
+desayuno;comedor;lunes_9:30,martes_9:30,miercoles_9:30,jueves_9:30,viernes_9:30,sabado_10:00,domingo_10:00;imediato;true;13000
+masaje relajante;spa;lunes_10:00-12:00-15:00-18:00,martes_10:00-12:00-15:00-18:00,miercoles_10:00-12:00-15:00-18:00,jueves_10:00-12:00-15:00-18:00,viernes_10:00-12:00-15:00-18:00;imediato;true;40000
+paseo en bicicleta;exterior;lunes_16:00-18:00,miercoles_16:00-18:00,viernes_16:00-18:00,sabado_10:00-12:00,domingo_10:00-12:00;noimediato;false;15000
+cena temática;restaurante;miercoles_19:00-22:00,viernes_19:00-22:00,sabado_19:00-22:00;imediato;true;25000
+servicio de lavandería;habitacion;lunes_8:00-14:00,martes_8:00-14:00,jueves_8:00-14:00,viernes_8:00-14:00,sabado_9:00-12:00;noimediato;true;8000
+piscina climatizada;piscina;lunes_9:00-19:00,martes_9:00-19:00,miercoles_9:00-19:00,jueves_9:00-19:00,viernes_9:00-19:00,sabado_10:00-18:00,domingo_10:00-18:00;imediato;false;5000
+sala de juegos;recreación;lunes_16:00-20:00,martes_16:00-20:00,miercoles_16:00-20:00,jueves_16:00-20:00,viernes_16:00-20:00,sabado_10:00-20:00,domingo_10:00-20:00;imediato;false;3000
