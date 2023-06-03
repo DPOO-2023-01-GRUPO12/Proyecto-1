@@ -531,4 +531,47 @@ public class Cargador {
 
     }// método
 
+    public void cargarUsuariosHuespedes(File fileUsers)
+    {
+	if (fileUsers.exists()) {
+
+            try {
+
+                BufferedReader br = new BufferedReader(new FileReader(fileUsers));
+                String linea = br.readLine();
+
+                linea = br.readLine();
+                while (linea != null) {
+
+                    String[] partes = linea.split(";");
+
+                    String login = partes[0];
+                    String password = partes[1];
+
+                    pms.agregarUsuarioHuesped(login, password);
+                    linea = br.readLine();
+
+                } // while
+                br.close();
+
+            } // try
+
+            catch (FileNotFoundException e) {
+                System.out.println("No se encontró el archivo");
+                e.printStackTrace();
+            } // Catch
+
+            catch (IOException e) {
+                System.out.println("Error de lectura");
+                e.printStackTrace();
+            } // Catch
+
+        } // if
+
+        else {
+            System.out.println("No existe el archivo");
+        }
+	
+    }
+
 }
