@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.DoubleAdder;
 
 import persistencia.Cargador;
 import persistencia.GuardadorInformacion;
@@ -26,6 +27,18 @@ public class PMS {
     private Map<String, Consumo> consumos;
     private Map<String, Integer> fechas;
 
+
+
+    // GRAFICAS
+    private Map<String, Integer> productosPorCantidad;
+    private Map<String, Double> productosPorPrecio;
+    private Map<String, Integer>valorFacturasEnTiempo;
+    private ArrayList<Integer> relacionConsumosyCosto;
+
+    private Map<String, Integer> cantidadReservasPorMes;
+    private Map<String, Integer> habitacionesOcupadasPorMes;
+
+
     public PMS() {
 
         habitaciones = new HashMap<String, Habitacion>();
@@ -45,7 +58,28 @@ public class PMS {
         cargador = new Cargador(this);
         guardador = new GuardadorInformacion(this);
         fechas  = crearMapaFechas();
+        productosPorCantidad = new HashMap<String,Integer>();
+        productosPorPrecio = new HashMap<String,Double>();
+        valorFacturasEnTiempo = new HashMap<String,Integer>();
+        relacionConsumosyCosto = new ArrayList<Integer>();
+        cantidadReservasPorMes = crearMapaporMes();
+        habitacionesOcupadasPorMes = crearMapaporMes();
 
+
+
+
+    }
+
+
+
+
+
+    private HashMap<String,Integer> crearMapaporMes(){
+        HashMap<String,Integer> mapa = new HashMap<String,Integer>();
+        for(int i=1; i<13;i++){
+            mapa.put(i+"",0);
+        }
+        return mapa;
     }
 
 
@@ -128,6 +162,89 @@ public class PMS {
     public Map<String, Consumo> getConsumos() {
         return consumos;
     }
+
+
+    public Map<String,Integer> getProductosporCantidad(){
+        return productosPorCantidad;
+    }
+
+    public Map<String,Double> getProductosporPrecio(){
+        return productosPorPrecio;
+    }
+
+
+    public Map<String,Integer>getValorFacturaPorTiempo(){
+        return valorFacturasEnTiempo;
+    }
+
+    public ArrayList<Integer> getRelacionConsumosyCostos(){
+        return relacionConsumosyCosto;
+    }
+
+    public Map<String,Integer> getHabitacionesPorMes(){
+        return habitacionesOcupadasPorMes;
+    }
+
+    public Map<String,Integer> getReservasPorMes(){
+        return cantidadReservasPorMes;
+    }
+
+
+
+
+
+
+
+
+    public void agregarFacturaPorTiempo(String mes,Integer valor){
+        
+        if(getValorFacturaPorTiempo().containsKey(mes)){
+            Integer numero = getValorFacturaPorTiempo().get(mes);
+            getValorFacturaPorTiempo().put(mes,(( valor+numero)/2));
+        }
+        else{
+            getValorFacturaPorTiempo().put(mes,valor);
+        }
+       
+     }
+
+     public void agregarHabitacionOcupadaPorMes(String mes){
+        Integer valorAnterior= getHabitacionesPorMes().get(mes);
+        getHabitacionesPorMes().put(mes, valorAnterior+1);
+     }
+
+     public void agregarReservasOcupadaPorMes(String mes){
+        Integer valorAnterior= getReservasPorMes().get(mes);
+        getReservasPorMes().put(mes, valorAnterior+1);
+     }
+
+     public void agregarRelacionConsumoyCosto(Integer valorConsumo,Integer valorNoche){
+        ArrayList<Integer> lista = getRelacionConsumosyCostos();
+        if(lista.size()==0){
+            lista.add(valorNoche);
+            lista.add(valorConsumo);
+        }
+        else{
+            lista.add(0,valorNoche + lista.get(0));
+            lista.add(1,valorConsumo + lista.get(1));
+            
+        }
+     }
+
+    
+    public void agregarProductosPorCantidad(String nombre){
+       Integer valorAnterior= getProductosporCantidad().get(nombre);
+       getProductosporCantidad().put(nombre, valorAnterior+1);
+    }
+
+
+    public void agregarProductosPorPrecio(String nombre, Double precio){
+        Double valorAnterior = getProductosporPrecio().get(nombre);
+        getProductosporPrecio().put(nombre,(precio + valorAnterior));
+    }
+
+
+
 
     public void agregarHabitacion(Habitacion habitacion) {
         getInventarioHabitaciones().put(habitacion.getIdentificador(), habitacion);

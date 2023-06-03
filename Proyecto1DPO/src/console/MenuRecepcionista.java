@@ -45,6 +45,7 @@ public class MenuRecepcionista {
         Reserva reserva = new Reserva(huesped, cantidad, fechaIn, fechaOut);
         pms.agregarReserva(reserva);
         pms.agregarFechas(reserva);
+        pms.agregarReservasOcupadaPorMes(fechaIn.substring(3, 5));
         return reserva;
     }
 
@@ -304,6 +305,7 @@ public class MenuRecepcionista {
 
                 facturacheckOut = res.mostrarFacturaCheckout();
                 pms.agregarReserva(res);
+                pms.agregarFacturaPorTiempo(res.getFechaIn().substring(2, 5),(int)res.getTarifaTotal());
                 
 
             }
