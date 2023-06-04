@@ -37,11 +37,17 @@ public class PMS {
 
     private Map<String, Integer> cantidadReservasPorMes;
     private Map<String, Integer> habitacionesOcupadasPorMes;
+    
+    
+    // HOTEL
+    
+    private final Hotel hotel;
 
 
     public PMS() {
 
-        habitaciones = new HashMap<String, Habitacion>();
+        this.hotel = new Hotel();
+		habitaciones = new HashMap<String, Habitacion>();
         tipoHabitaciones = new HashMap<String, TipoHabitacion>();
         camas = new ArrayList<Cama>();
         tarifasCuarto = new ArrayList<TarifaCuarto>();

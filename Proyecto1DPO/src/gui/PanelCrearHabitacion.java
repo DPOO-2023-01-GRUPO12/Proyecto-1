@@ -234,7 +234,8 @@ public class PanelCrearHabitacion extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonCrear) {
-            DialogOpcHabitacion n = new DialogOpcHabitacion(menuAdmin);
+        	String tipoSeleccionado = listaTipoHabs.getSelectedValue();
+            DialogOpcHabitacion n = new DialogOpcHabitacion(menuAdmin,campoId.getText(), ubicacion.getText(), descripcion.getText(),tipoSeleccionado, listaCamas.getSelectedIndices());
         }
 
     }

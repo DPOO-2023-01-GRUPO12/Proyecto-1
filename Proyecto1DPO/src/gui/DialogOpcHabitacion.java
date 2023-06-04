@@ -45,6 +45,11 @@ public class DialogOpcHabitacion extends JDialog implements ActionListener{
 	private JRadioButton tieneCafetera;
 	private JRadioButton notieneCafetera;
 	
+	private ButtonGroup bgTV;
+	private JRadioButton tieneTV;
+	private JRadioButton notieneTV;
+	
+	
 	private ButtonGroup bgSecadora;
 	private JRadioButton tieneSecadora;
 	private JRadioButton notieneSecadora;
@@ -71,13 +76,23 @@ public class DialogOpcHabitacion extends JDialog implements ActionListener{
 	
 	private MenuAdministrador admin;
 	
-	public DialogOpcHabitacion(MenuAdministrador menu ) {
+	private String identificador;
+	private String ubicacion;
+	private String descuento;
+	private String tipoHabitacion;
+	private int[] indicesCamas;
+	
+	public DialogOpcHabitacion(MenuAdministrador menu,String id, String ub, String desc,String tipoHab,int[] indicesCamas ) {
 		
 		admin= menu;
+		identificador = id;
+		ubicacion = ub;
+		descuento = desc;
+		tipoHabitacion = tipoHab;
 		
 		
 		
-		JPanel general = new JPanel(new GridLayout(13,1));
+		JPanel general = new JPanel(new GridLayout(14,1));
 		setVisible(true);
 		
 		// COCINA
@@ -307,6 +322,38 @@ public class DialogOpcHabitacion extends JDialog implements ActionListener{
        
         
         general.add(cafetera);
+        
+        
+        //TV
+        
+        
+        JPanel tv = new JPanel(new BorderLayout());
+        tv.setBackground(Color.white);
+        JLabel titulotv = new JLabel("Tiene Television", SwingConstants.CENTER);
+        titulotv.setFont(new Font("Roboto", Font.BOLD, 15));
+        tv.add(titulotv, BorderLayout.NORTH);
+
+        JPanel radiobuttons14 = new JPanel(new FlowLayout());
+        radiobuttons14.setBackground(Color.white);
+        bgTV= new ButtonGroup();
+
+        tieneTV = new JRadioButton("Si");
+        notieneTV = new JRadioButton("No");
+        tieneTV.setBackground(Color.white);
+        notieneTV.setBackground(Color.white);
+
+        bgTV.add(tieneTV);
+        bgTV.add(notieneTV);
+        radiobuttons14.add(tieneTV);
+        radiobuttons14.add(notieneTV);
+        
+        tv.add(radiobuttons14,BorderLayout.SOUTH);
+        tv.setVisible(true);
+       
+        
+        general.add(tv);
+        
+        
         //PLANCHA
         
         JPanel plancha = new JPanel(new BorderLayout());
@@ -479,6 +526,9 @@ public class DialogOpcHabitacion extends JDialog implements ActionListener{
         boolean tieneUSBAs = false;
         boolean tieneUSBCs = false;
         boolean tieneDesayunos = false;
+        boolean tieneTVs = false;
+        boolean tieneCafeteras = false;
+        
         
         
         
@@ -486,9 +536,15 @@ public class DialogOpcHabitacion extends JDialog implements ActionListener{
         if (tieneCocina.isSelected()) {
             tieneCocinas = true;
         }
+        if(tieneTV.isSelected()) {
+        	tieneTVs=true;
+        }
 
         if (tieneBalcon.isSelected()) {
             tieneBalcons = true;
+        }
+        if (tieneVista.isSelected()) {
+            tieneVistas = true;
         }
 
         if (tieneAire.isSelected()) {
@@ -515,9 +571,14 @@ public class DialogOpcHabitacion extends JDialog implements ActionListener{
         if (tieneDesayuno.isSelected()) {
             tieneDesayunos = true;
         }
+        if (tieneCafetera.isSelected()) {
+            tieneCafeteras = true;
+        }
         
         
-        admin.crearHabitacion(getTitle(), getWarningString(), getName());
+        admin.crearHabitacion(identificador, ubicacion, descuento, tipoHabitacion, indicesCamas, 
+        		tieneCocinas, tieneBalcons, tieneVistas,tieneAires,tieneCalefaccions,
+        		tieneRopadecamas,tieneSecador,tienePlanchas,tieneUSBAs,tieneUSBCs,tieneDesayunos,tieneTVs,tieneCafeteras);
         
         
         
