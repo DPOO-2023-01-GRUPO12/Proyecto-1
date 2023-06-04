@@ -60,14 +60,55 @@ public class PMS {
         fechas  = crearMapaFechas();
         productosPorCantidad = new HashMap<String,Integer>();
         productosPorPrecio = new HashMap<String,Double>();
-        valorFacturasEnTiempo = new HashMap<String,Integer>();
+        valorFacturasEnTiempo = crearMapaporMes();
         relacionConsumosyCosto = new ArrayList<Integer>();
         cantidadReservasPorMes = crearMapaporMes();
         habitacionesOcupadasPorMes = crearMapaporMes();
 
 
-
-
+        // pruebas de las graficas 
+        productosPorCantidad.putIfAbsent("Canopy", 1);
+        productosPorCantidad.putIfAbsent("Piscina", 6);
+        productosPorCantidad.putIfAbsent("Restaurante", 2);
+        productosPorCantidad.putIfAbsent("Spa", 4);
+        
+        
+        
+        // productos por precio
+        productosPorPrecio.putIfAbsent("Canopy",  152000.0);
+        productosPorPrecio.putIfAbsent("Piscina",  12000.0);
+        productosPorPrecio.putIfAbsent("Spa",  52000.0);
+        productosPorPrecio.putIfAbsent("Caminata",  200000.0);
+        productosPorPrecio.putIfAbsent("Restaurante",  40000.0);
+        
+        
+        // facturas sobre el tiempo
+        valorFacturasEnTiempo.put("Enero", 110000);
+        valorFacturasEnTiempo.put("Febrero", 50000);
+        valorFacturasEnTiempo.put("Marzo", 80000);
+        valorFacturasEnTiempo.put("Junio", 200000);
+        valorFacturasEnTiempo.put("Septiembre", 130000);
+        valorFacturasEnTiempo.put("Noviembre", 123000);
+        valorFacturasEnTiempo.put("Diciembre", 150000);
+        
+        
+        
+        // relacion consumo y costo
+        
+        relacionConsumosyCosto.add(0, 50000);
+        relacionConsumosyCosto.add(1, 100000);
+        
+        // reservas por mes
+        
+        
+        cantidadReservasPorMes.put("Enero", 25);
+        cantidadReservasPorMes.put("Febrero", 30);
+        cantidadReservasPorMes.put("Marzo", 82);
+        cantidadReservasPorMes.put("Junio", 50);
+        cantidadReservasPorMes.put("Septiembre", 49);
+        cantidadReservasPorMes.put("Noviembre",10);
+        cantidadReservasPorMes.put("Diciembre", 20);
+        
     }
 
 
@@ -76,8 +117,22 @@ public class PMS {
 
     private HashMap<String,Integer> crearMapaporMes(){
         HashMap<String,Integer> mapa = new HashMap<String,Integer>();
+        String mes = "";
         for(int i=1; i<13;i++){
-            mapa.put(i+"",0);
+        	if(i==1) {mes = "Enero";}
+        	else if(i==2) {mes = "Febrero";}
+        	else if(i==3) {mes = "Marzo";}
+        	else if(i==4) {mes = "Abril";}
+        	else if(i==5) {mes = "Mayo";}
+        	else if(i==6) {mes = "Junio";}
+        	else if(i==7) {mes = "Julio";}
+        	else if(i==8) {mes = "Agosto";}
+        	else if(i==9) {mes = "Septiembre";}
+        	else if(i==10) {mes = "Octubre";}
+        	else if(i==11) {mes = "Noviembre";}
+        	else if(i==12) {mes = "Diciembre";}
+        	
+            mapa.put(mes,0);
         }
         return mapa;
     }
