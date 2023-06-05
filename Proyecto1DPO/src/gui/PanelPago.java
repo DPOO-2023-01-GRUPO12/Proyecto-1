@@ -120,7 +120,7 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	// Fields
 	
-	JPanel panelCampos = new JPanel(new GridLayout(10,1,0,5));
+	JPanel panelCampos = new JPanel(new GridLayout(11,1,0,5));
 	panelCampos.setOpaque(false);
 	
 	//nombre
@@ -345,6 +345,18 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	panelCampos.add(metodosPago);
 	
+	JPanel panelVisual = new JPanel(new GridLayout(1,2));
+	panelVisual.setOpaque(false);
+	
+	JLabel textoMonto = new JLabel("Total:");
+	textoMonto.setFont(new Font("Courier",Font.BOLD,25));
+	JLabel montoTotal = new JLabel(String.valueOf(12123));
+	montoTotal.setFont(new Font("Courier",Font.BOLD,25));
+	
+	panelVisual.add(textoMonto);
+	panelVisual.add(montoTotal);
+	panelCampos.add(panelVisual);
+	
 	
 	//Boton
 	
@@ -356,25 +368,6 @@ public class PanelPago extends JPanel implements ActionListener
 	btnPagar.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 	btnPagar.addActionListener(this);
 	panelDatos.add(btnPagar,BorderLayout.SOUTH);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	///////PANEL VISUAL
-	JPanel panelVisual = new JPanel(new BorderLayout());
-	JLabel textoMonto = new JLabel("Total:");
-	JLabel montoTotal = new JLabel(String.valueOf(total-(total*desc)));
-	
-	panelVisual.add(textoMonto,BorderLayout.NORTH);
-	panelVisual.add(montoTotal,BorderLayout.CENTER);
-	
-	
-	add(panelVisual,BorderLayout.EAST);
 	
 	
 	setVisible(true);
