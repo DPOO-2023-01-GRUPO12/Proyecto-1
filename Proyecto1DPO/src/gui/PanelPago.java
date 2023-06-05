@@ -12,7 +12,9 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
+import java.util.ArrayList;
+import payments.PaymentMethod;
+import payments.Pago;
 public class PanelPago extends JPanel implements ActionListener
 {
     private CampoNuevo campoNombre;
@@ -259,6 +261,7 @@ public class PanelPago extends JPanel implements ActionListener
 	String path2 = String.join(File.separator, paths2);
 	paypal = new JRadioButton();
 	paypal.setOpaque(false);
+	
 	ImageIcon palIcon = new ImageIcon(path2);
         ImageIcon palFinal = new ImageIcon(palIcon.getImage().getScaledInstance(90, 50, Image.SCALE_SMOOTH));
 	JLabel logoPaypal = new JLabel(palFinal);
@@ -273,6 +276,7 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	payu = new JRadioButton();
 	payu.setOpaque(false);
+
 	String[] paths3 = {".", "Icons", "payu.png" };
 	path2 = String.join(File.separator, paths3);
 	
@@ -292,6 +296,7 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	sire = new JRadioButton();
 	sire.setOpaque(false);
+	
 	sire.setText("Sire");
 	sire.setFont(new Font("Courier", Font.BOLD,17));
 	
@@ -329,7 +334,7 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	///////PANEL VISUAL
 	JPanel panelVisual = new JPanel();
-	panelVisual.setBackground(Color.red);
+
 	
 	
 	
@@ -369,7 +374,22 @@ public class PanelPago extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
 	if(e.getSource()==btnPagar) {
+	    String tipo = "";
+	    if(paypal.isSelected()) {
+		tipo = "payments.PayPal";
+	    } else if(payu.isSelected()) {
+		tipo = "payments.PayU";
+	    } else if(sire.isSelected()) {
+		tipo = "payments.Sire";
+	    }
+	    ArrayList<String> datos = new ArrayList<String>();
+	    datos.add(campoNombre.getText().strip());
+	    datos.add(campoId.getText().strip());
+	    datos.add(campoCuenta.getText().strip());
+	    datos.add(campoCard.getText().strip());
 	    
+	    
+	    Pago metodoDePago = new Pago(tipo,datos);
 	}
 	
     }

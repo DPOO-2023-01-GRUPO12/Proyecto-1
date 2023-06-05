@@ -1,11 +1,13 @@
 package payments;
 
+import java.util.ArrayList;
 
 public class Pago
 {
     private PaymentMethod metodoPago;
     
-    public Pago(String tipo, String[] datos) {
+    public Pago(String tipo, ArrayList<String> datos) {
+	
 	try{
 	    Class clase = Class.forName(tipo);
 	    metodoPago = (PaymentMethod) clase.getDeclaredConstructor(null).newInstance(datos); 
