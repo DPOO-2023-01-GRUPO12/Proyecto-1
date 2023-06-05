@@ -19,9 +19,11 @@ public class PanelCheck extends JPanel implements ActionListener {
     private Campo numeroDocRes;
     private NormalButton btn;
     private MenuRecepcionista menuRecep;
+    private FrameRecep frame;
 
-    public PanelCheck(MenuRecepcionista menuRecep) {
+    public PanelCheck(FrameRecep frameRecep, MenuRecepcionista menuRecep) {
         this.menuRecep = menuRecep;
+        frame = frameRecep;
 
         setLayout(new BorderLayout());
 
@@ -57,6 +59,8 @@ public class PanelCheck extends JPanel implements ActionListener {
             String factura = menuRecep.realizarCheckOut(numeroDocRes.getText());
 
             JOptionPane.showMessageDialog(null,factura);
+            frame.pagar(numeroDocRes.getText());
+            
         }
     }
 }

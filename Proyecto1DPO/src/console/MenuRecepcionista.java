@@ -296,31 +296,34 @@ public class MenuRecepcionista {
     }
 
     public String realizarCheckOut(String documentoHuesped) {
+	Reserva reserva = buscarReserva(documentoHuesped);
         String facturacheckOut ="No se encontro la reserva";
-        for (Map.Entry<String, Reserva> entry : pms.getReservas().entrySet()) {
+        reserva.setCheckin(false);
+        for (Habitacion hab : reserva.getHabitacionesReservadas()) {
+            Factura factHab = new Factura(hab);
+            factHab.generarTextoFactura();
+            reserva.agregarFacturaHabitacion(factHab);
+        }
+        facturacheckOut = reserva.mostrarFacturaCheckout();
+        pms.agregarReserva(reserva);
+        pms.agregarFacturaPorTiempo(reserva.getFechaIn().substring(2, 5),(int)reserva.getTarifaTotal());
+
+        return facturacheckOut;
+}
+    
+    public Reserva buscarReserva(String documentoHuesped) {
+	Reserva reserva = null;
+	for (Map.Entry<String, Reserva> entry : pms.getReservas().entrySet()) {
             Reserva res = entry.getValue();
             Huesped huesped = res.getHuespedEncargado();
             
 
             if (huesped.getDocumento().equals(documentoHuesped)) {
-                res.setCheckin(false);
-
-                for (Habitacion hab : res.getHabitacionesReservadas()) {
-                    Factura factHab = new Factura(hab);
-                    factHab.generarTextoFactura();
-                    res.agregarFacturaHabitacion(factHab);
-                }
-
-                facturacheckOut = res.mostrarFacturaCheckout();
-                pms.agregarReserva(res);
-                pms.agregarFacturaPorTiempo(res.getFechaIn().substring(2, 5),(int)res.getTarifaTotal());
-                
-
+        	return reserva;
             }
-        
-
-    }return facturacheckOut;
-}
+	}
+	return reserva;
+    }
 
     public void generarLogGrupo(String documentoHuesped) {
         for (Map.Entry<String, Reserva> entry : pms.getReservas().entrySet()) {

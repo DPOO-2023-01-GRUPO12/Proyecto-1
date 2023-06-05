@@ -5,7 +5,9 @@ import java.awt.*;
 import javax.swing.*;
 
 import console.MenuRecepcionista;
+import model.Huesped;
 import model.PMS;
+import model.Reserva;
 
 public class FrameRecep extends JFrame {
     private PanelInfo panelInfo;
@@ -88,7 +90,7 @@ public class FrameRecep extends JFrame {
     }
 
     public void hacerCheckout() {
-        panelCheck = new PanelCheck(menuRecep);
+        panelCheck = new PanelCheck(this,menuRecep);
         paneles.add(panelCheck, "Check");
         cardPane.show(paneles,"Check");
     }
@@ -124,7 +126,9 @@ public class FrameRecep extends JFrame {
 
     public void realizarReserva(String nombre, String cantidadPersonas, String fechain, String fechaout) {
         int cantidad = Integer.parseInt(cantidadPersonas);
-        menuRecep.RealizarReservaHuesped(nombre, cantidad, fechain, fechaout);
+        Reserva res = menuRecep.RealizarReservaHuesped(nombre, cantidad, fechain, fechaout);
+        
+        
 
     }
 
@@ -132,6 +136,25 @@ public class FrameRecep extends JFrame {
         Integer edadint = Integer.parseInt(edad);
         menuRecep.realizarRegistro(nombre, documento, celular, Correo, edadint);
 
+    }
+
+    public void pagoRealizado()
+    {
+	cerrar();
+	
+	
+    }
+
+    public void pagar(String documento)
+    {
+	Huesped huesped = sistema.getHuespedes().get(documento);
+	Reserva res = menuRecep.buscarReserva(documento);
+	JFrame framePago = new JFrame();
+        framePago.setVisible(true);
+        double montoHabitaciones = res.getTarifaTotal();
+        
+        PanelPago panelPagoReserva = new PanelPago(this,sistema,huesped,montoHabitaciones,0,res);
+	
     }
 
 }
