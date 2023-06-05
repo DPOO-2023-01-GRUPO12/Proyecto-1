@@ -56,7 +56,17 @@ public class Cargador {
 
                     String scamas = partes[6];
                     String tipoHabitacionString = partes[7];
-
+                    boolean aireAcondicionado = Boolean.parseBoolean(partes[8]);
+                    boolean calefacción = Boolean.parseBoolean(partes[9]);
+                    boolean TV = Boolean.parseBoolean(partes[10]);
+                    boolean cafetera = Boolean.parseBoolean(partes[11]);
+                    boolean ropaDeCama = Boolean.parseBoolean(partes[12]);
+                    boolean plancha = Boolean.parseBoolean(partes[13]);
+                    boolean secador = Boolean.parseBoolean(partes[14]);
+                    boolean USBA = Boolean.parseBoolean(partes[15]);
+                    boolean USBC = Boolean.parseBoolean(partes[16]);
+                    boolean desayuno = Boolean.parseBoolean(partes[17]);
+                    
                     ArrayList<Cama> camas = new ArrayList<>();
 
                     // Creador de camas (Si se selecciona que las camas van incluidas en el archivo)
@@ -87,6 +97,16 @@ public class Cargador {
                     elemHabitacion.setBalcon(balcon);
                     elemHabitacion.setVista(vista);
                     elemHabitacion.setCocina(cocina);
+                    elemHabitacion.setAireAcondicionado(aireAcondicionado);
+                    elemHabitacion.setCalefaccion(calefacción);
+                    elemHabitacion.setTV(TV);
+                    elemHabitacion.setCafetera(cafetera);
+                    elemHabitacion.setRopaDeCama(ropaDeCama);
+                    elemHabitacion.setPlancha(plancha);
+                    elemHabitacion.setSecador(secador);
+                    elemHabitacion.setUSBA(USBA);
+                    elemHabitacion.setUSBC(USBC);
+                    elemHabitacion.setDesayuno(desayuno);
                     elemHabitacion.calcularCapacidad();
 
                     pms.agregarHabitacion(elemHabitacion); // Actualiza la información (El metodo put actualiza o añade

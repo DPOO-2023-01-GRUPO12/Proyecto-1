@@ -164,7 +164,7 @@ class ProcesoReservaTest {
 		fail( "No debe ser posible realizar reservas si no hay habitaciones en el hotel.");
 		}
 
-		catch(exception e){
+		catch(Exception e){
 
 			assertTrue(true,"Se esperaba esta excepción ");
 
