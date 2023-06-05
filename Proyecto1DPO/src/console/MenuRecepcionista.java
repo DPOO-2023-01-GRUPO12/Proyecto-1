@@ -43,6 +43,14 @@ public class MenuRecepcionista {
     public Reserva RealizarReservaHuesped(String huespedDoc, int cantidad, String fechaIn, String fechaOut) {
         Huesped huesped = pms.getHuespedes().get(huespedDoc);
         Reserva reserva = new Reserva(huesped, cantidad, fechaIn, fechaOut);
+        try
+	{
+	    double montoHabitaciones = configurarTarifaTotal(fechaIn, fechaOut, cantidad, reserva);
+	} catch (ParseException e)
+	{
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
         pms.agregarReserva(reserva);
         pms.agregarFechas(reserva);
         pms.agregarReservasOcupadaPorMes(fechaIn.substring(3, 5));

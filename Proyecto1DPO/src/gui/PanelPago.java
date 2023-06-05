@@ -12,6 +12,11 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import model.Huesped;
+import model.PMS;
+import model.Reserva;
+
 import java.util.ArrayList;
 import payments.PaymentMethod;
 import payments.Pago;
@@ -28,9 +33,16 @@ public class PanelPago extends JPanel implements ActionListener
     private JRadioButton paypal;
     private JRadioButton payu;
     private JRadioButton sire;
+    private PMS pms;
+    private double total;
+    private Reserva res;
     
-    public PanelPago()
+    
+    public PanelPago(VentanaHuesped ventanaHuesped, PMS sistema, Huesped huesped, double totalPagar, double desc, Reserva reserva)
     {
+	this.pms = sistema;
+	total = totalPagar;
+	res = reserva;
 	setBackground(Color.white);
 	setLayout(new BorderLayout());
 	
@@ -333,10 +345,12 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	
 	///////PANEL VISUAL
-	JPanel panelVisual = new JPanel();
-
+	JPanel panelVisual = new JPanel(new BorderLayout());
+	JLabel textoMonto = new JLabel("Total:");
+	JLabel montoTotal = new JLabel(String.valueOf(12123));
 	
-	
+	panelVisual.add(textoMonto,BorderLayout.NORTH);
+	panelVisual.add(montoTotal,BorderLayout.CENTER);
 	
 	
 	add(panelVisual,BorderLayout.EAST);
@@ -353,28 +367,13 @@ public class PanelPago extends JPanel implements ActionListener
         cardIconLabel.setIcon(cardIcon);
     }*/
     
-    public static void main(String[] args)
-    {
-	JFrame frame = new JFrame();
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setLocationRelativeTo(null);
-
-	int newWidth = (int) (1500 * 0.7);
-        int newHeight = (int) (1500 * 0.7);
-        
-        frame.setSize(newWidth, newHeight);
-        
-        frame.add(new PanelPago());
-        
-        frame.setResizable(false);
-        frame.setVisible(true);
-    }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
 	if(e.getSource()==btnPagar) {
 	    String tipo = "";
+	    
 	    if(paypal.isSelected()) {
 		tipo = "payments.PayPal";
 	    } else if(payu.isSelected()) {
@@ -387,9 +386,11 @@ public class PanelPago extends JPanel implements ActionListener
 	    datos.add(campoId.getText().strip());
 	    datos.add(campoCuenta.getText().strip());
 	    datos.add(campoCard.getText().strip());
-	    
+	    datos.add(String.valueOf(total));
 	    
 	    Pago metodoDePago = new Pago(tipo,datos);
+	    res.actualizarTarifa(total);
+	    
 	}
 	
     }

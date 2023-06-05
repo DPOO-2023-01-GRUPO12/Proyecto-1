@@ -21,19 +21,23 @@ import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import console.MenuRecepcionista;
 import model.Habitacion;
 import model.Huesped;
 import model.PMS;
@@ -49,9 +53,12 @@ public class VentanaHuesped extends JFrame implements ActionListener
     private CardLayout cl;
     private PMS sistema;
     private JPanel todos;
+    private MenuRecepcionista menuRecep;
+    
     public VentanaHuesped(FrameHuesLogin frame, String username,PMS pms)
     {
 	sistema = pms;
+	menuRecep = new MenuRecepcionista(pms.getCargador(), pms);
 	this.frame= frame;
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	int newWidth = (int) (1500 * 0.7);
@@ -129,13 +136,31 @@ public class VentanaHuesped extends JFrame implements ActionListener
     public void realizarReserva(String nombre, String cantidadPersonas, String fechain, String fechaout)
     {
 	int cantidad = Integer.parseInt(cantidadPersonas);
+
 	Huesped huesped = sistema.getHuespedes().get(nombre);
         Reserva reserva = new Reserva(huesped, cantidad, fechain, fechaout);
+        double montoHabitaciones =0;
+        try
+	{
+	    montoHabitaciones = menuRecep.configurarTarifaTotal(fechain, fechaout, cantidad, reserva);
+	} catch (ParseException e)
+	{
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
         sistema.agregarReserva(reserva);
         sistema.agregarFechas(reserva);
-        PanelPagoReserva panelPagoReserva = new PanelPagoReserva(this,sistema,huesped,reserva);
-        todos.add(panelPagoReserva,"pago");
-	cl.show(todos,"pago");
+        int a = JOptionPane.showConfirmDialog(this,"¿Desea pagar de inmediato?");
+        if(a==JOptionPane.YES_OPTION){  
+            PanelPago panelPagoReserva = new PanelPago(this,sistema,huesped,montoHabitaciones,0.9,reserva);
+            todos.add(panelPagoReserva,"pago");
+            cl.show(todos,"pago");
+        }else {
+            setVisible(false);
+            frame.setVisible(true);
+        }
+        
+        
        
 	
     }

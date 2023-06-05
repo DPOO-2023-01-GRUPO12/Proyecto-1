@@ -54,6 +54,9 @@ public class Reserva {
         this.cancelada = cancelada;
 
     }
+    public void actualizarTarifa(double montoMenos) {
+	tarifaTotal-= montoMenos;
+    }
 
     public boolean isCheckin() {
         return checkin;

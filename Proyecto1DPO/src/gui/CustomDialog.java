@@ -39,6 +39,28 @@ public class CustomDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
     
+
+    public CustomDialog(VentanaHuesped ventanaHuesped, String message)
+    {
+	JPanel contentPane = new JPanel(new GridBagLayout());
+        contentPane.setBackground(Color.WHITE);
+        contentPane.setPreferredSize(new Dimension(300, 100));
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(5, 5, 5, 5);
+
+        messageLabel = new JLabel(message);
+        messageLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        messageLabel.setForeground(Color.BLACK);
+        c.gridx = 0;
+        c.gridy = 0;
+        contentPane.add(messageLabel, c);
+
+        setContentPane(contentPane);
+        pack();
+        setLocationRelativeTo(ventanaHuesped);
+    }
+
+
     public void setMessage(String message) {
         messageLabel.setText(message);
     }
