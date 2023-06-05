@@ -54,8 +54,12 @@ public class PanelConsulta extends JPanel implements ActionListener {
         JScrollPane scroll = new JScrollPane(listaHabs);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        
+      
 
         panelCentral.add(scroll, BorderLayout.CENTER);
+        
+        panelCentral.setVisible(true);
 
         add(panelCentral, BorderLayout.CENTER);
 

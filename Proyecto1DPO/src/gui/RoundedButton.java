@@ -1,39 +1,45 @@
 package gui;
 
-import java.awt.AlphaComposite;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.*;
 
 public class RoundedButton extends JButton{
+    private static final Color BACKGROUND_COLOR = new Color(37,150,190);
+    private static final int ARC_WIDTH = 20;
+    private static final int ARC_HEIGHT = 20;
+    
     public RoundedButton(String label) {
         super(label);
         setOpaque(false);
+        setFont(new Font("Roboto", Font.BOLD, 14));
+        setUI(new RoundedButtonUI());
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setBackground(new Color(1,60,162));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                setBackground(new Color(2,94,254));
+            }
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
 
-        // Set alpha value for transparency
-        AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
-        g2d.setComposite(alpha);
+        // Enable antialiasing for smoother edges
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Draw rounded rectangle with gradient background
-        int arcWidth = 20;
-        int arcHeight = 20;
-        int shadowWidth = 2;
-        int shadowHeight = 2;
-        int x = shadowWidth / 2;
-        int y = shadowHeight / 2;
-        int width = getWidth() - shadowWidth;
-        int height = getHeight() - shadowHeight;
-
-        GradientPaint gradientPaint = new GradientPaint(0, 0, new Color(190, 190, 190), 
-                                                         getWidth(), getHeight(), new Color(204, 153, 255));
-        g2d.setPaint(gradientPaint);
-
-        g2d.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+        // Draw rounded rectangle with background color
+        g2d.setColor(getBackground());
+        g2d.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), ARC_WIDTH, ARC_HEIGHT));
 
         g2d.dispose();
 

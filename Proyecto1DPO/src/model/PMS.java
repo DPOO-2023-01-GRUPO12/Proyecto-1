@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.DoubleAdder;
 
 import persistencia.Cargador;
 import persistencia.GuardadorInformacion;
@@ -26,9 +27,27 @@ public class PMS {
     private Map<String, Consumo> consumos;
     private Map<String, Integer> fechas;
 
+
+
+    // GRAFICAS
+    private Map<String, Integer> productosPorCantidad;
+    private Map<String, Double> productosPorPrecio;
+    private Map<String, Integer>valorFacturasEnTiempo;
+    private ArrayList<Integer> relacionConsumosyCosto;
+
+    private Map<String, Integer> cantidadReservasPorMes;
+    private Map<String, Integer> habitacionesOcupadasPorMes;
+    
+    
+    // HOTEL
+    
+    private final Hotel hotel;
+
+
     public PMS() {
 
-        habitaciones = new HashMap<String, Habitacion>();
+        this.hotel = new Hotel();
+		habitaciones = new HashMap<String, Habitacion>();
         tipoHabitaciones = new HashMap<String, TipoHabitacion>();
         camas = new ArrayList<Cama>();
         tarifasCuarto = new ArrayList<TarifaCuarto>();
@@ -45,7 +64,83 @@ public class PMS {
         cargador = new Cargador(this);
         guardador = new GuardadorInformacion(this);
         fechas  = crearMapaFechas();
+        productosPorCantidad = new HashMap<String,Integer>();
+        productosPorPrecio = new HashMap<String,Double>();
+        valorFacturasEnTiempo = crearMapaporMes();
+        relacionConsumosyCosto = new ArrayList<Integer>();
+        cantidadReservasPorMes = crearMapaporMes();
+        habitacionesOcupadasPorMes = crearMapaporMes();
 
+
+        // pruebas de las graficas 
+        productosPorCantidad.putIfAbsent("Canopy", 1);
+        productosPorCantidad.putIfAbsent("Piscina", 6);
+        productosPorCantidad.putIfAbsent("Restaurante", 2);
+        productosPorCantidad.putIfAbsent("Spa", 4);
+        
+        
+        
+        // productos por precio
+        productosPorPrecio.putIfAbsent("Canopy",  152000.0);
+        productosPorPrecio.putIfAbsent("Piscina",  12000.0);
+        productosPorPrecio.putIfAbsent("Spa",  52000.0);
+        productosPorPrecio.putIfAbsent("Caminata",  200000.0);
+        productosPorPrecio.putIfAbsent("Restaurante",  40000.0);
+        
+        
+        // facturas sobre el tiempo
+        valorFacturasEnTiempo.put("Enero", 110000);
+        valorFacturasEnTiempo.put("Febrero", 50000);
+        valorFacturasEnTiempo.put("Marzo", 80000);
+        valorFacturasEnTiempo.put("Junio", 200000);
+        valorFacturasEnTiempo.put("Septiembre", 130000);
+        valorFacturasEnTiempo.put("Noviembre", 123000);
+        valorFacturasEnTiempo.put("Diciembre", 150000);
+        
+        
+        
+        // relacion consumo y costo
+        
+        relacionConsumosyCosto.add(0, 50000);
+        relacionConsumosyCosto.add(1, 100000);
+        
+        // reservas por mes
+        
+        
+        cantidadReservasPorMes.put("Enero", 25);
+        cantidadReservasPorMes.put("Febrero", 30);
+        cantidadReservasPorMes.put("Marzo", 82);
+        cantidadReservasPorMes.put("Junio", 50);
+        cantidadReservasPorMes.put("Septiembre", 49);
+        cantidadReservasPorMes.put("Noviembre",10);
+        cantidadReservasPorMes.put("Diciembre", 20);
+        
+    }
+
+
+
+
+
+    private HashMap<String,Integer> crearMapaporMes(){
+        HashMap<String,Integer> mapa = new HashMap<String,Integer>();
+        String mes = "";
+        for(int i=1; i<13;i++){
+        	if(i==1) {mes = "Enero";}
+        	else if(i==2) {mes = "Febrero";}
+        	else if(i==3) {mes = "Marzo";}
+        	else if(i==4) {mes = "Abril";}
+        	else if(i==5) {mes = "Mayo";}
+        	else if(i==6) {mes = "Junio";}
+        	else if(i==7) {mes = "Julio";}
+        	else if(i==8) {mes = "Agosto";}
+        	else if(i==9) {mes = "Septiembre";}
+        	else if(i==10) {mes = "Octubre";}
+        	else if(i==11) {mes = "Noviembre";}
+        	else if(i==12) {mes = "Diciembre";}
+        	
+            mapa.put(mes,0);
+        }
+        return mapa;
     }
 
 
@@ -128,6 +223,89 @@ public class PMS {
     public Map<String, Consumo> getConsumos() {
         return consumos;
     }
+
+
+    public Map<String,Integer> getProductosporCantidad(){
+        return productosPorCantidad;
+    }
+
+    public Map<String,Double> getProductosporPrecio(){
+        return productosPorPrecio;
+    }
+
+
+    public Map<String,Integer>getValorFacturaPorTiempo(){
+        return valorFacturasEnTiempo;
+    }
+
+    public ArrayList<Integer> getRelacionConsumosyCostos(){
+        return relacionConsumosyCosto;
+    }
+
+    public Map<String,Integer> getHabitacionesPorMes(){
+        return habitacionesOcupadasPorMes;
+    }
+
+    public Map<String,Integer> getReservasPorMes(){
+        return cantidadReservasPorMes;
+    }
+
+
+
+
+
+
+
+
+    public void agregarFacturaPorTiempo(String mes,Integer valor){
+        
+        if(getValorFacturaPorTiempo().containsKey(mes)){
+            Integer numero = getValorFacturaPorTiempo().get(mes);
+            getValorFacturaPorTiempo().put(mes,(( valor+numero)/2));
+        }
+        else{
+            getValorFacturaPorTiempo().put(mes,valor);
+        }
+       
+     }
+
+     public void agregarHabitacionOcupadaPorMes(String mes){
+        Integer valorAnterior= getHabitacionesPorMes().get(mes);
+        getHabitacionesPorMes().put(mes, valorAnterior+1);
+     }
+
+     public void agregarReservasOcupadaPorMes(String mes){
+        Integer valorAnterior= getReservasPorMes().get(mes);
+        getReservasPorMes().put(mes, valorAnterior+1);
+     }
+
+     public void agregarRelacionConsumoyCosto(Integer valorConsumo,Integer valorNoche){
+        ArrayList<Integer> lista = getRelacionConsumosyCostos();
+        if(lista.size()==0){
+            lista.add(valorNoche);
+            lista.add(valorConsumo);
+        }
+        else{
+            lista.add(0,valorNoche + lista.get(0));
+            lista.add(1,valorConsumo + lista.get(1));
+            
+        }
+     }
+
+    
+    public void agregarProductosPorCantidad(String nombre){
+       Integer valorAnterior= getProductosporCantidad().get(nombre);
+       getProductosporCantidad().put(nombre, valorAnterior+1);
+    }
+
+
+    public void agregarProductosPorPrecio(String nombre, Double precio){
+        Double valorAnterior = getProductosporPrecio().get(nombre);
+        getProductosporPrecio().put(nombre,(precio + valorAnterior));
+    }
+
+
+
 
     public void agregarHabitacion(Habitacion habitacion) {
         getInventarioHabitaciones().put(habitacion.getIdentificador(), habitacion);

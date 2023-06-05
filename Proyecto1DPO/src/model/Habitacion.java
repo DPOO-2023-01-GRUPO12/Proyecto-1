@@ -10,6 +10,18 @@ public class Habitacion {
     private boolean balcon;
     private boolean vista;
     private boolean cocina;
+
+    private boolean aireAcondicionado;
+    private boolean calefaccion;
+    private boolean TV;
+    private boolean cafetera;
+    private boolean ropaDeCama;
+    private boolean plancha;
+    private boolean secador;
+    private boolean USBA;
+    private boolean USBC;
+    private boolean desayuno;
+    
     private String descripcion;
     private ArrayList<Cama> camas;
     private ArrayList<Reserva> reservas;
@@ -173,7 +185,95 @@ public class Habitacion {
 
 
 
-    @Override
+    public boolean isAireAcondicionado() {
+		return aireAcondicionado;
+	}
+
+	public void setAireAcondicionado(boolean aireAcondicionado) {
+		this.aireAcondicionado = aireAcondicionado;
+	}
+
+	public boolean isCalefaccion() {
+		return calefaccion;
+	}
+
+	public void setCalefaccion(boolean calefaccion) {
+		this.calefaccion = calefaccion;
+	}
+
+	public boolean isTV() {
+		return TV;
+	}
+
+	public void setTV(boolean tV) {
+		TV = tV;
+	}
+
+	public boolean isCafetera() {
+		return cafetera;
+	}
+
+	public void setCafetera(boolean cafetera) {
+		this.cafetera = cafetera;
+	}
+
+	public boolean isRopaDeCama() {
+		return ropaDeCama;
+	}
+
+	public void setRopaDeCama(boolean ropaDeCama) {
+		this.ropaDeCama = ropaDeCama;
+	}
+
+	public boolean isPlancha() {
+		return plancha;
+	}
+
+	public void setPlancha(boolean plancha) {
+		this.plancha = plancha;
+	}
+
+	public boolean isSecador() {
+		return secador;
+	}
+
+	public void setSecador(boolean secador) {
+		this.secador = secador;
+	}
+
+	public boolean isUSBA() {
+		return USBA;
+	}
+
+	public void setUSBA(boolean uSBA) {
+		USBA = uSBA;
+	}
+
+	public boolean isUSBC() {
+		return USBC;
+	}
+
+	public void setUSBC(boolean uSBC) {
+		USBC = uSBC;
+	}
+
+	public boolean isDesayuno() {
+		return desayuno;
+	}
+
+	public void setDesayuno(boolean desayuno) {
+		this.desayuno = desayuno;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	@Override
     public String toString(){
         return "ID: " + this.getIdentificador()  + ", Ubicacion: "  + this.getUbicacion()  + ", Capacidad: "  + String.valueOf(this.getCapacidad())  + ", Balcon:"  + String.valueOf(this.hasBalcon()) + ", Vista: " + String.valueOf(this.hasVista()) + ", Cocina: " + String.valueOf(this.hasCocina()) + ", Descripcion: " + this.getDescripcion() + ", Camas: " + this.getCamas().toString() + ", Reservas: " + this.getReservas().toString() + ", Tipo habitacion: " + this.getTipoHabitacion().toString() + ", Consumos pagos: " + this.getConsumosPagos().toString() + ", Consumos no pagos: " + this.getConsumosNoPagos().toString() + ", Huespedes Alojados: " + this.getHuespedesAlojados().toString();
 

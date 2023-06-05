@@ -65,7 +65,10 @@ public class MenuEmpleado {
             
         }
         pms.agregarConsumo(cons);
-
+        pms.agregarProductosPorCantidad(nombreConsumo);
+        pms.agregarProductosPorPrecio(nombreConsumo,valor);
+        
+        
     }
     
     private void registrarPago(Consumo cons){
