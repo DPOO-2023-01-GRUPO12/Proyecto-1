@@ -1,5 +1,5 @@
 tipoCuarto;rangoFechas;diasSemana;valor
-estandar;20/04/2023-15/05/2023;lunes,martes,miercoles,viernes;100000
+estandar;20/04/2023-15/05/2023;lunes,martes,miercoles,jueves,viernes,sabado,domingo;100000
 suite;01/01/2023-15/01/2023;viernes,sabado,domingo;550000
 ejecutiva;14/02/2023-01/03/2023;lunes,martes,jueves,sabado,domingo;400000
 suite;01/07/2023-01/07/2023;lunes;315000

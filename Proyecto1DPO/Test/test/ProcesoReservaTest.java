@@ -65,7 +65,7 @@ class ProcesoReservaTest {
 	}
 	
 	@Test
-	void RealizarRegistroHuesped () {
+	void RealizarRegistroHuespedTest() {
 		
 		setUpEscenarioHotel();
 		
@@ -79,7 +79,7 @@ class ProcesoReservaTest {
 	}
 	
 	@Test
-	void RealizarRegistroVacioHuesped () {
+	void RealizarRegistroVacioHuespedTest() {
 		
 		try
         {
@@ -99,7 +99,7 @@ class ProcesoReservaTest {
 	}
 	
 	@Test
-	void RealizarReservaHuesped () {
+	void RealizarReservaHuespedTest() {
 		
 		setUpEscenarioHotel();
 		
@@ -115,7 +115,7 @@ class ProcesoReservaTest {
 	}
 	
 	@Test
-	void RealizarReservaHuespedVacia() {
+	void RealizarReservaHuespedVaciaTest() {
 		
 		try
         {
@@ -139,6 +139,37 @@ class ProcesoReservaTest {
 		
 	
 	
+	}
+
+	@Test
+	void RealizarTarifaTotalHuespedTest() {
+
+		setUpEscenarioHotel();
+		
+		Huesped huespedTest = MR.realizarRegistro("Alice", "101010", "3223309259", "Alicelice@gmail.com", 19);
+		Reserva reservaTest = MR.RealizarReservaHuesped("101010", 1, "20/04/2023", "15/05/2023");
+		Double valorTarifaTotal = MR.configurarTarifaTotal("20/04/2023", "22/04/2023",1, reservaTest);
+		assertTrue(valorTarifaTotal >= 200000,"Debido a los días de estadía y la tarifa aplicada, la reserva debería por lo menos costar 200000")
+
+	}
+
+	@Test
+	void RealizarTarifaTotalHuespedTestVacio() {
+		try{
+		setUpEscenarioHotelVacio();
+		
+		Huesped huespedTest = MR.realizarRegistro("Alice", "101010", "3223309259", "Alicelice@gmail.com", 19);
+		Reserva reservaTest = MR.RealizarReservaHuesped("101010", 1, "20/04/2023", "15/05/2023");
+		Double valorTarifaTotal = MR.configurarTarifaTotal("20/04/2023", "22/04/2023",1, reservaTest);
+		fail( "No debe ser posible realizar reservas si no hay habitaciones en el hotel.");
+		}
+
+		catch(exception e){
+
+			assertTrue(true,"Se esperaba esta excepción ");
+
+
+		}
 	}
 
 
