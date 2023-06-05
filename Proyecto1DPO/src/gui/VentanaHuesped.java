@@ -152,7 +152,7 @@ public class VentanaHuesped extends JFrame implements ActionListener
         sistema.agregarFechas(reserva);
         int a = JOptionPane.showConfirmDialog(this,"¿Desea pagar de inmediato?");
         if(a==JOptionPane.YES_OPTION){  
-            PanelPago panelPagoReserva = new PanelPago(this,sistema,huesped,montoHabitaciones,0.9,reserva);
+            PanelPago panelPagoReserva = new PanelPago(this,sistema,huesped,montoHabitaciones,0.1,reserva);
             todos.add(panelPagoReserva,"pago");
             cl.show(todos,"pago");
         }else {
@@ -170,6 +170,13 @@ public class VentanaHuesped extends JFrame implements ActionListener
         Integer edadint = Integer.parseInt(edad);
         Huesped huesped = new Huesped(nombre, documento, celular, Correo, edadint);
         sistema.agregarHuesped(huesped);
+	
+    }
+
+    public void pagoRealizado()
+    {
+	setVisible(false);
+        frame.setVisible(true);
 	
     }
 

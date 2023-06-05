@@ -22,6 +22,8 @@ import payments.PaymentMethod;
 import payments.Pago;
 public class PanelPago extends JPanel implements ActionListener
 {
+    private VentanaHuesped ventana = null;
+    private FrameRecep ventana2 = null;
     private CampoNuevo campoNombre;
     private CampoNuevo campoId;
     private CampoNuevo campoCard;
@@ -35,14 +37,33 @@ public class PanelPago extends JPanel implements ActionListener
     private JRadioButton sire;
     private PMS pms;
     private double total;
+    private double desc;
     private Reserva res;
     
     
     public PanelPago(VentanaHuesped ventanaHuesped, PMS sistema, Huesped huesped, double totalPagar, double desc, Reserva reserva)
     {
+	ventana = ventanaHuesped;
 	this.pms = sistema;
 	total = totalPagar;
 	res = reserva;
+	this.desc = desc;
+	pagoLogica();
+    }
+    
+    public PanelPago(FrameRecep ventana, PMS sistema, Huesped huesped, double totalPagar, double desc, Reserva reserva)
+    {
+	ventana2 = ventana;
+	this.pms = sistema;
+	total = totalPagar;
+	res = reserva;
+	this.desc = desc;
+	pagoLogica();
+	
+    }
+    
+    
+    public void pagoLogica() {
 	setBackground(Color.white);
 	setLayout(new BorderLayout());
 	
@@ -347,7 +368,7 @@ public class PanelPago extends JPanel implements ActionListener
 	///////PANEL VISUAL
 	JPanel panelVisual = new JPanel(new BorderLayout());
 	JLabel textoMonto = new JLabel("Total:");
-	JLabel montoTotal = new JLabel(String.valueOf(12123));
+	JLabel montoTotal = new JLabel(String.valueOf(total-(total*desc)));
 	
 	panelVisual.add(textoMonto,BorderLayout.NORTH);
 	panelVisual.add(montoTotal,BorderLayout.CENTER);
@@ -358,14 +379,6 @@ public class PanelPago extends JPanel implements ActionListener
 	
 	setVisible(true);
     }
-    
-    /*
-    public void updateCardIcon(String cardType) {
-        String[] paths = {".", "Icons", cardType.toLowerCase() + ".png"};
-        String path = String.join(File.separator, paths);
-        ImageIcon cardIcon = new ImageIcon(path);
-        cardIconLabel.setIcon(cardIcon);
-    }*/
     
 
     @Override
@@ -390,6 +403,13 @@ public class PanelPago extends JPanel implements ActionListener
 	    
 	    Pago metodoDePago = new Pago(tipo,datos);
 	    res.actualizarTarifa(total);
+	    if(ventana!=null) {
+		ventana.pagoRealizado();
+	    }
+	    else if(ventana2!=null) {
+		ventana2.pagoRealizado();
+	    }
+	    
 	    
 	}
 	
