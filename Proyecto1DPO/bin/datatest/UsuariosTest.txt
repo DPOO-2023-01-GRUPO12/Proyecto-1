@@ -1,0 +1,13 @@
+Usuario;Password
+admin1;1234
+recepcionista1;1234
+empleado1;1234
+admin2;qwerty
+recepcionista2;qwerty
+empleado2;qwerty
+admin3;adminpass
+recepcionista3;recep123
+empleado3;empl456
+admin4;password123
+recepcionista4;pass123
+empleado4;pass123

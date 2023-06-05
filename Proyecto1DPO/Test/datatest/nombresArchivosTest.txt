@@ -1,0 +1,2 @@
+path tarifas;path tipos;path habitacion;path servicios;path camas;path bebidas;path platos;
+tarifasTest.txt;tipoHabitacionTest.txt;habitacionesTest.txt;servicioTest.txt;camasTest.txt;bebidasTest.txt;menuTest.txt

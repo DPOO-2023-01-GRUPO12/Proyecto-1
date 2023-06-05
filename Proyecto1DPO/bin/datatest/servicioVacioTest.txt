@@ -1,0 +1,1 @@
+nombre;ubicacion;disponibilidad;tipocobro;serviciocuarto;precio

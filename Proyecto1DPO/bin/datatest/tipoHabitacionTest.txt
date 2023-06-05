@@ -1,0 +1,5 @@
+nombre,relleno
+suite;1
+estandar;2
+ejecutiva;3
+economica;4
