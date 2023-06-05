@@ -1,13 +1,19 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 import java.io.File;
+import java.util.concurrent.Flow;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
-public class PanelPago extends JPanel
+public class PanelPago extends JPanel implements ActionListener
 {
     private CampoNuevo campoNombre;
     private CampoNuevo campoId;
@@ -17,6 +23,9 @@ public class PanelPago extends JPanel
     private CampoNuevo campoYear;
     private CampoNuevo campoCuenta;
     private RoundedButton btnPagar;
+    private JRadioButton paypal;
+    private JRadioButton payu;
+    private JRadioButton sire;
     
     public PanelPago()
     {
@@ -24,9 +33,9 @@ public class PanelPago extends JPanel
 	setLayout(new BorderLayout());
 	
 	////PANEL DATOS
-	JPanel panelDatos = new JPanel(new BorderLayout(0,15));
+	JPanel panelDatos = new JPanel(new BorderLayout(0,10));
 	panelDatos.setOpaque(false);
-	int gap = 50; // Adjust the gap size as desired
+	int gap = 45; // Adjust the gap size as desired
         panelDatos.setBorder(new EmptyBorder(gap, gap, gap, gap));
 	
 	//titulo
@@ -37,7 +46,6 @@ public class PanelPago extends JPanel
 	
 	
 	String[] paths = {".", "Icons", "paylogo.png" };
-	
         String path = String.join(File.separator, paths);
         
 	ImageIcon imageIcon = new ImageIcon(path);
@@ -77,7 +85,7 @@ public class PanelPago extends JPanel
 	
 	// Fields
 	
-	JPanel panelCampos = new JPanel(new GridLayout(8,1,0,15));
+	JPanel panelCampos = new JPanel(new GridLayout(10,1,0,5));
 	panelCampos.setOpaque(false);
 	
 	//nombre
@@ -182,7 +190,7 @@ public class PanelPago extends JPanel
 		campoMonth = new CampoNuevo(10, "");
 		camposDate.add(campoMonth);
 		JLabel sep = new JLabel("/",SwingConstants.CENTER);
-		sep.setFont(new Font("Roboto", Font.BOLD, 17));
+		sep.setFont(new Font("Roboto", Font.BOLD, 40));
 		camposDate.add(sep);
 		campoYear = new CampoNuevo(10,"");
 		camposDate.add(campoYear);
@@ -210,6 +218,96 @@ public class PanelPago extends JPanel
 		panelCampos.add(campoCuenta);	
 	
 	panelDatos.add(panelCampos);
+	
+	
+	//Metodos pago
+	JLabel metodoLabel = new JLabel("PAYMENT METHODS");
+	metodoLabel.setFont(new Font("Courier", Font.BOLD, 17));
+	panelCampos.add(metodoLabel);
+	
+	
+	//tipos
+	
+	JPanel metodosPago = new JPanel(new GridLayout(1,3)) {
+	    @Override
+	    protected void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        Graphics2D g2d = (Graphics2D) g.create();
+	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+	        int x = 0;
+	        int y = 0;
+	        int width = getWidth() - 1;
+	        int height = getHeight() - 1;
+	        int arcRadius = 20;
+
+	        Shape borderShape = new RoundRectangle2D.Double(x, y, width, height, arcRadius, arcRadius);
+	        g2d.setStroke(new BasicStroke(1));
+	        g2d.setColor(Color.lightGray);
+	        g2d.draw(borderShape);
+
+	        g2d.dispose();
+	    }
+	};
+	metodosPago.setBackground(Color.white);
+	metodosPago.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+	
+	
+	///poner tipos
+	String[] paths2 = {".", "Icons", "PayPalLogo.png" };
+	String path2 = String.join(File.separator, paths2);
+	paypal = new JRadioButton();
+	paypal.setOpaque(false);
+	ImageIcon palIcon = new ImageIcon(path2);
+        ImageIcon palFinal = new ImageIcon(palIcon.getImage().getScaledInstance(90, 50, Image.SCALE_SMOOTH));
+	JLabel logoPaypal = new JLabel(palFinal);
+	JPanel panelPayPal = new JPanel(new FlowLayout());
+	panelPayPal.setOpaque(false);
+	panelPayPal.add(paypal);
+	panelPayPal.add(logoPaypal);
+	
+	metodosPago.add(panelPayPal);
+	
+	
+	
+	payu = new JRadioButton();
+	payu.setOpaque(false);
+	String[] paths3 = {".", "Icons", "payu.png" };
+	path2 = String.join(File.separator, paths3);
+	
+	ImageIcon payuIcon = new ImageIcon(path2);
+        ImageIcon payuFinal = new ImageIcon(payuIcon.getImage().getScaledInstance(90, 50, Image.SCALE_SMOOTH));
+	JLabel logoPayu = new JLabel(payuFinal);
+
+	
+	JPanel panelPayu = new JPanel(new FlowLayout());
+	panelPayu.setOpaque(false);
+	panelPayu.add(payu);
+	panelPayu.add(logoPayu);
+	
+	metodosPago.add(panelPayu);
+	
+	
+	
+	sire = new JRadioButton();
+	sire.setOpaque(false);
+	sire.setText("Sire");
+	sire.setFont(new Font("Courier", Font.BOLD,17));
+	
+	metodosPago.add(sire);
+	
+	
+	ButtonGroup g = new ButtonGroup();
+	g.add(paypal);
+	g.add(payu);
+	g.add(sire);
+	
+	
+	
+	panelCampos.add(metodosPago);
+	
+	
 	//Boton
 	
 	btnPagar = new RoundedButton("Pay Now");
@@ -218,6 +316,7 @@ public class PanelPago extends JPanel
 	btnPagar.setBackground(new Color(2,94,254));
 	btnPagar.setFocusPainted(false);
 	btnPagar.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+	btnPagar.addActionListener(this);
 	panelDatos.add(btnPagar,BorderLayout.SOUTH);
 	
 	
@@ -241,6 +340,14 @@ public class PanelPago extends JPanel
 	setVisible(true);
     }
     
+    /*
+    public void updateCardIcon(String cardType) {
+        String[] paths = {".", "Icons", cardType.toLowerCase() + ".png"};
+        String path = String.join(File.separator, paths);
+        ImageIcon cardIcon = new ImageIcon(path);
+        cardIconLabel.setIcon(cardIcon);
+    }*/
+    
     public static void main(String[] args)
     {
 	JFrame frame = new JFrame();
@@ -248,7 +355,7 @@ public class PanelPago extends JPanel
 	frame.setLocationRelativeTo(null);
 
 	int newWidth = (int) (1500 * 0.7);
-        int newHeight = (int) (900 * 0.7);
+        int newHeight = (int) (1500 * 0.7);
         
         frame.setSize(newWidth, newHeight);
         
@@ -256,6 +363,15 @@ public class PanelPago extends JPanel
         
         frame.setResizable(false);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+	if(e.getSource()==btnPagar) {
+	    
+	}
+	
     }
 
 }
